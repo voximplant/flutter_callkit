@@ -1,11 +1,11 @@
-# flutter_callkit
+# flutter_callkit_voximplant
 
 Flutter SDK for CallKit integration to Flutter applications on iOS
 
 Supported on iOS >= 10
 
 ## Install
-1. Add `flutter_callkit` as a dependency in your pubspec.yaml file.
+1. Add `flutter_callkit_voximplant` as a dependency in your pubspec.yaml file.
 
 2. Add the following entry to your `Info.plist` file, located in `<project root>/ios/Runner/Info.plist`:
 ```
@@ -32,7 +32,7 @@ A few differences explained:
 
 #### Initialization
 ```dart
-import 'package:flutter_callkit/flutter_callkit.dart';
+import 'package:flutter_callkit_voximplant/flutter_callkit_voximplant.dart';
 
 // init main plugin class:
 FCXPlugin _plugin = FCXPlugin();

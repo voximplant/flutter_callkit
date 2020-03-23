@@ -1,6 +1,6 @@
 ///  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
 
-part of flutter_callkit;
+part of flutter_callkit_voximplant;
 
 /// Signature for callbacks reporting when the provider begins.
 ///

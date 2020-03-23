@@ -1,4 +1,4 @@
-import 'package:flutter_callkit/flutter_callkit.dart';
+import 'package:flutter_callkit_voximplant/flutter_callkit_voximplant.dart';
 import 'package:flutter_callkit_example/call.dart';
 
 typedef CallChanged(Call call);

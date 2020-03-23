@@ -1,6 +1,6 @@
 ///  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
 
-library flutter_callkit;
+library flutter_callkit_voximplant;
 
 import 'dart:async';
 import 'package:flutter/services.dart';

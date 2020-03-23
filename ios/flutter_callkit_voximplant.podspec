@@ -1,9 +1,9 @@
 #
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html.
-# Run `pod lib lint flutter_callkit.podspec' to validate before publishing.
+# Run `pod lib lint flutter_callkit_voximplant.podspec' to validate before publishing.
 #
 Pod::Spec.new do |s|
-  s.name             = 'flutter_callkit'
+  s.name             = 'flutter_callkit_voximplant'
   s.version          = '1.0.0'
   s.summary          = 'Flutter SDK for CallKit integration to Flutter applications on iOS'
   s.homepage         = 'https://github.com/voximplant/flutter_callkit'

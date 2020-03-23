@@ -1,4 +1,4 @@
-package com.voximplant.flutter_callkit
+package com.voximplant.flutter_callkit_voximplant
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.engine.plugins.FlutterPlugin

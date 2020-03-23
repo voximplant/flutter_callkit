@@ -1,4 +1,4 @@
-group 'com.voximplant.flutter_callkit'
+group 'com.voximplant.flutter_callkit_voximplant'
 version '1.0-SNAPSHOT'
 
 buildscript {
