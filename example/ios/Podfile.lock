@@ -1,0 +1,22 @@
+PODS:
+  - Flutter (1.0.0)
+  - flutter_callkit (1.0.0):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - flutter_callkit (from `.symlinks/plugins/flutter_callkit/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  flutter_callkit:
+    :path: ".symlinks/plugins/flutter_callkit/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  flutter_callkit: 475c5a36b7779d75bf1ee7f6a6a7deb77b934bfc
+
+PODFILE CHECKSUM: 78b14672016bc22bdb0bc60d3e8dca9f63afb6cb
+
+COCOAPODS: 1.8.4
