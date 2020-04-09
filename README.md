@@ -24,7 +24,9 @@ CallKit documentation can be found [here](https://developer.apple.com/documentat
 
 A few differences explained:
 
-- Use reportNewIncomingCallWithUUID native iOS method of FlutterCallkitPlugin to report new incoming call received via VoIP push notification
+
+- Use FlutterCallkitPlugin.reportNewIncomingCallWithUUID: native iOS method to report new incoming call received via VoIP push notification
+- Use FlutterCallkitPlugin.hasCallWithUUID: native iOS method to check if CallKit already has a call with the given UUID
 - Use FCXPlugin.didDisplayIncomingCall (dart) handle incoming call reported with reportNewIncomingCallWithUUID
 - Use FCXPlugin.logLevel (dart) to adjust logging
 - Use FCXPlugin.processPushCompletion (dart) to execute completion block received from push (iOS 11+ only)

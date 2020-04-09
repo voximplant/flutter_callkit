@@ -113,6 +113,19 @@ static FCXMethodType const FCXMethodTypeTransaction = @"Transaction";
     : NO;
 }
 
++ (BOOL)hasCallWithUUID:(NSUUID *)UUID {
+    FlutterCallkitPlugin *plugin = [FlutterCallkitPlugin sharedPluginWithRegistrar:nil];
+    if (!plugin.callController.callObserver.calls || plugin.callController.callObserver.calls.count == 0) {
+        return false;
+    }
+    for (CXCall *call in plugin.callController.callObserver.calls) {
+        if ([call.UUID isEqual:UUID]) {
+            return true;
+        }
+    }
+    return false;
+}
+
 + (void)reportNewIncomingCallWithUUID:(NSUUID *)UUID
                            callUpdate:(CXCallUpdate *)callUpdate
                 providerConfiguration:(CXProviderConfiguration *)providerConfiguration
