@@ -12,12 +12,12 @@ API_AVAILABLE(ios(10.0))
 @property(strong, nonatomic, nullable, readonly) NSObject<FlutterPluginRegistrar> *registrar;
 @property(strong, nonatomic, nullable, readonly) CXProvider *provider;
 
-+ (BOOL)hasCallWithUUID:(NSUUID *)UUID;
++ (BOOL)hasCallWithUUID:(nonnull NSUUID *)UUID;
 
-+ (void)reportNewIncomingCallWithUUID:(NSUUID *)UUID
-                           callUpdate:(CXCallUpdate *)callUpdate
-                providerConfiguration:(CXProviderConfiguration *)providerConfiguration
-             pushProcessingCompletion:(dispatch_block_t)pushProcessingCompletion;
++ (void)reportNewIncomingCallWithUUID:(nonnull NSUUID *)UUID
+                           callUpdate:(nonnull CXCallUpdate *)callUpdate
+                providerConfiguration:(nonnull CXProviderConfiguration *)providerConfiguration
+             pushProcessingCompletion:(nullable dispatch_block_t)pushProcessingCompletion;
 
 @end
 NS_ASSUME_NONNULL_END

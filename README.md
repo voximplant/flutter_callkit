@@ -105,6 +105,58 @@ Push handling must be done through native iOS code due to [iOS 13 PushKit VoIP r
 
 Flutter CallKit SDK has built-in reportNewIncomingCallWithUUID:callUpdate:providerConfiguration:pushProcessingCompletion:) method (iOS) to correctly work with it
 
+#### Swift
+```swift
+import Flutter
+import flutter_callkit_voximplant
+import PushKit
+import CallKit
+
+class AppDelegate: FlutterAppDelegate, PKPushRegistryDelegate {
+    // 1. override PKPushRegistryDelegate methods
+    func pushRegistry(_ registry: PKPushRegistry,
+                      didReceiveIncomingPushWith payload: PKPushPayload,
+                      for type: PKPushType
+    ) {
+        processPush(with: payload.dictionaryPayload, and: nil)
+    }
+    
+    func pushRegistry(_ registry: PKPushRegistry,
+                      didReceiveIncomingPushWith payload: PKPushPayload,
+                      for type: PKPushType,
+                      completion: @escaping () -> Void
+    ) {
+        processPush(with: payload.dictionaryPayload, and: completion)
+    }
+    
+    // 2. process push
+    private func processPush(with payload: Dictionary<AnyHashable, Any>,
+                             and completion: (() -> Void)?
+    ) {
+        // 3. get uuid and other needed information from payload
+        guard let uuidString = payload["UUID"] as? String,
+            let uuid = UUID(uuidString: uuidString),
+            let localizedName = payload["identifier"] as? String
+            else {
+                return
+        }
+        // 4. prepare call update
+        let callUpdate = CXCallUpdate()
+        callUpdate.localizedCallerName = localizedName
+        // 5. prepare provider configuration
+        let configuration = CXProviderConfiguration(localizedName: "ExampleLocalizedName")
+        // 6. send it to the plugin
+        FlutterCallkitPlugin.reportNewIncomingCall(
+            with: uuid,
+            callUpdate: callUpdate,
+            providerConfiguration: configuration,
+            pushProcessingCompletion: completion
+        )
+    }
+}
+```
+
+#### Objective-C
 ```objective-c
 #import <Flutter/Flutter.h>
 #import <FlutterCallkitPlugin.h>

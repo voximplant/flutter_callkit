@@ -113,7 +113,7 @@ static FCXMethodType const FCXMethodTypeTransaction = @"Transaction";
     : NO;
 }
 
-+ (BOOL)hasCallWithUUID:(NSUUID *)UUID {
++ (BOOL)hasCallWithUUID:(nonnull NSUUID *)UUID {
     FlutterCallkitPlugin *plugin = [FlutterCallkitPlugin sharedPluginWithRegistrar:nil];
     if (!plugin.callController.callObserver.calls || plugin.callController.callObserver.calls.count == 0) {
         return false;
@@ -126,10 +126,10 @@ static FCXMethodType const FCXMethodTypeTransaction = @"Transaction";
     return false;
 }
 
-+ (void)reportNewIncomingCallWithUUID:(NSUUID *)UUID
-                           callUpdate:(CXCallUpdate *)callUpdate
-                providerConfiguration:(CXProviderConfiguration *)providerConfiguration
-             pushProcessingCompletion:(dispatch_block_t)pushProcessingCompletion {
++ (void)reportNewIncomingCallWithUUID:(nonnull NSUUID *)UUID
+                           callUpdate:(nonnull CXCallUpdate *)callUpdate
+                providerConfiguration:(nonnull CXProviderConfiguration *)providerConfiguration
+             pushProcessingCompletion:(nullable dispatch_block_t)pushProcessingCompletion {
     FlutterCallkitPlugin *plugin = [FlutterCallkitPlugin sharedPluginWithRegistrar:nil];
     plugin.pushProcessingCompletion = pushProcessingCompletion;
     [plugin.providerManager configureWithProviderConfiguration:providerConfiguration];
