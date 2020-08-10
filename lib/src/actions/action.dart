@@ -21,7 +21,6 @@ part of flutter_callkit_voximplant;
 /// or the [FCXAction.fail] method, to indicate that an error occurred;
 /// both of these methods set the [FCXAction.complete] of the action to true.
 abstract class FCXAction {
-
   /// The unique identifier for the action.
   String get uuid => _uuid;
   String _uuid;
@@ -41,8 +40,7 @@ abstract class FCXAction {
   /// Reports the successful execution of the action.
   Future<void> fulfill() async {
     try {
-      await _methodChannel.invokeMethod(
-          '$_ACTION.fulfill', {'uuid': uuid});
+      await _methodChannel.invokeMethod('$_ACTION.fulfill', {'uuid': uuid});
       _complete = true;
       _FCXLog._i('${runtimeType.toString()}.fulfill');
     } on PlatformException catch (e) {
@@ -55,8 +53,7 @@ abstract class FCXAction {
   /// Reports the failed execution of the action.
   Future<void> fail() async {
     try {
-      await _methodChannel.invokeMethod(
-          '$_ACTION.fail', {'uuid': uuid});
+      await _methodChannel.invokeMethod('$_ACTION.fail', {'uuid': uuid});
       _FCXLog._i('${runtimeType.toString()}.fail');
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
@@ -76,15 +73,22 @@ abstract class FCXAction {
 extension _Mappable on FCXAction {
   static FCXAction _makeAction(Map<dynamic, dynamic> map) {
     switch (map['type']) {
-      case 'CXStartCallAction': return FCXStartCallAction._fromMap(map);
-      case 'CXAnswerCallAction': return FCXAnswerCallAction._fromMap(map);
-      case 'CXEndCallAction': return FCXEndCallAction._fromMap(map);
-      case 'CXSetMutedCallAction': return FCXSetMutedCallAction._fromMap(map);
-      case 'CXSetHeldCallAction': return FCXSetHeldCallAction._fromMap(map);
-      case 'CXPlayDTMFCallAction': return FCXPlayDTMFCallAction._fromMap(map);
-      case 'CXSetGroupCallAction': return FCXSetGroupCallAction._fromMap(map);
-      default: return null;
+      case 'CXStartCallAction':
+        return FCXStartCallAction._fromMap(map);
+      case 'CXAnswerCallAction':
+        return FCXAnswerCallAction._fromMap(map);
+      case 'CXEndCallAction':
+        return FCXEndCallAction._fromMap(map);
+      case 'CXSetMutedCallAction':
+        return FCXSetMutedCallAction._fromMap(map);
+      case 'CXSetHeldCallAction':
+        return FCXSetHeldCallAction._fromMap(map);
+      case 'CXPlayDTMFCallAction':
+        return FCXPlayDTMFCallAction._fromMap(map);
+      case 'CXSetGroupCallAction':
+        return FCXSetGroupCallAction._fromMap(map);
+      default:
+        return null;
     }
   }
 }
-

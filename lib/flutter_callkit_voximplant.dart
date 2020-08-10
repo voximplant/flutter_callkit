@@ -37,29 +37,29 @@ typedef void FCXDidDisplayIncomingCall(String uuid, FCXCallUpdate callUpdate);
 
 /// The entry point of the Flutter CallKit SDK.
 class FCXPlugin {
-    /// Get notified about push being received and handled in native code.
+  /// Get notified about push being received and handled in native code.
   FCXDidDisplayIncomingCall didDisplayIncomingCall;
 
-    /// Used to adjust logging.
-    static FCXLogLevel logLevel = FCXLogLevel.info;
+  /// Used to adjust logging.
+  static FCXLogLevel logLevel = FCXLogLevel.info;
 
-    /// Process completion received with push notification.
-    Future<void> processPushCompletion() async {
-        try {
-            await _methodChannel.invokeMethod('processPushCompletion');
-            _FCXLog._i('pushCompletion processed');
-        } on PlatformException catch (e) {
-            _FCXLog._w(e.message);
-        }
+  /// Process completion received with push notification.
+  Future<void> processPushCompletion() async {
+    try {
+      await _methodChannel.invokeMethod('processPushCompletion');
+      _FCXLog._i('pushCompletion processed');
+    } on PlatformException catch (e) {
+      _FCXLog._w(e.message);
     }
+  }
 
-    factory FCXPlugin() => _cache ?? FCXPlugin._internal();
+  factory FCXPlugin() => _cache ?? FCXPlugin._internal();
 
-    static FCXPlugin _cache;
+  static FCXPlugin _cache;
 
-    FCXPlugin._internal() {
-        EventChannel('plugins.voximplant.com/plugin_events')
-            .receiveBroadcastStream('plugin_events')
+  FCXPlugin._internal() {
+    EventChannel('plugins.voximplant.com/plugin_events')
+        .receiveBroadcastStream('plugin_events')
         .listen(_eventListener);
     _cache = this;
   }

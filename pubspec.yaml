@@ -1,13 +1,12 @@
 name: flutter_callkit_voximplant
 description: Flutter SDK for CallKit integration to Flutter applications on iOS
-version: 1.1.0+1
+version: 1.1.0+2
 homepage: https://github.com/voximplant/flutter_callkit
 repository: https://github.com/voximplant/flutter_callkit
 
 environment:
   sdk: ">=2.6.0 <3.0.0"
-  # Flutter versions prior to 1.10 did not support the flutter.plugin.platforms map.
-  flutter: ">=1.10.0 <2.0.0"
+  flutter: ">=1.20.0 <2.0.0"
 
 dependencies:
   uuid: ^2.0.4
