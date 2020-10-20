@@ -125,7 +125,7 @@ static FCXMethodType const FCXMethodTypeTransaction = @"Transaction";
     }
     return false;
 }
-
+ 
 + (void)reportNewIncomingCallWithUUID:(nonnull NSUUID *)UUID
                            callUpdate:(nonnull CXCallUpdate *)callUpdate
                 providerConfiguration:(nonnull CXProviderConfiguration *)providerConfiguration

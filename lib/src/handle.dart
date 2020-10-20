@@ -6,8 +6,10 @@ part of flutter_callkit_voximplant;
 enum FCXHandleType {
   /// An unspecified type of handle.
   Generic,
+
   /// A phone number.
   PhoneNumber,
+
   /// An email address.
   EmailAddress
 }
@@ -35,6 +37,7 @@ enum FCXHandleType {
 class FCXHandle {
   /// The type of the handle.
   final FCXHandleType type;
+
   /// The value of the handle.
   final String value;
 

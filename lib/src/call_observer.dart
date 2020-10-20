@@ -23,7 +23,6 @@ typedef void FCXCallChanged(FCXCall call);
 ///
 /// Direct initialisation is unavailable.
 class FCXCallObserver {
-
   /// Callback for getting notified when a call is changed.
   FCXCallChanged callChanged;
 
@@ -31,8 +30,8 @@ class FCXCallObserver {
   /// blocking on initial state retrieval if necessary.
   Future<List<FCXCall>> getCalls() async {
     try {
-      var data = await _methodChannel.invokeListMethod<Map>(
-          '$_CALL_CONTROLLER.getCalls');
+      var data = await _methodChannel
+          .invokeListMethod<Map>('$_CALL_CONTROLLER.getCalls');
       _FCXLog._i('${runtimeType.toString()}.getCalls');
       return data.map((f) => FCXCall._fromMap(f)).toList();
     } on PlatformException catch (e) {

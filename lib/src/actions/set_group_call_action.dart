@@ -14,7 +14,6 @@ part of flutter_callkit_voximplant;
 /// A group call allows more than two recipients
 /// to simultaneously communicate with one another.
 class FCXSetGroupCallAction extends FCXCallAction {
-
   /// The UUID of another call to group with.
   ///
   /// If the call for this action's UUID is already in a group,

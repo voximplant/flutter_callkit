@@ -14,7 +14,6 @@ part of flutter_callkit_voximplant;
 /// To indicate that the call started at a time other than the current time,
 /// you can instead call the [FCXStartCallAction.fulfillWithDateStarted].
 class FCXStartCallAction extends FCXCallAction {
-
   /// The handle of the call recipient.
   FCXHandle handle;
 

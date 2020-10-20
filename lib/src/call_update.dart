@@ -86,14 +86,10 @@ class FCXCallUpdate {
             map != null ? FCXHandle._fromMap(map['remoteHandle']) : null,
         this.localizedCallerName =
             map != null ? map['localizedCallerName'] : null,
-        this.supportsHolding =
-            map != null ? map['supportsHolding'] : null,
-        this.supportsGrouping =
-            map != null ? map['supportsGrouping'] : null,
+        this.supportsHolding = map != null ? map['supportsHolding'] : null,
+        this.supportsGrouping = map != null ? map['supportsGrouping'] : null,
         this.supportsUngrouping =
             map != null ? map['supportsUngrouping'] : null,
-        this.supportsDTMF =
-            map != null ? map['supportsDTMF'] : null,
-        this.hasVideo =
-            map != null ? map['hasVideo'] : null;
+        this.supportsDTMF = map != null ? map['supportsDTMF'] : null,
+        this.hasVideo = map != null ? map['hasVideo'] : null;
 }

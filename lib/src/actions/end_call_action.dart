@@ -14,14 +14,13 @@ part of flutter_callkit_voximplant;
 /// To indicate that the call ended at a time other than the current time,
 /// you can instead call the [FCXEndCallAction.fulfillWithDateEnded].
 class FCXEndCallAction extends FCXCallAction {
-
   /// Initializes a new action for a call identified by a given uuid.
   FCXEndCallAction(String callUuid) : super(callUuid);
 
   /// Reports the successful execution of the action at the specified time.
   Future<void> fulfillWithDateEnded(DateTime dateEnded) async {
     try {
-       await _methodChannel.invokeMethod('$_ACTION.fulfillWithDateEnded',
+      await _methodChannel.invokeMethod('$_ACTION.fulfillWithDateEnded',
           {'uuid': uuid, 'dateEnded': dateEnded?.toIso8601String()});
       _FCXLog._i('${runtimeType.toString()}.fulfillWithDateEnded');
     } on PlatformException catch (e) {

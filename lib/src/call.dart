@@ -27,10 +27,13 @@ class FCXCall {
 
   /// A bool value that indicates whether the call is outgoing.
   final bool outgoing;
+
   /// A bool value that indicates whether the call has connected.
   final bool hasConnected;
+
   /// A bool value that indicates whether the call has ended.
   final bool hasEnded;
+
   /// A bool value that indicates whether the call is on hold.
   final bool onHold;
 

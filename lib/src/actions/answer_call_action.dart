@@ -14,7 +14,6 @@ part of flutter_callkit_voximplant;
 /// To indicate that the call connected at a time other than the current time,
 /// you can instead call the [FCXAnswerCallAction.fulfillWithDateConnected].
 class FCXAnswerCallAction extends FCXCallAction {
-
   /// Initializes a new action for a call identified by a given uuid.
   FCXAnswerCallAction(String callUuid) : super(callUuid);
 
@@ -24,11 +23,10 @@ class FCXAnswerCallAction extends FCXCallAction {
   Future<void> fulfillWithDateConnected(DateTime dateConnected) async {
     try {
       await _methodChannel.invokeMethod(
-          '$_ACTION.fulfillWithDateConnected',
-          <String, dynamic>{
-            'uuid': uuid,
-            'dateConnected': dateConnected?.toIso8601String()
-          });
+          '$_ACTION.fulfillWithDateConnected', <String, dynamic>{
+        'uuid': uuid,
+        'dateConnected': dateConnected?.toIso8601String()
+      });
       _FCXLog._i('${runtimeType.toString()}.fulfillWithDateConnected');
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);

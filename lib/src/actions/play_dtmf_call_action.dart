@@ -6,8 +6,10 @@ part of flutter_callkit_voximplant;
 enum FCXPlayDTMFCallActionType {
   /// The user tapped a digit on the in-call keypad.
   singleTone,
+
   /// The user included digits after a soft pause in their dial string.
   softPause,
+
   /// The user included digits after a hard pause in their dial string.
   hardPause
 }
@@ -44,7 +46,6 @@ enum FCXPlayDTMFCallActionType {
 /// The app is responsible for managing the timing and handling
 /// of digits as part of fulfilling the action.
 class FCXPlayDTMFCallAction extends FCXCallAction {
-
   /// The string representation of the digits
   /// that should be played as DTMF tones
   String digits;

@@ -16,7 +16,6 @@ part of flutter_callkit_voximplant;
 /// the [FCXAction.fulfill] method to indicate that
 /// the action was successfully performed.
 class FCXSetHeldCallAction extends FCXCallAction {
-
   /// A bool value that indicates whether the call is placed on hold.
   bool onHold;
 

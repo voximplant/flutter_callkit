@@ -6,16 +6,20 @@ part of flutter_callkit_voximplant;
 enum FCXLogLevel {
   /// No logs.
   none,
+
   /// Only errors.
   error,
+
   /// Errors and warnings.
   warning,
+
   /// Errors, warnings and info.
   info
 }
 
 class _FCXLog {
-  static void _e(FCXException e) => _log(_FCXLogType._error, '[${e.code}: ${e.message}]');
+  static void _e(FCXException e) =>
+      _log(_FCXLogType._error, '[${e.code}: ${e.message}]');
   static void _i(String message) => _log(_FCXLogType._info, message);
   static void _w(String message) => _log(_FCXLogType._warning, message);
 
@@ -47,19 +51,19 @@ extension _SupportedTypes on FCXLogLevel {
   }
 }
 
-enum _FCXLogType {
-  _error,
-  _warning,
-  _info
-}
+enum _FCXLogType { _error, _warning, _info }
 
 extension _Prefix on _FCXLogType {
   String get _prefix {
     switch (this) {
-      case _FCXLogType._error: return 'ERROR';
-      case _FCXLogType._warning: return 'WARNING';
-      case _FCXLogType._info: return 'INFO';
-      default: return '';
+      case _FCXLogType._error:
+        return 'ERROR';
+      case _FCXLogType._warning:
+        return 'WARNING';
+      case _FCXLogType._info:
+        return 'INFO';
+      default:
+        return '';
     }
   }
 }

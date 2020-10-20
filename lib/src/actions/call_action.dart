@@ -20,7 +20,6 @@ part of flutter_callkit_voximplant;
 /// or the [FCXAction.fail] method, to indicate that an error occurred;
 /// both of these methods set the [FCXAction.complete] of the action to true.
 abstract class FCXCallAction extends FCXAction {
-
   /// The unique identifier of the call.
   final String callUuid;
 

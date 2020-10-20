@@ -31,8 +31,7 @@ class FCXCallController {
   /// Must be used before any other interactions with [FCXCallController].
   Future<void> configure() async {
     try {
-      await _methodChannel
-          .invokeMethod('$_CALL_CONTROLLER.configure');
+      await _methodChannel.invokeMethod('$_CALL_CONTROLLER.configure');
       _FCXLog._i('${runtimeType.toString()}.configure');
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
@@ -50,8 +49,7 @@ class FCXCallController {
   Future<void> requestTransactionWithAction(FCXAction action) async {
     try {
       await _methodChannel.invokeMethod(
-          '$_CALL_CONTROLLER.requestTransactionWithAction',
-          action._toMap());
+          '$_CALL_CONTROLLER.requestTransactionWithAction', action._toMap());
       _FCXLog._i('${runtimeType.toString()}.requestTransaction');
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);

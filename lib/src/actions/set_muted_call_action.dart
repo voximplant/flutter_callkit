@@ -16,7 +16,6 @@ part of flutter_callkit_voximplant;
 ///
 /// A muted caller still receives communication from other unmuted callers.
 class FCXSetMutedCallAction extends FCXCallAction {
-
   /// A bool value that indicates whether the call is muted.
   bool muted;
 

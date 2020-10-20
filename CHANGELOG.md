@@ -1,3 +1,8 @@
+## 1.1.0+3
+- LICENSE warning fix
+- Code formatted according to dartfmt
+- uuid dependency upgrade
+
 ## 1.1.0+2
 - Xcode 11.4+ support [added](https://flutter.dev/docs/development/ios-project-migration)
 - Code formatted according to dartfmt

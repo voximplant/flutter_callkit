@@ -103,13 +103,17 @@ typedef void FCXProviderDidDeactivateAudioSession();
 enum FCXCallEndedReason {
   /// An error occurred while trying to service the call.
   failed,
+
   /// The remote party explicitly ended the call.
   remoteEnded,
+
   /// The call never started connecting and was never
   /// explicitly ended (e.g. outgoing/incoming call timeout).
   unanswered,
+
   /// The call was answered on another device.
   answeredElsewhere,
+
   /// The call was declined on another device.
   declinedElsewhere
 }
@@ -133,7 +137,6 @@ enum FCXCallEndedReason {
 ///
 /// [FCXProvider] is not intended for subclassing.
 class FCXProvider {
-
   /// Callback for getting notified when the provider begins.
   FCXProviderDidBegin providerDidBegin;
 
@@ -194,9 +197,7 @@ class FCXProvider {
   Future<void> configure(FCXProviderConfiguration configuration) async {
     try {
       await _methodChannel.invokeMethod(
-          '$_PROVIDER.configure',
-          configuration._toMap()
-      );
+          '$_PROVIDER.configure', configuration._toMap());
       _configuration = configuration;
       _FCXLog._i('${runtimeType.toString()}.configure');
     } on PlatformException catch (e) {
@@ -209,8 +210,8 @@ class FCXProvider {
   /// Returns all transactions that are not yet completed.
   Future<List<FCXTransaction>> getPendingTransactions() async {
     try {
-      var data = await _methodChannel.invokeListMethod<Map>(
-          '$_PROVIDER.getPendingTransactions');
+      var data = await _methodChannel
+          .invokeListMethod<Map>('$_PROVIDER.getPendingTransactions');
       _FCXLog._i('${runtimeType.toString()}.getPendingTransactions');
       return data.map((f) => FCXTransaction._fromMap(f)).toList();
     } on PlatformException catch (e) {
@@ -231,11 +232,8 @@ class FCXProvider {
   /// [update] is the information for the call.
   Future<void> reportNewIncomingCall(String uuid, FCXCallUpdate update) async {
     try {
-      await _methodChannel
-          .invokeMethod('$_PROVIDER.reportNewIncomingCall', {
-        'uuid': uuid,
-        'callUpdate': update?._toMap()
-      });
+      await _methodChannel.invokeMethod('$_PROVIDER.reportNewIncomingCall',
+          {'uuid': uuid, 'callUpdate': update?._toMap()});
       _FCXLog._i('${runtimeType.toString()}.reportNewIncomingCall');
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
@@ -251,8 +249,7 @@ class FCXProvider {
   /// [update] is the updated information.
   Future<void> reportCallUpdated(String uuid, FCXCallUpdate update) async {
     try {
-      await _methodChannel.invokeMethod(
-          '$_PROVIDER.reportCallUpdated',
+      await _methodChannel.invokeMethod('$_PROVIDER.reportCallUpdated',
           {'uuid': uuid, 'callUpdate': update?._toMap()});
       _FCXLog._i('${runtimeType.toString()}.reportCall');
     } on PlatformException catch (e) {
@@ -340,8 +337,7 @@ class FCXProvider {
   /// The provider must be invalidated before it is deallocated.
   Future<void> invalidate() async {
     try {
-      await _methodChannel
-          .invokeMethod('$_PROVIDER.invalidate');
+      await _methodChannel.invokeMethod('$_PROVIDER.invalidate');
       _FCXLog._i('${runtimeType.toString()}.invalidate');
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
