@@ -10,7 +10,7 @@ Supported on iOS >= 10
 
 2. Add the following entry to your `Info.plist` file, located in `<project root>/ios/Runner/Info.plist`:
 
-```PLIST
+```xml
 <key>UIBackgroundModes</key>
 <array>
   <string>voip</string>
