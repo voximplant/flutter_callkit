@@ -1,3 +1,7 @@
+## 1.1.1
+- README.md improvements (thank you [VictorUvarov](https://github.com/voximplant/flutter_callkit/pull/5))
+- `FCXStartCallAction.contactIdentifier` and `FCXStartCallAction.video` parameters no longer ignored in native iOS code
+
 ## 1.1.0+3
 - LICENSE warning fix
 - Code formatted according to dartfmt
@@ -13,7 +17,7 @@
 - Handling push notifications example on Swift added
 
 ## 1.1.0
-'FlutterCallkitPlugin.hasCallWithUUID:' API added in iOS code
+`FlutterCallkitPlugin.hasCallWithUUID:` API added in iOS code
 
 ## 1.0.0
 Release

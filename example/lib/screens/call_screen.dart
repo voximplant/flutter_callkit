@@ -41,20 +41,21 @@ class _CallScreenState extends State<CallScreen> {
       ),
       body: Center(
         child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(
-                child: Text(
-                  '${_callService.getCallerName() ?? ''}',
-                  style: TextStyle(fontSize: 30),
-                ),
-                height: 100,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(
+              child: Text(
+                '${_callService.callerName ?? ''}',
+                style: TextStyle(fontSize: 30),
               ),
-              ExampleButton('${_muted ? 'Unmute' : 'Mute'}', _muteOnTouch),
-              ExampleButton('${_onHold ? 'Resume' : 'Hold'}', _holdOnTouch),
-              ExampleButton('Send DTMF', _dtmfOnTouch),
-              ExampleButton('Hangup', _onHangupTouch)
-            ]),
+              height: 100,
+            ),
+            ExampleButton('${_muted ? 'Unmute' : 'Mute'}', _muteOnTouch),
+            ExampleButton('${_onHold ? 'Resume' : 'Hold'}', _holdOnTouch),
+            ExampleButton('Send DTMF', _dtmfOnTouch),
+            ExampleButton('Hangup', _onHangupTouch)
+          ],
+        ),
       ),
     );
   }

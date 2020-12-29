@@ -23,9 +23,7 @@ class CallService {
   CallChanged callChangedEvent;
   bool _configured = false;
 
-  String getCallerName() {
-    return _managedCall?.callerName;
-  }
+  String get callerName => _managedCall?.callerName;
 
   Future<void> emulateIncomingCall(String contactName) async {
     await _configure();
@@ -52,6 +50,8 @@ class CallService {
     FCXHandle handle = FCXHandle(FCXHandleType.Generic, contactName);
 
     FCXStartCallAction action = FCXStartCallAction(_managedCall.uuid, handle);
+    action.contactIdentifier = 'Example contact ID';
+    action.video = false;
 
     await _callController.requestTransactionWithAction(action);
   }
@@ -66,11 +66,12 @@ class CallService {
     await _callController.configure();
 
     FCXProviderConfiguration configuration = FCXProviderConfiguration(
-        'FlutterCallKit',
-        includesCallsInRecents: true,
-        supportsVideo: false,
-        maximumCallsPerCallGroup: 1,
-        supportedHandleTypes: {FCXHandleType.Generic});
+      'FlutterCallKit',
+      includesCallsInRecents: true,
+      supportsVideo: false,
+      maximumCallsPerCallGroup: 1,
+      supportedHandleTypes: {FCXHandleType.Generic},
+    );
 
     await _provider.configure(configuration);
 

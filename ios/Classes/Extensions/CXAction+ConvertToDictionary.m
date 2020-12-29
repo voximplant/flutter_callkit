@@ -18,6 +18,7 @@ NSString *const MUTED = @"muted";
 NSString *const ACTION_ON_HOLD = @"onHold";
 NSString *const DIGITS = @"digits";
 NSString *const DTMF_TYPE = @"playDTMFCallActionType";
+NSString *const CONTACT_ID = @"contactIdentifier";
 
 - (nullable instancetype)initWithDictionary:(NSDictionary *)data {
     // substring used to remove "F" from FCX prefix of Dart class names
@@ -27,8 +28,7 @@ NSString *const DTMF_TYPE = @"playDTMFCallActionType";
     }
     
     if ([type isEqualToString:NSStringFromClass(CXAction.class)]) {
-        self = [self init];
-        return self;
+        return [self init];
     }
     
     NSString *callUUIDString = data[ACTION_CALL_UUID];
@@ -46,8 +46,14 @@ NSString *const DTMF_TYPE = @"playDTMFCallActionType";
     } else if ([type isEqualToString:NSStringFromClass(CXStartCallAction.class)]) {
         CXHandle *handle = [[CXHandle alloc] initWithDictionary:data[HANDLE]];
         if (!handle) { return nil; }
-        self = [[CXStartCallAction alloc] initWithCallUUID:callUUID handle:handle];
-        
+        CXStartCallAction *action = [[CXStartCallAction alloc] initWithCallUUID:callUUID handle:handle];
+        NSString *contactIdentifier = data[CONTACT_ID];
+        if (contactIdentifier) {
+            action.contactIdentifier = contactIdentifier;
+        }
+        action.video = [data[VIDEO] boolValue];
+        self = action;
+
     } else if ([type isEqualToString:NSStringFromClass(CXAnswerCallAction.class)]) {
         self = [[CXAnswerCallAction alloc] initWithCallUUID:callUUID];
         
@@ -56,14 +62,12 @@ NSString *const DTMF_TYPE = @"playDTMFCallActionType";
         
     } else if ([type isEqualToString:NSStringFromClass(CXSetGroupCallAction.class)]) {
         NSString *UUIDToGroupWithString = data[CALL_UUID_TO_GROUP];
-        if (!UUIDToGroupWithString) {
-            self = [[CXSetGroupCallAction alloc] initWithCallUUID:callUUID
-                                              callUUIDToGroupWith:nil];
-            return self;
+        if (isNull(UUIDToGroupWithString)) {
+            self = [[CXSetGroupCallAction alloc] initWithCallUUID:callUUID callUUIDToGroupWith:nil];
+        } else {
+            NSUUID *UUIDToGroupWith = [[NSUUID alloc] initWithUUIDString:UUIDToGroupWithString];
+            self = [[CXSetGroupCallAction alloc] initWithCallUUID:callUUID callUUIDToGroupWith:UUIDToGroupWith];
         }
-        NSUUID *UUIDToGroupWith = [[NSUUID alloc] initWithUUIDString:UUIDToGroupWithString];
-        self = [[CXSetGroupCallAction alloc] initWithCallUUID:callUUID
-                                          callUUIDToGroupWith:UUIDToGroupWith];
         
     } else if ([type isEqualToString:NSStringFromClass(CXSetMutedCallAction.class)]) {
         self = [[CXSetMutedCallAction alloc] initWithCallUUID:callUUID
@@ -75,7 +79,7 @@ NSString *const DTMF_TYPE = @"playDTMFCallActionType";
         
     } else if ([type isEqualToString:NSStringFromClass(CXPlayDTMFCallAction.class)]) {
         NSString *digits = data[DIGITS];
-        if (!digits) { return nil; }
+        if (isNull(digits)) { return nil; }
         self = [[CXPlayDTMFCallAction alloc] initWithCallUUID:callUUID
                                                        digits:digits
                                                          type:[self convertNumberToCallActionType:data[DTMF_TYPE]]];
@@ -99,7 +103,7 @@ NSString *const DTMF_TYPE = @"playDTMFCallActionType";
         if ([self isKindOfClass:CXStartCallAction.class]) {
             CXStartCallAction *castedSelf = (CXStartCallAction *)self;
             data[HANDLE] = castedSelf.handle.toDictionary;
-            data[@"contactIdentifier"] = castedSelf.contactIdentifier;
+            data[CONTACT_ID] = castedSelf.contactIdentifier;
             data[VIDEO] = [NSNumber numberWithBool:castedSelf.video];
             
         } else if ([self isKindOfClass:CXSetGroupCallAction.class]) {

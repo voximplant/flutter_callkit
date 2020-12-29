@@ -5,15 +5,18 @@ Flutter SDK for CallKit integration to Flutter applications on iOS
 Supported on iOS >= 10
 
 ## Install
+
 1. Add `flutter_callkit_voximplant` as a dependency in your pubspec.yaml file.
 
 2. Add the following entry to your `Info.plist` file, located in `<project root>/ios/Runner/Info.plist`:
-```
+
+```PLIST
 <key>UIBackgroundModes</key>
 <array>
-	<string>voip</string>
+  <string>voip</string>
 </array>
 ```
+
 This entry required for CallKit to work
 
 ## Usage
@@ -31,7 +34,8 @@ A few differences explained:
 - Use FCXPlugin.processPushCompletion (dart) to execute completion block received from push (iOS 11+ only)
 - FCXCallController and FCXProvider are only allowed in single instance (use it as a singletone)
 
-#### Initialization
+### Initialization
+
 ```dart
 import 'package:flutter_callkit_voximplant/flutter_callkit_voximplant.dart';
 
@@ -50,9 +54,11 @@ try {
 }
 ```
 
-#### Making outgoing calls
+### Making outgoing calls
+
 To make an outgoing call, an app requests a FCXStartCallAction object from its FCXCallController object.
 The action consists of a UUID to uniquely identify the call and a FCXHandle object to specify the recipient.
+
 ```dart
 Future<void> makeCall(String contactName, String uuid) async {
   FCXHandle handle = FCXHandle(FCXHandleType.Generic, contactName);
@@ -61,18 +67,17 @@ Future<void> makeCall(String contactName, String uuid) async {
 }
 ```
 
-After the recipient answers the call, the system calls the provider's performAnswerCallAction method.
-In your implementation of that method, configure an AVAudioSession and call the fulfill() method 
-on the action object when finished.
+After the call is connected, the system calls the provider's performStartCallAction method. In your implementation, 
+this method is responsible for configuring an AVAudioSession and calling fulfill() on the action when finished.
 
 ```dart
-_provider.performAnswerCallAction = (answerCallAction) async {
+_provider.performStartCallAction = (startCallAction) async {
   // configure audio session
-  await answerCallAction.fulfill();
+  await startCallAction.fulfill();
 };
 ```
 
-#### Receiving an Incoming Call
+### Receiving an Incoming Call
 
 Using the information provided by the external notification, 
 the app creates a UUID and a CXCallUpdate object to uniquely identify the call and the caller,
@@ -85,18 +90,18 @@ Future<void> handleIncomingCall(String contactName, String uuid) async {
 }
 ```
 
-After the call is connected, the system calls the performStartCallAction method of the provider.
-In your implementation, this method responsible for configuring an AVAudioSession
-and calling fulfill() on the action when finished.
+After the recipient answers the call, the system calls the performAnswerCallAction method of the provider.
+In your implementation of that method, configure an AVAudioSession and call the fulfill() method
+on the action object when finished.
 
 ```dart
-_provider.performStartCallAction = (startCallAction) async {
+_provider.performAnswerCallAction = (answerCallAction) async {
   // configure audio session
-  await startCallAction.fulfill();
+  await answerCallAction.fulfill();
 };
 ```
 
-#### Handling push notifications
+### Handling push notifications
 
 Note: This SDK is not related to PushKit
 
@@ -105,6 +110,7 @@ Push handling must be done through native iOS code due to [iOS 13 PushKit VoIP r
 Flutter CallKit SDK has built-in reportNewIncomingCallWithUUID:callUpdate:providerConfiguration:pushProcessingCompletion:) method (iOS) to correctly work with it
 
 #### Swift
+
 ```swift
 import Flutter
 import flutter_callkit_voximplant
@@ -119,7 +125,7 @@ class AppDelegate: FlutterAppDelegate, PKPushRegistryDelegate {
     ) {
         processPush(with: payload.dictionaryPayload, and: nil)
     }
-    
+
     func pushRegistry(_ registry: PKPushRegistry,
                       didReceiveIncomingPushWith payload: PKPushPayload,
                       for type: PKPushType,
@@ -127,7 +133,7 @@ class AppDelegate: FlutterAppDelegate, PKPushRegistryDelegate {
     ) {
         processPush(with: payload.dictionaryPayload, and: completion)
     }
-    
+
     // 2. process push
     private func processPush(with payload: Dictionary<AnyHashable, Any>,
                              and completion: (() -> Void)?
@@ -156,6 +162,7 @@ class AppDelegate: FlutterAppDelegate, PKPushRegistryDelegate {
 ```
 
 #### Objective-C
+
 ```objective-c
 #import <Flutter/Flutter.h>
 #import <FlutterCallkitPlugin.h>
@@ -169,23 +176,23 @@ class AppDelegate: FlutterAppDelegate, PKPushRegistryDelegate {
 @implementation AppDelegate
 
 // 1. override PKPushRegistryDelegate methods
-- (void)             pushRegistry:(PKPushRegistry *)registry 
-didReceiveIncomingPushWithPayload:(PKPushPayload *)payload 
+- (void)             pushRegistry:(PKPushRegistry *)registry
+didReceiveIncomingPushWithPayload:(PKPushPayload *)payload
                           forType:(PKPushType)type {
     [self processPushWithPayload:payload.dictionaryPayload 
             andCompletionHandler:nil];
 }
 
-- (void)             pushRegistry:(PKPushRegistry *)registry 
+- (void)             pushRegistry:(PKPushRegistry *)registry
 didReceiveIncomingPushWithPayload:(PKPushPayload *)payload
-                          forType:(PKPushType)type 
+                          forType:(PKPushType)type
             withCompletionHandler:(void (^)(void))completion {
     [self processPushWithPayload:payload.dictionaryPayload
             andCompletionHandler:completion];
 }
 
 // 2. process push
--(void)processPushWithPayload:(NSDictionary *)payload 
+-(void)processPushWithPayload:(NSDictionary *)payload
          andCompletionHandler:(dispatch_block_t)completion {
     // 3. get uuid and other needed information from payload
     NSUUID *UUID = [[NSUUID alloc] initWithUUIDString:payload[@"UUID"]];
@@ -194,8 +201,8 @@ didReceiveIncomingPushWithPayload:(PKPushPayload *)payload
     CXCallUpdate *callUpdate = [CXCallUpdate new];
     callUpdate.localizedCallerName = localizedName;
     // 5. prepare provider configuration
-    CXProviderConfiguration *configuration = 
-        [[CXProviderConfiguration alloc] 
+    CXProviderConfiguration *configuration =
+        [[CXProviderConfiguration alloc]
               initWithLocalizedName:@"ExampleLocalizedName"];
     // 6. send it to plugin
     [FlutterCallkitPlugin reportNewIncomingCallWithUUID:UUID

@@ -16,9 +16,7 @@ NSString *const VALUE = @"value";
     NSString *value = data[VALUE];
     if (isNull(value) || value.length == 0) { return nil; }
 
-    self = [self initWithType:[self convertNumberToHandleType:data[TYPE]]
-                        value:value];
-    return self;
+    return [self initWithType:[self convertNumberToHandleType:data[TYPE]] value:value];
 }
 
 - (NSDictionary *)toDictionary {

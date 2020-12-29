@@ -85,13 +85,14 @@
 
 #pragma mark - Private -
 - (void)requestTransactionWithActionDictionary:(NSDictionary *)actionDictionary
-                                        result:(FlutterResult)result {
+                                        result:(FlutterResult)result
+{
     if (!self.callController) {
         result([FlutterError errorCallControllerMissing]);
         return;
     }
     
-    CXAction *action = [[CXAction alloc]initWithDictionary:actionDictionary];
+    CXAction *action = [[CXAction alloc] initWithDictionary:actionDictionary];
     
     if (isNull(action)) {
         result([FlutterError errorBuildingAction]);
