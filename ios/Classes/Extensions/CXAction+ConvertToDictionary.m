@@ -48,10 +48,13 @@ NSString *const CONTACT_ID = @"contactIdentifier";
         if (!handle) { return nil; }
         CXStartCallAction *action = [[CXStartCallAction alloc] initWithCallUUID:callUUID handle:handle];
         NSString *contactIdentifier = data[CONTACT_ID];
-        if (contactIdentifier) {
+        if (isNotNull(contactIdentifier)) {
             action.contactIdentifier = contactIdentifier;
         }
-        action.video = [data[VIDEO] boolValue];
+        NSNumber *video = data[VIDEO];
+        if (isNotNull(video)) {
+            action.video = [video boolValue];
+        }
         self = action;
 
     } else if ([type isEqualToString:NSStringFromClass(CXAnswerCallAction.class)]) {
