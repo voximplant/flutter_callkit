@@ -1,3 +1,7 @@
+## 1.1.2
+- Fix for a bug that might cause `CXStartCallAction` report to fail with unknown error
+- README.md improvements
+
 ## 1.1.1
 - README.md improvements (thank you [VictorUvarov](https://github.com/voximplant/flutter_callkit/pull/5))
 - `FCXStartCallAction.contactIdentifier` and `FCXStartCallAction.video` parameters no longer ignored in native iOS code
