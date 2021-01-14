@@ -20,7 +20,7 @@ and selecting the Call Directory Extension template under Application Extensions
 ### 2. Create an iOS located data storage for the phone numbers
 
 Data storage is needed to share numbers between the app and CallDirectory extension, a basic example of 
-the UserDefaults as the storage implementation can be found [here](../example/ios/Runner/UserDefault.swift)
+the UserDefaults as the storage implementation can be found [here](../../example/ios/Runner/UserDefault.swift)
  
 ### 3. Connect the data storage with the extension
 
