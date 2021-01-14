@@ -52,14 +52,16 @@ class FCXProviderConfiguration {
   /// Handle types supported by the Provider.
   Set<FCXHandleType> supportedHandleTypes;
 
-  FCXProviderConfiguration(this.localizedName,
-      {this.ringtoneSound,
-      this.iconTemplateImageName,
-      this.maximumCallGroups = 2,
-      this.maximumCallsPerCallGroup = 5,
-      this.includesCallsInRecents = true,
-      this.supportsVideo = false,
-      this.supportedHandleTypes});
+  FCXProviderConfiguration(
+    this.localizedName, {
+    this.ringtoneSound,
+    this.iconTemplateImageName,
+    this.maximumCallGroups = 2,
+    this.maximumCallsPerCallGroup = 5,
+    this.includesCallsInRecents = true,
+    this.supportsVideo = false,
+    this.supportedHandleTypes,
+  });
 
   Map<String, dynamic> _toMap() => {
         'localizedName': localizedName,

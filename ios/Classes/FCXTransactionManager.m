@@ -1,5 +1,5 @@
 /*
-*  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+*  Copyright (c) 2011-2021, Zingaya, Inc. All rights reserved.
 */
 
 #import "FCXTransactionManager.h"
@@ -9,30 +9,25 @@
 
 @interface FCXTransactionManager ()
 
-@property(strong, nonatomic, nonnull) FlutterCallkitPlugin* plugin;
+@property(strong, nonatomic, nonnull, readonly) CXProvider *provider;
 
 @end
 
-
 @implementation FCXTransactionManager
 
-- (instancetype)initWithPlugin:(FlutterCallkitPlugin *)plugin {
-    self = [super init];
-    if (self) {
-        self.plugin = plugin;
-    }
-    return self;
+- (void)configureWithProvider:(CXProvider *)provider {
+    _provider = provider;
 }
 
 - (void)handleMethodCall:(FlutterMethodCall *)call result:(FlutterResult)result {
-    if (!self.plugin.provider) {
+    if (!_provider) {
         result([FlutterError errorProviderMissing]);
         return;
     }
     
     NSString *method = call.method;
     
-    if ([@"Transaction.getActions" isEqualToString:method]) {
+    if ([@"getActions" isEqualToString:method]) {
         NSDictionary *data = call.arguments;
         
         NSString *transactionUUIDString = data[@"transactionUuid"];
@@ -46,7 +41,7 @@
             return;
         }
         
-        for (CXTransaction* pendingTransaction in self.plugin.provider.pendingTransactions) {
+        for (CXTransaction* pendingTransaction in _provider.pendingTransactions) {
             if ([pendingTransaction.UUID isEqual:transactionUUID]) {
                 NSMutableArray *actions = [NSMutableArray new];
                 for (CXAction *action in pendingTransaction.actions) {
@@ -56,11 +51,8 @@
                 return;
             }
         }
-        
         result([FlutterError errorTransactionNotFound]);
-    }
-    
-    else {
+    } else {
         result([FlutterError errorImplementationNotFoundForMethod:method]);
     }
 }

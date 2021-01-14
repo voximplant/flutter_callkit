@@ -1,5 +1,5 @@
 /*
-*  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+*  Copyright (c) 2011-2021, Zingaya, Inc. All rights reserved.
 */
 
 #import "FCXActionManager.h"
@@ -10,23 +10,18 @@
 
 @interface FCXActionManager ()
 
-@property(strong, nonatomic, nonnull) FlutterCallkitPlugin* plugin;
+@property(strong, nonatomic, nonnull, readonly) CXProvider *provider;
 
 @end
 
-
 @implementation FCXActionManager
 
-- (instancetype)initWithPlugin:(FlutterCallkitPlugin *)plugin {
-    self = [super init];
-    if (self) {
-        self.plugin = plugin;
-    }
-    return self;
+- (void)configureWithProvider:(CXProvider *)provider {
+    _provider = provider;
 }
 
 - (void)handleMethodCall:(FlutterMethodCall *)call result:(FlutterResult)result {
-    if (!self.plugin.provider) {
+    if (!_provider) {
         result([FlutterError errorProviderMissing]);
         return;
     }
@@ -45,7 +40,7 @@
         return;
     }
     
-    if ([@"Action.fulfill" isEqualToString:method]) {
+    if ([@"fulfill" isEqualToString:method]) {
         CXAction *action = [self findActionWithUUID:UUID];
         if (action) {
             [action fulfill];
@@ -54,7 +49,7 @@
             result([FlutterError errorActionNotFound]);
         }
         
-    } else if ([@"Action.fulfillWithDateConnected" isEqualToString:method]) {
+    } else if ([@"fulfillWithDateConnected" isEqualToString:method]) {
         CXAction *action = [self findActionWithUUID:UUID];
         if (action && [action isKindOfClass:CXAnswerCallAction.class]) {
             NSString *dateConnectedString = data[@"dateConnected"];
@@ -68,7 +63,7 @@
             result([FlutterError errorActionNotFound]);
         }
         
-    } else if ([@"Action.fulfillWithDateEnded" isEqualToString:method]) {
+    } else if ([@"fulfillWithDateEnded" isEqualToString:method]) {
         CXAction *action = [self findActionWithUUID:UUID];
         if (action && [action isKindOfClass:CXEndCallAction.class]) {
             NSString *dateEndedString = data[@"dateEnded"];
@@ -82,7 +77,7 @@
             result([FlutterError errorActionNotFound]);
         }
         
-    } else if ([@"Action.fulfillWithDateStarted" isEqualToString:method]) {
+    } else if ([@"fulfillWithDateStarted" isEqualToString:method]) {
         CXAction *action = [self findActionWithUUID:UUID];
         if (action && [action isKindOfClass:CXStartCallAction.class]) {
             NSString *dateStartedString = data[@"dateStarted"];
@@ -96,7 +91,7 @@
             result([FlutterError errorActionNotFound]);
         }
         
-    } else if ([@"Action.fail" isEqualToString:method]) {
+    } else if ([@"fail" isEqualToString:method]) {
         CXAction *action = [self findActionWithUUID:UUID];
         if (action) {
             [action fail];
@@ -113,7 +108,7 @@
 
 #pragma mark - Private -
 - (nullable CXAction *)findActionWithUUID:(NSUUID *)UUID {
-    NSArray <CXTransaction *> *pendingTransactions = self.plugin.provider.pendingTransactions;
+    NSArray <CXTransaction *> *pendingTransactions = _provider.pendingTransactions;
     
     if (pendingTransactions.count == 0) {
         return nil;

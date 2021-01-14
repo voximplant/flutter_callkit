@@ -218,3 +218,28 @@ At this point CallKit will be set up to handle incoming call and will present it
 didDisplayIncomingCall of FCXPlugin will be called in dart code.
 
 Call processPushCompletion from dart code once call successfully connected.
+
+### Call Blocking and Identification
+
+Apps can create a Call Directory app extension to identify and block incoming callers by their phone number.
+
+> When a phone number is blocked, the system telephony provider will disallow incoming calls 
+from that phone number without displaying them to the user.
+
+> When a phone number has an identification entry, incoming calls from that phone number will display 
+its associated label to the user.
+
+To integrate CallDirectory App Extension functionality to an Flutter application,
+it is required:
+- add a CallDirectory Extenstion to the XCode project.
+- implement data storage for blocked and/or identifiable numders
+  in the native iOS code and connect it with CallDirectory Extension.
+- assign `FlutterCallkitPlugin` CallDirectory related properties with
+  functions that access numbers storage.
+  
+[More on the CallDirectory App Extension](docs/call_directory/README.md)
+
+[Example App with CallDirectory App Extension implemented](example/)
+
+### Reference
+iOS CallKit Framework Documentation by Apple: https://developer.apple.com/documentation/callkit

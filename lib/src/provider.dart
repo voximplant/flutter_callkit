@@ -197,7 +197,9 @@ class FCXProvider {
   Future<void> configure(FCXProviderConfiguration configuration) async {
     try {
       await _methodChannel.invokeMethod(
-          '$_PROVIDER.configure', configuration._toMap());
+        '$_PROVIDER.configure',
+        configuration._toMap(),
+      );
       _configuration = configuration;
       _FCXLog._i('${runtimeType.toString()}.configure');
     } on PlatformException catch (e) {
@@ -210,8 +212,9 @@ class FCXProvider {
   /// Returns all transactions that are not yet completed.
   Future<List<FCXTransaction>> getPendingTransactions() async {
     try {
-      var data = await _methodChannel
-          .invokeListMethod<Map>('$_PROVIDER.getPendingTransactions');
+      var data = await _methodChannel.invokeListMethod<Map>(
+        '$_PROVIDER.getPendingTransactions',
+      );
       _FCXLog._i('${runtimeType.toString()}.getPendingTransactions');
       return data.map((f) => FCXTransaction._fromMap(f)).toList();
     } on PlatformException catch (e) {
@@ -232,8 +235,10 @@ class FCXProvider {
   /// [update] is the information for the call.
   Future<void> reportNewIncomingCall(String uuid, FCXCallUpdate update) async {
     try {
-      await _methodChannel.invokeMethod('$_PROVIDER.reportNewIncomingCall',
-          {'uuid': uuid, 'callUpdate': update?._toMap()});
+      await _methodChannel.invokeMethod(
+        '$_PROVIDER.reportNewIncomingCall',
+        {'uuid': uuid, 'callUpdate': update?._toMap()},
+      );
       _FCXLog._i('${runtimeType.toString()}.reportNewIncomingCall');
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
@@ -249,8 +254,10 @@ class FCXProvider {
   /// [update] is the updated information.
   Future<void> reportCallUpdated(String uuid, FCXCallUpdate update) async {
     try {
-      await _methodChannel.invokeMethod('$_PROVIDER.reportCallUpdated',
-          {'uuid': uuid, 'callUpdate': update?._toMap()});
+      await _methodChannel.invokeMethod(
+        '$_PROVIDER.reportCallUpdated',
+        {'uuid': uuid, 'callUpdate': update?._toMap()},
+      );
       _FCXLog._i('${runtimeType.toString()}.reportCall');
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
@@ -269,12 +276,15 @@ class FCXProvider {
   ///
   /// [endedReason] is the reason that the call ended.
   Future<void> reportCallEnded(
-      String uuid, DateTime dateEnded, FCXCallEndedReason endedReason) async {
+    String uuid,
+    DateTime dateEnded,
+    FCXCallEndedReason endedReason,
+  ) async {
     try {
       await _methodChannel.invokeMethod('$_PROVIDER.reportCallEnded', {
         'uuid': uuid,
         'dateEnded': dateEnded?.toIso8601String(),
-        'endedReason': endedReason?.index ?? FCXCallEndedReason.failed
+        'endedReason': endedReason?.index ?? FCXCallEndedReason.failed,
       });
       _FCXLog._i('${runtimeType.toString()}.reportCallEnded');
     } on PlatformException catch (e) {
@@ -292,11 +302,13 @@ class FCXProvider {
   /// [dateStartedConnecting] is the time at which the call started connecting.
   /// If null, the current time is used.
   Future<void> reportOutgoingCall(
-      String uuid, DateTime dateStartedConnecting) async {
+    String uuid,
+    DateTime dateStartedConnecting,
+  ) async {
     try {
       await _methodChannel.invokeMethod('$_PROVIDER.reportOutgoingCall', {
         'uuid': uuid,
-        'dateStartedConnecting': dateStartedConnecting?.toIso8601String()
+        'dateStartedConnecting': dateStartedConnecting?.toIso8601String(),
       });
       _FCXLog._i('${runtimeType.toString()}.reportOutgoingCall');
     } on PlatformException catch (e) {
@@ -317,11 +329,14 @@ class FCXProvider {
   /// A call is considered connected when
   /// both caller and callee can start communicating.
   Future<void> reportOutgoingCallConnected(
-      String uuid, DateTime dateConnected) async {
+    String uuid,
+    DateTime dateConnected,
+  ) async {
     try {
       await _methodChannel.invokeMethod(
-          '$_PROVIDER.reportOutgoingCallConnected',
-          {'uuid': uuid, 'dateConnected': dateConnected?.toIso8601String()});
+        '$_PROVIDER.reportOutgoingCallConnected',
+        {'uuid': uuid, 'dateConnected': dateConnected?.toIso8601String()},
+      );
       _FCXLog._i('${runtimeType.toString()}.reportOutgoingCallConnected');
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
@@ -348,9 +363,10 @@ class FCXProvider {
 
   factory FCXProvider() => _cache ?? FCXProvider._internal();
   static FCXProvider _cache;
+
   FCXProvider._internal() {
     EventChannel('plugins.voximplant.com/provider_events')
-        .receiveBroadcastStream('provider_events')
+        .receiveBroadcastStream()
         .listen(_eventListener);
     _cache = this;
   }
@@ -371,7 +387,7 @@ class FCXProvider {
       }
     } else if (eventName == 'timedOutPerformingAction') {
       if (timedOutPerformingAction != null) {
-        final FCXAction action = _Mappable._makeAction(map['action']);
+        final FCXAction action = _FCXActionMapDecodable._makeAction(map['action']);
         timedOutPerformingAction(action);
       }
     } else if (eventName == 'didActivateAudioSession') {
@@ -392,7 +408,6 @@ class FCXProvider {
 
   Future<void> _passActions(FCXTransaction transaction) async {
     List<FCXAction> actions = await transaction.getActions();
-
     actions.forEach((a) {
       _FCXLog._i('${runtimeType.toString()}.${a.runtimeType.toString()}');
       if (a is FCXStartCallAction && performStartCallAction != null)

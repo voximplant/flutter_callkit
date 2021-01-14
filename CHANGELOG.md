@@ -1,3 +1,16 @@
+## 1.2.0
+It is now possible to integrate a Flutter application with the iOS CallDirectory App Extension,
+to block and identify incoming calls!
+- `FCXCallDirectoryManager` API added
+- `FCXPlugin_CallDirectoryExtension` CallDirectory helper API added along 
+  with the `FCXCallDirectoryPhoneNumber` and `FCXIdentifiablePhoneNumber`
+- `FlutterCallkitPlugin.sharedInstance` API added (iOS native code)
+- `FlutterCallkitPlugin.hasCallWithUUID` API changed to be an instance method
+- `FlutterCallkitPlugin.reportNewIncomingCallWithUUID` API changed to be an instance method
+- Example app improved with Cupertino widgets
+- Example app integrated with iOS CallDirectory App Extension
+- CallDirectory App Extension integration guide added
+
 ## 1.1.2
 - Fix for a bug that might cause `CXStartCallAction` report to fail with unknown error
 - README.md improvements
@@ -14,7 +27,7 @@
 ## 1.1.0+2
 - Xcode 11.4+ support [added](https://flutter.dev/docs/development/ios-project-migration)
 - Code formatted according to dartfmt
-- Version of Flutter rise to >=1.20.0 
+- Version of Flutter rise to >=1.20.0
 
 ## 1.1.0+1
 - Nullability annotations added in native plugin API, to correctly work with Swift

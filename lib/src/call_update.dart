@@ -62,14 +62,15 @@ class FCXCallUpdate {
   bool hasVideo;
 
   /// Creates [FCXCallUpdate] instance.
-  FCXCallUpdate(
-      {this.remoteHandle,
-      this.localizedCallerName,
-      this.supportsHolding,
-      this.supportsGrouping,
-      this.supportsUngrouping,
-      this.supportsDTMF,
-      this.hasVideo});
+  FCXCallUpdate({
+    this.remoteHandle,
+    this.localizedCallerName,
+    this.supportsHolding,
+    this.supportsGrouping,
+    this.supportsUngrouping,
+    this.supportsDTMF,
+    this.hasVideo,
+  });
 
   Map<String, dynamic> _toMap() => {
         'remoteHandle': remoteHandle?._toMap(),

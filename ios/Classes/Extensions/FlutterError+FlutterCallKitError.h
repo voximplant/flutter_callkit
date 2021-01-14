@@ -1,5 +1,5 @@
 /*
-*  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+*  Copyright (c) 2011-2021, Zingaya, Inc. All rights reserved.
 */
 
 #import <Flutter/Flutter.h>
@@ -20,6 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)errorPushCompletionNotFound;
 + (instancetype)errorImplementationNotFoundForMethod:(NSString *)method;
 + (instancetype)errorFromCallKitError:(NSError *)error;
++ (instancetype)errorInvalidArguments:(NSString *)reason;
++ (instancetype)errorHandlerIsNotRegistered:(NSString *)handler;
++ (instancetype)errorLowiOSVersionWithMinimal:(NSString *)minimal;
 
 @end
 

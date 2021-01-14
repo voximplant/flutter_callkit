@@ -49,7 +49,9 @@ class FCXCallController {
   Future<void> requestTransactionWithAction(FCXAction action) async {
     try {
       await _methodChannel.invokeMethod(
-          '$_CALL_CONTROLLER.requestTransactionWithAction', action._toMap());
+        '$_CALL_CONTROLLER.requestTransactionWithAction',
+        action._toMap(),
+      );
       _FCXLog._i('${runtimeType.toString()}.requestTransaction');
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
@@ -67,8 +69,9 @@ class FCXCallController {
   Future<void> requestTransactionWithActions(List<FCXAction> actions) async {
     try {
       await _methodChannel.invokeMethod(
-          '$_CALL_CONTROLLER.requestTransactionWithActions',
-          actions.map((f) => f._toMap()).toList());
+        '$_CALL_CONTROLLER.requestTransactionWithActions',
+        actions.map((f) => f._toMap()).toList(),
+      );
       _FCXLog._i('${runtimeType.toString()}.requestTransactions');
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);

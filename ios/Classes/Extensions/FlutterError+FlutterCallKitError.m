@@ -1,5 +1,5 @@
 /*
-*  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+*  Copyright (c) 2011-2021, Zingaya, Inc. All rights reserved.
 */
 
 #import "FlutterError+FlutterCallKitError.h"
@@ -52,6 +52,24 @@
 + (instancetype)errorUUIDNotFound {
     return [FlutterError errorWithCode:@"ERROR_UUID_NOT_FOUND"
                                message:@"UUID field was nil in received data"
+                               details:nil];
+}
+
++ (instancetype)errorInvalidArguments:(NSString *)reason {
+    return [FlutterError errorWithCode:@"ERROR_INVALID_ARGUMENTS"
+                               message:reason
+                               details:nil];
+}
+
++ (instancetype)errorHandlerIsNotRegistered:(NSString *)handler {
+    return [FlutterError errorWithCode:@"ERROR_HANDLER_NOT_REGISTERED"
+                               message:[NSString stringWithFormat:@"Handler %@ not registered in native iOS code", handler]
+                               details:nil];
+}
+
++ (instancetype)errorLowiOSVersionWithMinimal:(NSString *)minimal {
+    return [FlutterError errorWithCode:@"ERROR_LOW_IOS_VERSION"
+                               message:@"minimal iOS version for this call is %@"
                                details:nil];
 }
 
@@ -130,10 +148,32 @@
             default:
                 return nil;
         }
+    } else if ([domain isEqualToString:CXErrorDomainCallDirectoryManager]) {
+        switch (error.code) {
+            case CXErrorCodeCallDirectoryManagerErrorUnknown:
+                return @"ERROR_UNKNOWN";
+            case CXErrorCodeCallDirectoryManagerErrorNoExtensionFound:
+                return @"ERROR_NO_EXTENSION_FOUND";
+            case CXErrorCodeCallDirectoryManagerErrorLoadingInterrupted:
+                return @"ERROR_LOADING_INTERRUPTED";
+            case CXErrorCodeCallDirectoryManagerErrorEntriesOutOfOrder:
+                return @"ERROR_ENTRIES_OUT_OF_ORDER";
+            case CXErrorCodeCallDirectoryManagerErrorDuplicateEntries:
+                return @"ERROR_DUPLICATE_ENTRIES";
+            case CXErrorCodeCallDirectoryManagerErrorMaximumEntriesExceeded:
+                return @"ERROR_MAXIMUM_ENTRIES_EXCEEDED";
+            case CXErrorCodeCallDirectoryManagerErrorExtensionDisabled:
+                return @"ERROR_EXTENSION_DISABLED";
+            case CXErrorCodeCallDirectoryManagerErrorCurrentlyLoading:
+                return @"ERROR_CURRENTLY_LOADING";
+            case CXErrorCodeCallDirectoryManagerErrorUnexpectedIncrementalRemoval:
+                return @"ERROR_UNEXPECTED_INCREMENTAL_REMOVAL";
+            default:
+                return nil;
+        }
     } else {
         return nil;
     }
 }
-
 
 @end

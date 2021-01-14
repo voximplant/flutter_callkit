@@ -1,5 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_callkit_example/theme/example_button.dart';
+///  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_callkit_example/widgets/example_button.dart';
 import 'package:flutter_callkit_example/call_service.dart';
 import 'package:flutter_callkit_example/theme/example_colors.dart';
 import 'package:flutter_callkit_example/call.dart';
@@ -10,16 +12,14 @@ class CallScreen extends StatefulWidget {
   CallScreen(this._outgoing);
 
   @override
-  State<StatefulWidget> createState() {
-    return _CallScreenState(this._outgoing);
-  }
+  State<StatefulWidget> createState() => _CallScreenState(this._outgoing);
 }
 
 class _CallScreenState extends State<CallScreen> {
+  final CallService _callService = CallService();
   final bool _outgoing;
   bool _muted = false;
   bool _onHold = false;
-  CallService _callService = CallService();
 
   _CallScreenState(this._outgoing) {
     _callService.callChangedEvent = callChanged;
@@ -33,25 +33,28 @@ class _CallScreenState extends State<CallScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('${_outgoing ? 'Outgoing' : 'Incoming'} call in progress'),
-        automaticallyImplyLeading: false,
-        backgroundColor: ExampleColors.accent,
-      ),
-      body: Center(
+    return CupertinoPageScaffold(
+      backgroundColor: ExampleColors.primary,
+      child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            SizedBox(height: 60),
+            Text(
+              '${_outgoing ? 'Outgoing' : 'Incoming'} call in progress',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: CupertinoColors.white, fontSize: 30),
+            ),
+            SizedBox(height: 20),
             SizedBox(
               child: Text(
                 '${_callService.callerName ?? ''}',
-                style: TextStyle(fontSize: 30),
+                style: TextStyle(color: CupertinoColors.white, fontSize: 25),
               ),
               height: 100,
             ),
-            ExampleButton('${_muted ? 'Unmute' : 'Mute'}', _muteOnTouch),
-            ExampleButton('${_onHold ? 'Resume' : 'Hold'}', _holdOnTouch),
+            ExampleButton(_muted ? 'Unmute' : 'Mute', _muteOnTouch),
+            ExampleButton(_onHold ? 'Resume' : 'Hold', _holdOnTouch),
             ExampleButton('Send DTMF', _dtmfOnTouch),
             ExampleButton('Hangup', _onHangupTouch)
           ],
@@ -78,7 +81,7 @@ class _CallScreenState extends State<CallScreen> {
 
   void callChanged(Call call) {
     if (call == null) {
-        Navigator.maybePop(context);
+      Navigator.pop(context);
     } else {
       setState(() {
         _muted = call.muted;

@@ -31,6 +31,11 @@ class FCXPluginError {
       'ERROR_PUSH_COMPLETION_NOT_FOUND';
   static const String ERROR_IMPLEMENTATION_NOT_FOUND =
       'ERROR_IMPLEMENTATION_NOT_FOUND';
+  static const String ERROR_INVALID_ARGUMENTS = 'ERROR_INVALID_ARGUMENTS';
+  static const String ERROR_LOW_IOS_VERSION = 'ERROR_LOW_IOS_VERSION';
+  /// Handler for the call not found in native iOS code.
+  static const String ERROR_HANDLER_NOT_REGISTERED =
+      'ERROR_HANDLER_NOT_REGISTERED';
 }
 
 /// Errors thrown by the CallKit.
@@ -65,4 +70,34 @@ class FCXCallKitRequestTransactionError {
   static const String ERROR_INVALID_ACTION = 'ERROR_INVALID_ACTION';
   static const String ERROR_MAXIMUM_CALL_GROUPS_REACHED =
       'ERROR_MAXIMUM_CALL_GROUPS_REACHED';
+}
+
+/// Errors thrown by the CallKit on interacting with a call directory manager.
+class FCXCallKitCallDirectoryManagerError {
+  /// An unknown error occurred.
+  static const String ERROR_UNKNOWN = 'ERROR_UNKNOWN';
+
+  /// The call directory manager could not find a corresponding app extension.
+  static const String ERROR_NO_EXTENSION_FOUND = 'ERROR_NO_EXTENSION_FOUND';
+
+  /// The call directory manager was interrupted
+  /// while loading the app extension.
+  static const String ERROR_LOADING_INTERRUPTED = 'ERROR_LOADING_INTERRUPTED';
+
+  /// The entries in the call directory are out of order.
+  static const String ERROR_ENTRIES_OUT_OF_ORDER = 'ERROR_ENTRIES_OUT_OF_ORDER';
+
+  /// There are duplicate entries in the call directory.
+  static const String ERROR_DUPLICATE_ENTRIES = 'ERROR_DUPLICATE_ENTRIES';
+
+  /// There are too many entries in the call directory.
+  static const String ERROR_MAXIMUM_ENTRIES_EXCEEDED =
+      'ERROR_MAXIMUM_ENTRIES_EXCEEDED';
+
+  /// The call directory extension isn’t enabled by the system.
+  static const String ERROR_EXTENSION_DISABLED = 'ERROR_EXTENSION_DISABLED';
+
+  static const String ERROR_CURRENTLY_LOADING = 'ERROR_CURRENTLY_LOADING';
+  static const String ERROR_UNEXPECTED_INCREMENTAL_REMOVAL =
+      'ERROR_UNEXPECTED_INCREMENTAL_REMOVAL';
 }

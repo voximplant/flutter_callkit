@@ -1,5 +1,5 @@
 /*
-*  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+*  Copyright (c) 2011-2021, Zingaya, Inc. All rights reserved.
 */
 
 #import "FCXCallControllerManager.h"
@@ -19,11 +19,11 @@
 
 @implementation FCXCallControllerManager
 
-- (instancetype)initWithPlugin:(FlutterCallkitPlugin *)plugin {
+- (instancetype)initWithMessenger:(NSObject<FlutterBinaryMessenger> *)messenger {
     self = [super init];
     if (self) {
         self.eventChannel = [FlutterEventChannel eventChannelWithName:@"plugins.voximplant.com/call_controller_events"
-                                                      binaryMessenger:plugin.registrar.messenger];
+                                                      binaryMessenger:messenger];
         [self.eventChannel setStreamHandler:self];
     }
     return self;
@@ -32,7 +32,7 @@
 - (void)handleMethodCall:(FlutterMethodCall *)call result:(FlutterResult)result {
     NSString *method = call.method;
     
-    if ([@"CallController.configure" isEqualToString:method]) {
+    if ([@"configure" isEqualToString:method]) {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
             self.callController = [CXCallController new];
@@ -40,15 +40,15 @@
         });
         result(nil);
         
-    } else if ([@"CallController.requestTransactionWithAction" isEqualToString:method]) {
+    } else if ([@"requestTransactionWithAction" isEqualToString:method]) {
         NSDictionary *data = call.arguments;
         [self requestTransactionWithActionDictionary:data result:result];
         
-    } else if ([@"CallController.requestTransactionWithActions" isEqualToString:method]) {
+    } else if ([@"requestTransactionWithActions" isEqualToString:method]) {
         NSArray *data = call.arguments;
         [self requestTransactionWithActionsArray:data result:result];
         
-    } else if ([@"CallController.getCalls" isEqualToString:method]) {
+    } else if ([@"getCalls" isEqualToString:method]) {
         NSMutableArray <NSDictionary *> *calls = [NSMutableArray new];
         for (CXCall *call in self.callController.callObserver.calls) {
             [calls addObject:[call toDictionary]];

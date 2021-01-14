@@ -3,6 +3,7 @@
 library flutter_callkit_voximplant;
 
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 part 'src/transaction.dart';
@@ -15,6 +16,7 @@ part 'src/actions/set_held_call_action.dart';
 part 'src/actions/set_muted_call_action.dart';
 part 'src/actions/set_group_call_action.dart';
 part 'src/actions/play_dtmf_call_action.dart';
+part 'src/call_directory/call_directory_extension.dart';
 part 'src/call_controller.dart';
 part 'src/call_update.dart';
 part 'src/call.dart';
@@ -24,6 +26,9 @@ part 'src/provider.dart';
 part 'src/provider_configuration.dart';
 part 'src/exceptions.dart';
 part 'src/log.dart';
+part 'src/call_directory/call_directory_manager.dart';
+part 'src/call_directory/call_directory_phone_number.dart';
+part 'src/call_directory/identifiable_phone_number.dart';
 
 /// Signature for callbacks reporting push received and handled in native code.
 ///
@@ -46,7 +51,7 @@ class FCXPlugin {
   /// Process completion received with push notification.
   Future<void> processPushCompletion() async {
     try {
-      await _methodChannel.invokeMethod('processPushCompletion');
+      await _methodChannel.invokeMethod('$_PLUGIN.processPushCompletion');
       _FCXLog._i('pushCompletion processed');
     } on PlatformException catch (e) {
       _FCXLog._w(e.message);
@@ -54,12 +59,11 @@ class FCXPlugin {
   }
 
   factory FCXPlugin() => _cache ?? FCXPlugin._internal();
-
   static FCXPlugin _cache;
 
   FCXPlugin._internal() {
     EventChannel('plugins.voximplant.com/plugin_events')
-        .receiveBroadcastStream('plugin_events')
+        .receiveBroadcastStream()
         .listen(_eventListener);
     _cache = this;
   }
@@ -82,6 +86,7 @@ class FCXPlugin {
 const MethodChannel _methodChannel =
     const MethodChannel('plugins.voximplant.com/flutter_callkit');
 
+const String _PLUGIN = 'Plugin';
 const String _PROVIDER = 'Provider';
 const String _CALL_CONTROLLER = 'CallController';
 const String _ACTION = 'Action';

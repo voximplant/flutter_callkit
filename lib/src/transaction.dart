@@ -19,7 +19,7 @@ class FCXTransaction {
       var data = await _methodChannel.invokeListMethod<Map>(
           '$_TRANSACTION.getActions', {'transactionUuid': uuid});
       _FCXLog._i('${runtimeType.toString()}.getActions');
-      return data.map((f) => _Mappable._makeAction(f)).toList();
+      return data.map((f) => _FCXActionMapDecodable._makeAction(f)).toList();
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
       _FCXLog._e(exception);

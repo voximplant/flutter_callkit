@@ -23,10 +23,12 @@ class FCXAnswerCallAction extends FCXCallAction {
   Future<void> fulfillWithDateConnected(DateTime dateConnected) async {
     try {
       await _methodChannel.invokeMethod(
-          '$_ACTION.fulfillWithDateConnected', <String, dynamic>{
-        'uuid': uuid,
-        'dateConnected': dateConnected?.toIso8601String()
-      });
+        '$_ACTION.fulfillWithDateConnected',
+        <String, dynamic>{
+          'uuid': uuid,
+          'dateConnected': dateConnected?.toIso8601String()
+        },
+      );
       _FCXLog._i('${runtimeType.toString()}.fulfillWithDateConnected');
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);

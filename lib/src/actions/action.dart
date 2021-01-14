@@ -70,7 +70,7 @@ abstract class FCXAction {
   Map<String, dynamic> _toMap() => {'type': runtimeType.toString()};
 }
 
-extension _Mappable on FCXAction {
+extension _FCXActionMapDecodable on FCXAction {
   static FCXAction _makeAction(Map<dynamic, dynamic> map) {
     switch (map['type']) {
       case 'CXStartCallAction':

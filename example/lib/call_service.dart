@@ -1,3 +1,5 @@
+///  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+
 import 'package:flutter_callkit_voximplant/flutter_callkit_voximplant.dart';
 import 'package:flutter_callkit_example/call.dart';
 
@@ -12,11 +14,13 @@ class CallService {
 
   CallService._internal()
       : _provider = FCXProvider(),
-        _callController = FCXCallController() {
+        _callController = FCXCallController(),
+        _plugin = FCXPlugin() {
     _cache = this;
     _configure();
   }
 
+  final FCXPlugin _plugin;
   final FCXProvider _provider;
   final FCXCallController _callController;
   Call _managedCall;
@@ -31,7 +35,7 @@ class CallService {
     _managedCall = Call(false, contactName);
 
     FCXCallUpdate callUpdate = FCXCallUpdate(
-      remoteHandle: FCXHandle(FCXHandleType.Generic, contactName),
+      remoteHandle: FCXHandle(FCXHandleType.PhoneNumber, contactName),
       supportsGrouping: false,
       supportsUngrouping: false,
       supportsHolding: true,
@@ -41,23 +45,19 @@ class CallService {
     await _provider.reportNewIncomingCall(_managedCall.uuid, callUpdate);
   }
 
-  //region Outgoing Call
   Future<void> emulateOutgoingCall(String contactName) async {
     await _configure();
 
     _managedCall = Call(true, contactName);
 
-    FCXHandle handle = FCXHandle(FCXHandleType.Generic, contactName);
+    FCXHandle handle = FCXHandle(FCXHandleType.PhoneNumber, contactName);
 
     FCXStartCallAction action = FCXStartCallAction(_managedCall.uuid, handle);
-    action.contactIdentifier = 'Example contact ID';
     action.video = false;
 
     await _callController.requestTransactionWithAction(action);
   }
-  //endregion
 
-  //region Configuration
   Future<void> _configure() async {
     if (_configured) {
       return;
@@ -70,7 +70,7 @@ class CallService {
       includesCallsInRecents: true,
       supportsVideo: false,
       maximumCallsPerCallGroup: 1,
-      supportedHandleTypes: {FCXHandleType.Generic},
+      supportedHandleTypes: {FCXHandleType.PhoneNumber, FCXHandleType.Generic},
     );
 
     await _provider.configure(configuration);
@@ -117,15 +117,11 @@ class CallService {
       }
     };
 
-    _callController.callObserver.callChanged = (call) async {
-    };
+    _callController.callObserver.callChanged = (call) async {};
 
     _configured = true;
   }
 
-//endregion
-
-  //region CallActions
   Future<void> mute() async {
     if (_managedCall == null) {
       throw Exception('Managed call is missing');
@@ -160,5 +156,63 @@ class CallService {
     FCXEndCallAction action = FCXEndCallAction(_managedCall.uuid);
     await _callController.requestTransactionWithAction(action);
   }
-//endregion
+
+  final String _extensionID =
+      'com.voximplant.flutterCallkit.example.CallDirectoryExtension';
+
+  Future<List<String>> getBlockedNumbers() async {
+    var numbers = await _plugin.getBlockedPhoneNumbers();
+    return numbers.map((e) => e.number.toString()).toList();
+  }
+
+  Future<void> addBlockedNumber(String number) async {
+    int num = int.parse(number);
+    await _plugin.addBlockedPhoneNumbers(
+      [FCXCallDirectoryPhoneNumber(num)],
+    );
+  }
+
+  Future<void> removeBlockedNumber(String number) async {
+    int num = int.parse(number);
+    await _plugin.removeBlockedPhoneNumbers(
+      [FCXCallDirectoryPhoneNumber(num)],
+    );
+  }
+
+  Future<List<FCXIdentifiablePhoneNumber>> getIdentifiedNumbers() async {
+    return await _plugin.getIdentifiablePhoneNumbers();
+  }
+
+  Future<void> addIdentifiedNumber(String number, String id) async {
+    int num = int.parse(number);
+    var phone = FCXIdentifiablePhoneNumber(num, label: id);
+    await _plugin.addIdentifiablePhoneNumbers([phone]);
+  }
+
+  Future<void> removeIdentifiedNumber(int number) async {
+    await _plugin.removeIdentifiablePhoneNumbers(
+      [FCXCallDirectoryPhoneNumber(number)],
+    );
+  }
+
+  Future<void> openSettings() async {
+    await FCXCallDirectoryManager.openSettings();
+  }
+
+  Future<void> reloadExtension() async {
+    await FCXCallDirectoryManager.reloadExtension(_extensionID);
+  }
+
+  Future<String> getExtensionStatus() async {
+    var status = await FCXCallDirectoryManager.getEnabledStatus(_extensionID);
+    switch (status) {
+      case FCXCallDirectoryManagerEnabledStatus.disabled:
+        return 'Disabled';
+      case FCXCallDirectoryManagerEnabledStatus.enabled:
+        return 'Enabled';
+      case FCXCallDirectoryManagerEnabledStatus.unknown:
+      default:
+        return 'Unknown';
+    }
+  }
 }

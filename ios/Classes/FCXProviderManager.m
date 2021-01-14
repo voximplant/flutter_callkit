@@ -1,5 +1,5 @@
 /*
-*  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+*  Copyright (c) 2011-2021, Zingaya, Inc. All rights reserved.
 */
 
 #import "FCXProviderManager.h"
@@ -13,24 +13,26 @@
 
 @interface FCXProviderManager()
 
-@property(strong, nonatomic, nullable) CXProvider *provider;
-@property(strong, nonatomic, nullable) FlutterEventChannel *eventChannel;
-@property(strong, nonatomic, nullable) FlutterEventSink eventSink;
+@property (strong, nonatomic, nullable) CXProvider *provider;
+@property (strong, nonatomic, nullable) void(^didCreateProvider)(CXProvider *provider);
+@property (strong, nonatomic, nullable) FlutterEventChannel *eventChannel;
+@property (strong, nonatomic, nullable) FlutterEventSink eventSink;
 
 @end
-
 
 @implementation FCXProviderManager
 
 NSString *const CALL_UPDATE = @"callUpdate";
 NSString *const EVENT = @"event";
 
-- (instancetype)initWithPlugin:(FlutterCallkitPlugin *)plugin {
-    self = [super init];
-    if (self) {
-        self.eventChannel = [FlutterEventChannel eventChannelWithName:@"plugins.voximplant.com/provider_events"
-                                                      binaryMessenger:plugin.registrar.messenger];
-        [self.eventChannel setStreamHandler:self];
+- (instancetype)initWithMessenger:(NSObject<FlutterBinaryMessenger> *)messenger
+           providerCreatedHandler:(void (^)(CXProvider *provider))providerCreatedHandler
+{
+    if (self = [super init]) {
+        _eventChannel = [FlutterEventChannel eventChannelWithName:@"plugins.voximplant.com/provider_events"
+                                                  binaryMessenger:messenger];
+        [_eventChannel setStreamHandler:self];
+        _didCreateProvider = providerCreatedHandler;
     }
     return self;
 }
@@ -41,18 +43,17 @@ NSString *const EVENT = @"event";
     } else {
         self.provider = [[CXProvider alloc] initWithConfiguration:configuration];
         [self.provider setDelegate:self queue:nil];
+        if (_didCreateProvider) {
+            _didCreateProvider(self.provider);
+        }
     }
-}
-
-- (void)configureWithProvider:(CXProvider *)provider {
-    self.provider = provider;
 }
 
 - (void)handleMethodCall:(FlutterMethodCall *)call result:(FlutterResult)result {
     NSString *method = call.method;
     
     // handled separately because it is only case with no existing provider needed
-    if ([@"Provider.configure" isEqualToString:method]) {
+    if ([@"configure" isEqualToString:method]) {
         NSDictionary *data = call.arguments;
         if (isNull(data)) {
             result([FlutterError errorProviderConfigurationNotFound]);
@@ -69,7 +70,7 @@ NSString *const EVENT = @"event";
     }
     
     // handled separately because it is only cases with no UUID needed
-    if ([@"Provider.getPendingTransactions" isEqualToString:method]) {
+    if ([@"getPendingTransactions" isEqualToString:method]) {
         NSMutableArray *transactions = [NSMutableArray new];
         for (CXTransaction *transaction in self.provider.pendingTransactions) {
             [transactions addObject:[transaction toDictionary]];
@@ -79,7 +80,7 @@ NSString *const EVENT = @"event";
         
     }
     
-    if ([@"Provider.invalidate" isEqualToString:method]) {
+    if ([@"invalidate" isEqualToString:method]) {
         [self.provider invalidate];
         result(nil);
         return;
@@ -97,7 +98,7 @@ NSString *const EVENT = @"event";
         return;
     }
     
-    if ([@"Provider.reportNewIncomingCall" isEqualToString:method]) {
+    if ([@"reportNewIncomingCall" isEqualToString:method]) {
         NSDictionary *callUpdateDictionary = data[CALL_UPDATE];
         if (isNull(callUpdateDictionary)) {
             result([FlutterError errorCallUpdateNotFound]);
@@ -109,7 +110,7 @@ NSString *const EVENT = @"event";
             result(error ? [FlutterError errorFromCallKitError:error] : nil);
         }];
         
-    } else if ([@"Provider.reportCallUpdated" isEqualToString:method]) {
+    } else if ([@"reportCallUpdated" isEqualToString:method]) {
         NSDictionary *callUpdateDictionary = data[CALL_UPDATE];
         if (isNull(callUpdateDictionary)) {
             result([FlutterError errorCallUpdateNotFound]);
@@ -119,7 +120,7 @@ NSString *const EVENT = @"event";
                                   updated:[[CXCallUpdate alloc] initWithDictionary:callUpdateDictionary]];
         result(nil);
         
-    } else if ([@"Provider.reportCallEnded" isEqualToString:method]) {
+    } else if ([@"reportCallEnded" isEqualToString:method]) {
         NSString *dateEndedString = data[@"dateEnded"];
         NSDate *dateEnded;
         if (isNotNull(dateEndedString)) {
@@ -130,7 +131,7 @@ NSString *const EVENT = @"event";
                                    reason:[self convertNumberToCallEndedReason:data[@"endedReason"]]];
         result(nil);
         
-    } else if ([@"Provider.reportOutgoingCall" isEqualToString:method]) {
+    } else if ([@"reportOutgoingCall" isEqualToString:method]) {
         NSString *dateStartedConnectingString = data[ @"dateStartedConnecting"];
         NSDate *dateStartedConnecting;
         if (isNotNull(dateStartedConnectingString)) {
@@ -140,7 +141,7 @@ NSString *const EVENT = @"event";
                           startedConnectingAtDate:dateStartedConnecting];
         result(nil);
         
-    } else if ([@"Provider.reportOutgoingCallConnected" isEqualToString:method]) {
+    } else if ([@"reportOutgoingCallConnected" isEqualToString:method]) {
         NSString *dateConnectedString = data[@"dateConnected"];
         NSDate *dateConnected;
         if (isNotNull(dateConnectedString)) {
