@@ -237,7 +237,7 @@ it is required:
 - assign `FlutterCallkitPlugin` CallDirectory related properties with
   functions that access numbers storage.
   
-[More on the CallDirectory App Extension](docs/call_directory/README.md)
+[More on the CallDirectory App Extension](doc/call_directory/README.md)
 
 [Example App with CallDirectory App Extension implemented](example/)
 
