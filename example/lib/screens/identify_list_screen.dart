@@ -36,7 +36,6 @@ class _IdentifyListScreenState extends State<IdentifyListScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     void _removeHandler(int index) async {
       Navigator.pop(context);
       FCXIdentifiablePhoneNumber selectedNumber = _identifiedNumbers[index];

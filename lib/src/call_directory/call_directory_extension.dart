@@ -26,7 +26,6 @@ part of flutter_callkit_voximplant;
 ///
 /// See [example]() for an example of realisation and architecture details.
 extension FCXPlugin_CallDirectoryExtension on FCXPlugin {
-
   /// Invokes `FlutterCallkitPlugin.getBlockedPhoneNumbers` property
   /// in the native iOS code and returns the list of blocked phone numbers.
   ///
@@ -135,8 +134,10 @@ extension FCXPlugin_CallDirectoryExtension on FCXPlugin {
         '$_PLUGIN.$method',
       );
       _FCXLog._i('$runtimeType.$method');
-      return numbers.map((f) =>
-          FCXIdentifiablePhoneNumber(f['number'], label: f['label'])).toList();
+      return numbers
+          .map(
+              (f) => FCXIdentifiablePhoneNumber(f['number'], label: f['label']))
+          .toList();
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
       _FCXLog._e(exception);

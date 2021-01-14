@@ -10,8 +10,10 @@ part of flutter_callkit_voximplant;
 enum FCXCallDirectoryManagerEnabledStatus {
   /// Indicates that the enabled status for the extension is unknown.
   unknown,
+
   /// Indicates that the extension is disabled.
   disabled,
+
   /// Indicates that the extension is enabled.
   enabled
 }
@@ -20,7 +22,6 @@ enum FCXCallDirectoryManagerEnabledStatus {
 ///
 /// The class that manages a Call Directory app extension.
 class FCXCallDirectoryManager {
-
   /// Returns the enabled status of the extension with the specified identifier.
   ///
   /// Possible errors listed in the [FCXCallKitCallDirectoryManagerError].

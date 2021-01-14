@@ -35,7 +35,6 @@ class _BlockListScreenState extends State<BlockListScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     void _removeHandler(int index) async {
       Navigator.pop(context);
       String selectedNumber = _blockedNumbers[index];
