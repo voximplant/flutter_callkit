@@ -33,6 +33,7 @@ class FCXPluginError {
       'ERROR_IMPLEMENTATION_NOT_FOUND';
   static const String ERROR_INVALID_ARGUMENTS = 'ERROR_INVALID_ARGUMENTS';
   static const String ERROR_LOW_IOS_VERSION = 'ERROR_LOW_IOS_VERSION';
+
   /// Handler for the call not found in native iOS code.
   static const String ERROR_HANDLER_NOT_REGISTERED =
       'ERROR_HANDLER_NOT_REGISTERED';

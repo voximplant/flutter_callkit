@@ -1,3 +1,6 @@
+## 1.2.0+1
+- Code formatted according to dartfmt
+
 ## 1.2.0
 It is now possible to integrate a Flutter application with the iOS CallDirectory App Extension,
 to block and identify incoming calls!

@@ -387,7 +387,8 @@ class FCXProvider {
       }
     } else if (eventName == 'timedOutPerformingAction') {
       if (timedOutPerformingAction != null) {
-        final FCXAction action = _FCXActionMapDecodable._makeAction(map['action']);
+        final FCXAction action =
+            _FCXActionMapDecodable._makeAction(map['action']);
         timedOutPerformingAction(action);
       }
     } else if (eventName == 'didActivateAudioSession') {
