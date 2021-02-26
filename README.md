@@ -27,8 +27,8 @@ CallKit documentation can be found [here](https://developer.apple.com/documentat
 
 A few differences explained:
 
-- Use FlutterCallkitPlugin.reportNewIncomingCallWithUUID: native iOS method to report new incoming call received via VoIP push notification
-- Use FlutterCallkitPlugin.hasCallWithUUID: native iOS method to check if CallKit already has a call with the given UUID
+- Use FlutterCallkitPlugin.sharedInstance.reportNewIncomingCallWithUUID: native iOS method to report new incoming call received via VoIP push notification
+- Use FlutterCallkitPlugin.sharedInstance.hasCallWithUUID: native iOS method to check if CallKit already has a call with the given UUID
 - Use FCXPlugin.didDisplayIncomingCall (dart) handle incoming call reported with reportNewIncomingCallWithUUID
 - Use FCXPlugin.logLevel (dart) to adjust logging
 - Use FCXPlugin.processPushCompletion (dart) to execute completion block received from push (iOS 11+ only)
@@ -153,7 +153,7 @@ class AppDelegate: FlutterAppDelegate, PKPushRegistryDelegate {
         // 5. prepare provider configuration
         let configuration = CXProviderConfiguration(localizedName: "ExampleLocalizedName")
         // 6. send it to the plugin
-        FlutterCallkitPlugin.reportNewIncomingCall(
+        FlutterCallkitPlugin.sharedInstance.reportNewIncomingCall(
             with: uuid,
             callUpdate: callUpdate,
             providerConfiguration: configuration,
@@ -207,10 +207,10 @@ didReceiveIncomingPushWithPayload:(PKPushPayload *)payload
         [[CXProviderConfiguration alloc]
               initWithLocalizedName:@"ExampleLocalizedName"];
     // 6. send it to plugin
-    [FlutterCallkitPlugin reportNewIncomingCallWithUUID:UUID
-                                             callUpdate:callUpdate
-                                  providerConfiguration:configuration
-                               pushProcessingCompletion:completion];
+    [FlutterCallkitPlugin.sharedInstance reportNewIncomingCallWithUUID:UUID
+                                                            callUpdate:callUpdate
+                                                 providerConfiguration:configuration
+                                              pushProcessingCompletion:completion];
 }
 @end
 ```
