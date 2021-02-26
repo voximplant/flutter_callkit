@@ -1,6 +1,6 @@
 PODS:
   - Flutter (1.0.0)
-  - "flutter_callkit_voximplant (1.2.0+1)":
+  - "flutter_callkit_voximplant (1.2.0+2)":
     - Flutter
 
 DEPENDENCIES:
@@ -15,7 +15,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  flutter_callkit_voximplant: 926803f2e2cf7b0404893fa15b38f3c62ef524d1
+  flutter_callkit_voximplant: 0aa993667d8504515bb080c323a35ba9cd205b9e
 
 PODFILE CHECKSUM: 8e679eca47255a8ca8067c4c67aab20e64cb974d
 
