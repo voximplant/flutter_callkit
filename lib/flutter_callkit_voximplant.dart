@@ -33,6 +33,7 @@ part 'src/call_directory/identifiable_phone_number.dart';
 /// Signature for callbacks reporting push received and handled in native code.
 ///
 /// [uuid] is the unique identifier of the call.
+/// Note that this value is uppercased by the CallKit.
 ///
 /// [callUpdate] is the [FCXCallUpdate] object passed to
 /// reportNewIncomingCallWithUUID method in native code.

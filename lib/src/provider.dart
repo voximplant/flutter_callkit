@@ -231,6 +231,7 @@ class FCXProvider {
   /// will not be displayed, so the provider should not proceed with the call.
   ///
   /// [uuid] is the unique identifier of the call.
+  /// Note that this value will be uppercased by the CallKit.
   ///
   /// [update] is the information for the call.
   Future<void> reportNewIncomingCall(String uuid, FCXCallUpdate update) async {
@@ -250,6 +251,7 @@ class FCXProvider {
   /// Reports to the provider that an active call updated its information.
   ///
   /// [uuid] is the unique identifier of the call.
+  /// Note that this value will be uppercased by the CallKit.
   ///
   /// [update] is the updated information.
   Future<void> reportCallUpdated(String uuid, FCXCallUpdate update) async {
@@ -270,6 +272,7 @@ class FCXProvider {
   /// ended at a given date for a particular reason.
   ///
   /// [uuid] is the unique identifier of the call.
+  /// Note that this value will be uppercased by the CallKit.
   ///
   /// [dateEnded] is the time at which the call ended.
   /// If null, the current time is used.
@@ -298,6 +301,7 @@ class FCXProvider {
   /// identifier started connecting at a particular time.
   ///
   /// [uuid] is the unique identifier of the call.
+  /// Note that this value will be uppercased by the CallKit.
   ///
   /// [dateStartedConnecting] is the time at which the call started connecting.
   /// If null, the current time is used.
@@ -322,6 +326,7 @@ class FCXProvider {
   /// identifier finished connecting at a particular time.
   ///
   /// [uuid] is the unique identifier of the call.
+  /// Note that this value will be uppercased by the CallKit.
   ///
   /// [dateConnected] is the time at which the call connected.
   /// If null, the current time is used.

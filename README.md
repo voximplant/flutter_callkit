@@ -34,6 +34,8 @@ A few differences explained:
 - Use FCXPlugin.processPushCompletion (dart) to execute completion block received from push (iOS 11+ only)
 - FCXCallController and FCXProvider are only allowed in single instance (use it as a singletone)
 
+Note that UUID's passed to FCXProvider will be uppercased by the CallKit.
+
 ### Initialization
 
 ```dart
