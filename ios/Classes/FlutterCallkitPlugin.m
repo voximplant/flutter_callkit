@@ -10,7 +10,7 @@
 #import "FCXActionManager.h"
 #import "CXCallUpdate+ConvertToDictionary.h"
 #import "FlutterError+FlutterCallKitError.h"
-#import "FlutterMethodCall+MethodType.h"
+#import "FlutterMethodCall+FCXMethodType.h"
 #import "FCXIdentifiablePhoneNumber.h"
 
 @interface FlutterCallkitPlugin ()

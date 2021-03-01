@@ -2,9 +2,9 @@
 *  Copyright (c) 2011-2021, Zingaya, Inc. All rights reserved.
 */
 
-#import "FlutterMethodCall+MethodType.h"
+#import "FlutterMethodCall+FCXMethodType.h"
 
-@implementation FlutterMethodCall (MethodType)
+@implementation FlutterMethodCall (FCXMethodType)
 
 - (BOOL)isMethodCallOfType:(FCXMethodType)type {
     NSArray<NSString *> *methodNameComponents = [self.method componentsSeparatedByString:@"."];

@@ -13,7 +13,7 @@ static FCXMethodType const FCXMethodTypeAction = @"Action";
 static FCXMethodType const FCXMethodTypeTransaction = @"Transaction";
 static FCXMethodType const FCXMethodTypePlugin = @"Plugin";
 
-@interface FlutterMethodCall (MethodType)
+@interface FlutterMethodCall (FCXMethodType)
 
 @property (nonatomic, readonly) FlutterMethodCall *excludingType;
 
