@@ -1,3 +1,6 @@
+## 1.2.0+3
+- Add FCX prefix for internal iOS MethodType category
+
 ## 1.2.0+2
 - Add documentation for UUID uppercasing behavior. https://github.com/voximplant/flutter_callkit/issues/7
 - Fix README examples with .sharedInstance access to iOS FlutterCallkitPlugin. https://github.com/voximplant/flutter_callkit/issues/6
