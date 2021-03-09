@@ -1,3 +1,8 @@
+## 1.2.0+4
+- Move uuid dependency to example/pubspec
+- Move uuid dependency to dev_dependencies
+- Update uuid dependency to ^3.0.1
+
 ## 1.2.0+3
 - Add FCX prefix for internal iOS MethodType category
 
