@@ -10,12 +10,13 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^0.1.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   flutter_callkit_voximplant:
     path: ../
+  uuid: ^3.0.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

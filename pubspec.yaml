@@ -6,10 +6,9 @@ repository: https://github.com/voximplant/flutter_callkit
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
-  flutter: ">=1.20.0 <2.0.0"
+  flutter: ">=1.20.0 <3.0.0"
 
 dependencies:
-  uuid: ^2.2.2
   flutter:
     sdk: flutter
 
