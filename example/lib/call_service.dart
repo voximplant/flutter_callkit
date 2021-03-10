@@ -67,6 +67,7 @@ class CallService {
 
     FCXProviderConfiguration configuration = FCXProviderConfiguration(
       'FlutterCallKit',
+      iconTemplateImageName: 'CallKitLogo',
       includesCallsInRecents: true,
       supportsVideo: false,
       maximumCallsPerCallGroup: 1,
