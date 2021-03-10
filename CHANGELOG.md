@@ -1,3 +1,6 @@
+## 1.2.0+5
+- Add icon template image to example app
+
 ## 1.2.0+4
 - Move uuid dependency to example/pubspec
 - Move uuid dependency to dev_dependencies
