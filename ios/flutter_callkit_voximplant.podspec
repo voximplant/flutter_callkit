@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'flutter_callkit_voximplant'
-  s.version          = '1.2.0+5'
+  s.version          = '2.0.0'
   s.summary          = 'Flutter SDK for CallKit integration to Flutter applications on iOS'
   s.homepage         = 'https://github.com/voximplant/flutter_callkit'
   s.license          = { :type => 'MIT',
