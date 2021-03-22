@@ -34,8 +34,6 @@ class _FCXLog {
 extension _SupportedTypes on FCXLogLevel {
   List<_FCXLogType> get _supportedTypes {
     switch (this) {
-      case FCXLogLevel.none:
-        return [];
       case FCXLogLevel.error:
         return [_FCXLogType._error];
       case FCXLogLevel.warning:
@@ -48,14 +46,13 @@ extension _SupportedTypes on FCXLogLevel {
   }
 
   bool _isLogTypeSupported(_FCXLogType type) {
-    return this._supportedTypes.contains(type);
+    return _supportedTypes.contains(type);
   }
 }
 
 enum _FCXLogType { _error, _warning, _info }
 
-// TODO(vladimir): needs renaming with prefixes
-extension _Prefix on _FCXLogType {
+extension _FCXLogTypePrefix on _FCXLogType {
   String get _prefix {
     switch (this) {
       case _FCXLogType._error:
