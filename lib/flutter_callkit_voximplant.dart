@@ -39,7 +39,6 @@ part 'src/call_directory/identifiable_phone_number.dart';
 /// reportNewIncomingCallWithUUID method in native code.
 ///
 /// Used in [FCXPlugin].
-// TODO(vladimir): check correct nullability in iOS source code
 typedef void FCXDidDisplayIncomingCall(String uuid, FCXCallUpdate callUpdate);
 
 /// The entry point of the Flutter CallKit SDK.
