@@ -37,9 +37,9 @@ extension FCXPlugin_CallDirectoryExtension on FCXPlugin {
   Future<List<FCXCallDirectoryPhoneNumber>> getBlockedPhoneNumbers() async {
     try {
       String method = 'getBlockedPhoneNumbers';
-      List<dynamic> numbers = await (_methodChannel.invokeMethod(
+      List<dynamic> numbers = await _methodChannel.invokeMethod(
         '$_PLUGIN.$method',
-      ) as FutureOr<List<dynamic>>);
+      );
       _FCXLog._i(runtimeType, method);
       return numbers.map((f) => FCXCallDirectoryPhoneNumber(f)).toList();
     } on PlatformException catch (e) {
@@ -130,9 +130,9 @@ extension FCXPlugin_CallDirectoryExtension on FCXPlugin {
   Future<List<FCXIdentifiablePhoneNumber>> getIdentifiablePhoneNumbers() async {
     try {
       String method = 'getIdentifiablePhoneNumbers';
-      List<dynamic> numbers = await (_methodChannel.invokeMethod(
+      List<dynamic> numbers = await _methodChannel.invokeMethod(
         '$_PLUGIN.$method',
-      ) as FutureOr<List<dynamic>>);
+      );
       _FCXLog._i(runtimeType, method);
       return numbers
           .map(

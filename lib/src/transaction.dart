@@ -17,17 +17,22 @@ class FCXTransaction {
   Future<List<FCXAction>> getActions() async {
     try {
       String method = 'getActions';
-      var data = await (_methodChannel.invokeListMethod<Map>(
-              '$_TRANSACTION.$method', {'transactionUuid': uuid})
-          as FutureOr<List<Map<dynamic, dynamic>>>);
+      var data = await _methodChannel.invokeListMethod<Map>(
+        '$_TRANSACTION.$method',
+        {'transactionUuid': uuid},
+      );
       _FCXLog._i(runtimeType, method);
       List<FCXAction> actions = [];
-      for (Map map in data) {
-        FCXAction? action = _FCXActionMapDecodable._makeAction(map);
-        if (action == null) {
-          _FCXLog._w(runtimeType, 'failed to decode action: $map');
-        } else {
-          actions.add(action);
+      if (data == null) {
+        _FCXLog._w(runtimeType, 'Empty data received, processing skipped');
+      } else {
+        for (Map map in data) {
+          FCXAction? action = _FCXActionMapDecodable._makeAction(map);
+          if (action == null) {
+            _FCXLog._w(runtimeType, 'failed to decode action: $map');
+          } else {
+            actions.add(action);
+          }
         }
       }
       return actions;

@@ -30,10 +30,10 @@ class FCXCallDirectoryManager {
   ) async {
     try {
       String method = 'getEnabledStatus';
-      int index = await (_methodChannel.invokeMethod(
+      int index = await _methodChannel.invokeMethod(
         '$_PLUGIN.$method',
         extensionIdentifier,
-      ) as FutureOr<int>);
+      );
       _FCXLog._i(_self, method);
       return FCXCallDirectoryManagerEnabledStatus.values[index];
     } on PlatformException catch (e) {

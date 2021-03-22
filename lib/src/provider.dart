@@ -223,11 +223,16 @@ class FCXProvider {
   Future<List<FCXTransaction>> getPendingTransactions() async {
     try {
       String method = 'getPendingTransactions';
-      var data = await (_methodChannel.invokeListMethod<Map>(
+      var data = await _methodChannel.invokeListMethod<Map>(
         '$_PROVIDER.$method',
-      ) as FutureOr<List<Map<dynamic, dynamic>>>);
+      );
       _FCXLog._i(runtimeType, method);
-      return data.map((f) => FCXTransaction._fromMap(f)).toList();
+      if (data == null) {
+        _FCXLog._w(runtimeType, 'Empty data received, processing skipped');
+        return [];
+      } else {
+        return data.map((f) => FCXTransaction._fromMap(f)).toList();
+      }
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
       _FCXLog._e(runtimeType, exception);
