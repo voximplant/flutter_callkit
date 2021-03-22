@@ -36,13 +36,13 @@ part of flutter_callkit_voximplant;
 class FCXCallUpdate {
   /// The handle for the remote party (for an incoming call, this is the caller;
   /// for an outgoing call, this is the callee).
-  FCXHandle remoteHandle;
+  FCXHandle? remoteHandle;
 
   /// Override the computed caller name to a provider-defined value.
   /// Normally the system will determine the appropriate caller name
   /// to display (e.g. using the user's contacts) based on the
   /// supplied caller identifier. Set this property to customize.
-  String localizedCallerName;
+  String? localizedCallerName;
 
   /// Whether the call can be held on its own or swapped with another call.
   bool supportsHolding;
@@ -65,11 +65,11 @@ class FCXCallUpdate {
   FCXCallUpdate({
     this.remoteHandle,
     this.localizedCallerName,
-    this.supportsHolding,
-    this.supportsGrouping,
-    this.supportsUngrouping,
-    this.supportsDTMF,
-    this.hasVideo,
+    required this.supportsHolding,
+    required this.supportsGrouping,
+    required this.supportsUngrouping,
+    required this.supportsDTMF,
+    required this.hasVideo,
   });
 
   Map<String, dynamic> _toMap() => {
@@ -83,14 +83,11 @@ class FCXCallUpdate {
       };
 
   FCXCallUpdate._fromMap(Map<dynamic, dynamic> map)
-      : this.remoteHandle =
-            map != null ? FCXHandle._fromMap(map['remoteHandle']) : null,
-        this.localizedCallerName =
-            map != null ? map['localizedCallerName'] : null,
-        this.supportsHolding = map != null ? map['supportsHolding'] : null,
-        this.supportsGrouping = map != null ? map['supportsGrouping'] : null,
-        this.supportsUngrouping =
-            map != null ? map['supportsUngrouping'] : null,
-        this.supportsDTMF = map != null ? map['supportsDTMF'] : null,
-        this.hasVideo = map != null ? map['hasVideo'] : null;
+      : this.remoteHandle = FCXHandle._fromMap(map['remoteHandle']),
+        this.localizedCallerName = map['localizedCallerName'],
+        this.supportsHolding = map['supportsHolding'],
+        this.supportsGrouping = map['supportsGrouping'],
+        this.supportsUngrouping = map['supportsUngrouping'],
+        this.supportsDTMF = map['supportsDTMF'],
+        this.hasVideo = map['hasVideo'];
 }

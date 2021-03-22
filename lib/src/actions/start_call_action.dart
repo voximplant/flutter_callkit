@@ -18,14 +18,16 @@ class FCXStartCallAction extends FCXCallAction {
   FCXHandle handle;
 
   /// The identifier for the call recipient.
-  String contactIdentifier;
+  String? contactIdentifier;
 
   /// A bool value that indicates whether the call is a video call.
   bool video;
 
   /// Initializes a new action to start a call with the specified uuid
   /// to a recipient with the specified handle.
-  FCXStartCallAction(String callUuid, this.handle) : super(callUuid);
+  FCXStartCallAction(String callUuid, this.handle)
+      : video = false,
+        super(callUuid);
 
   /// Reports the successful execution of the action at the specified time.
   /// A call is considered started when its invitation has been
@@ -34,7 +36,7 @@ class FCXStartCallAction extends FCXCallAction {
     try {
       await _methodChannel.invokeMethod(
         '$_ACTION.fulfillWithDateStarted',
-        {'uuid': uuid, 'dateStarted': dateStarted?.toIso8601String()},
+        {'uuid': uuid, 'dateStarted': dateStarted.toIso8601String()},
       );
       _FCXLog._i('${runtimeType.toString()}.fulfillWithDateStarted');
     } on PlatformException catch (e) {
@@ -45,9 +47,9 @@ class FCXStartCallAction extends FCXCallAction {
   }
 
   FCXStartCallAction._fromMap(Map<dynamic, dynamic> map)
-      : this.handle = map != null ? FCXHandle._fromMap(map['handle']) : null,
-        this.contactIdentifier = map != null ? map['contactIdentifier'] : null,
-        this.video = map != null ? map['video'] : null,
+      : this.handle = FCXHandle._fromMap(map['handle']),
+        this.contactIdentifier = map['contactIdentifier'],
+        this.video = map['video'],
         super._fromMap(map);
 
   Map<String, dynamic> _toMap() {

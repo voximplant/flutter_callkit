@@ -22,7 +22,7 @@ class FCXEndCallAction extends FCXCallAction {
     try {
       await _methodChannel.invokeMethod(
         '$_ACTION.fulfillWithDateEnded',
-        {'uuid': uuid, 'dateEnded': dateEnded?.toIso8601String()},
+        {'uuid': uuid, 'dateEnded': dateEnded.toIso8601String()},
       );
       _FCXLog._i('${runtimeType.toString()}.fulfillWithDateEnded');
     } on PlatformException catch (e) {

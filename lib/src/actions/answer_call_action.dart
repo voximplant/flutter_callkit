@@ -26,7 +26,7 @@ class FCXAnswerCallAction extends FCXCallAction {
         '$_ACTION.fulfillWithDateConnected',
         <String, dynamic>{
           'uuid': uuid,
-          'dateConnected': dateConnected?.toIso8601String()
+          'dateConnected': dateConnected.toIso8601String()
         },
       );
       _FCXLog._i('${runtimeType.toString()}.fulfillWithDateConnected');

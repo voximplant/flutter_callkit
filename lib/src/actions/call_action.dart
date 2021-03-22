@@ -27,7 +27,7 @@ abstract class FCXCallAction extends FCXAction {
   FCXCallAction(this.callUuid);
 
   FCXCallAction._fromMap(Map<dynamic, dynamic> map)
-      : this.callUuid = map != null ? map['callUuid'] : null,
+      : this.callUuid = map['callUuid'],
         super._fromMap(map);
 
   Map<String, dynamic> _toMap() {

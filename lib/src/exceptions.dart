@@ -4,7 +4,7 @@ part of flutter_callkit_voximplant;
 
 class FCXException implements Exception {
   final String code;
-  final String message;
+  final String? message;
 
   FCXException(this.code, this.message);
 

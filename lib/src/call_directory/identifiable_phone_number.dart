@@ -15,7 +15,7 @@ class FCXIdentifiablePhoneNumber extends FCXCallDirectoryPhoneNumber {
   /// Initializes a new object with the given phone number and label.
   FCXIdentifiablePhoneNumber(
     int number, {
-    @required this.label,
+    required this.label,
   }) : super(number);
 
   Map<String, dynamic> _toMap() => {'number': number, 'label': label};

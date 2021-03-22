@@ -23,7 +23,7 @@ part of flutter_callkit_voximplant;
 abstract class FCXAction {
   /// The unique identifier for the action.
   String get uuid => _uuid;
-  String _uuid;
+  final String _uuid;
 
   /// A bool value that indicates whether
   /// the action has been performed by the provider.
@@ -32,10 +32,14 @@ abstract class FCXAction {
 
   /// The time after which the action cannot be completed.
   DateTime get timeoutDate => _timeoutDate;
-  DateTime _timeoutDate;
+  final DateTime _timeoutDate;
 
   /// Initializes a new telephony action.
-  FCXAction();
+  // TODO(vladimir): docs about empty uuid
+  FCXAction()
+      : _complete = false,
+        _timeoutDate = DateTime.now(),
+        _uuid = '';
 
   /// Reports the successful execution of the action.
   Future<void> fulfill() async {
@@ -63,15 +67,15 @@ abstract class FCXAction {
   }
 
   FCXAction._fromMap(Map<dynamic, dynamic> map)
-      : _uuid = map != null ? map['uuid'] : null,
-        _complete = map != null ? map['complete'] : null,
-        _timeoutDate = map != null ? DateTime.parse(map['timeoutDate']) : null;
+      : _uuid = map['uuid'],
+        _complete = map['complete'],
+        _timeoutDate = DateTime.parse(map['timeoutDate']);
 
   Map<String, dynamic> _toMap() => {'type': runtimeType.toString()};
 }
 
 extension _FCXActionMapDecodable on FCXAction {
-  static FCXAction _makeAction(Map<dynamic, dynamic> map) {
+  static FCXAction? _makeAction(Map<dynamic, dynamic> map) {
     switch (map['type']) {
       case 'CXStartCallAction':
         return FCXStartCallAction._fromMap(map);

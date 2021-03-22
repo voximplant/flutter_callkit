@@ -19,7 +19,7 @@ class FCXSetGroupCallAction extends FCXCallAction {
   /// If the call for this action's UUID is already in a group,
   /// it should leave that group if necessary.
   /// If null, leave any group the call is currently in.
-  String callUUIDToGroupWith;
+  String? callUUIDToGroupWith;
 
   /// Initializes a new action for a call identified by a given uuid,
   /// as well as a call to group with identified by another uuid.
@@ -27,8 +27,7 @@ class FCXSetGroupCallAction extends FCXCallAction {
       : super(callUuid);
 
   FCXSetGroupCallAction._fromMap(Map<dynamic, dynamic> map)
-      : this.callUUIDToGroupWith =
-            map != null ? map['callUUIDToGroupWith'] : null,
+      : this.callUUIDToGroupWith = map['callUUIDToGroupWith'],
         super._fromMap(map);
 
   Map<String, dynamic> _toMap() {

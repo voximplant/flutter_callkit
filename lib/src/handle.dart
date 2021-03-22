@@ -45,8 +45,8 @@ class FCXHandle {
   FCXHandle(this.type, this.value);
 
   FCXHandle._fromMap(Map<dynamic, dynamic> map)
-      : this.type = map != null ? FCXHandleType.values[map['type']] : null,
-        this.value = map != null ? map['value'] : null;
+      : this.type = FCXHandleType.values[map['type']],
+        this.value = map['value'];
 
   Map<String, dynamic> _toMap() => {'type': type.index, 'value': value};
 }

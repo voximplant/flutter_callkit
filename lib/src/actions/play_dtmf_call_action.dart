@@ -59,10 +59,9 @@ class FCXPlayDTMFCallAction extends FCXCallAction {
       : super(callUuid);
 
   FCXPlayDTMFCallAction._fromMap(Map<dynamic, dynamic> map)
-      : this.digits = map != null ? map['digits'] : null,
-        this.type = map != null
-            ? FCXPlayDTMFCallActionType.values[map['playDTMFCallActionType']]
-            : null,
+      : this.digits = map['digits'],
+        this.type =
+            FCXPlayDTMFCallActionType.values[map['playDTMFCallActionType']],
         super._fromMap(map);
 
   Map<String, dynamic> _toMap() {

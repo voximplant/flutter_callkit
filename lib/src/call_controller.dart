@@ -82,7 +82,7 @@ class FCXCallController {
 
   factory FCXCallController() => _cache ?? FCXCallController._internal();
 
-  static FCXCallController _cache;
+  static FCXCallController? _cache;
 
   FCXCallController._internal() : callObserver = FCXCallObserver._internal() {
     _cache = this;

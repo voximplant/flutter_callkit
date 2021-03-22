@@ -16,14 +16,14 @@ part of flutter_callkit_voximplant;
 /// and specify whether video is supported.
 class FCXProviderConfiguration {
   /// Localized name of the provider.
-  final String localizedName;
+  final String? localizedName;
 
   /// Name of resource in app's bundle to play as ringtone for incoming call.
-  String ringtoneSound;
+  String? ringtoneSound;
 
   /// The name of resource for the icon image to be displayed for the provider.
   /// Image should be a square with side length of 40 points.
-  String iconTemplateImageName;
+  String? iconTemplateImageName;
 
   /// The maximum number of call groups.
   ///
@@ -60,7 +60,7 @@ class FCXProviderConfiguration {
     this.maximumCallsPerCallGroup = 5,
     this.includesCallsInRecents = true,
     this.supportsVideo = false,
-    this.supportedHandleTypes,
+    required this.supportedHandleTypes,
   });
 
   Map<String, dynamic> _toMap() => {
@@ -75,7 +75,6 @@ class FCXProviderConfiguration {
       };
 
   List<int> _handleTypesToInt(Set<FCXHandleType> types) =>
-      (types == null || types.isEmpty)
-          ? []
-          : types.map((f) => f.index).toList();
+      // TODO(vladimir): check with empty set
+      types.map((f) => f.index).toList();
 }

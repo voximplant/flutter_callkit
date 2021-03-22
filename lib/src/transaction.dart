@@ -16,10 +16,19 @@ class FCXTransaction {
   /// The list of actions contained by the transaction.
   Future<List<FCXAction>> getActions() async {
     try {
-      var data = await _methodChannel.invokeListMethod<Map>(
-          '$_TRANSACTION.getActions', {'transactionUuid': uuid});
+      var data = await (_methodChannel.invokeListMethod<Map>(
+          '$_TRANSACTION.getActions', {'transactionUuid': uuid}) as FutureOr<List<Map<dynamic, dynamic>>>);
       _FCXLog._i('${runtimeType.toString()}.getActions');
-      return data.map((f) => _FCXActionMapDecodable._makeAction(f)).toList();
+      List<FCXAction> actions = [];
+      for (Map map in data) {
+        FCXAction? action = _FCXActionMapDecodable._makeAction(map);
+        if (action == null) {
+          _FCXLog._w('${runtimeType.toString()} failed to decode action: $map');
+        } else {
+          actions.add(action);
+        }
+      }
+      return actions;
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
       _FCXLog._e(exception);
@@ -28,6 +37,6 @@ class FCXTransaction {
   }
 
   FCXTransaction._fromMap(Map<dynamic, dynamic> data)
-      : this.uuid = data != null ? data['uuid'] : null,
-        this.complete = data != null ? data['complete'] : null;
+      : this.uuid = data['uuid'],
+        this.complete = data['complete'];
 }

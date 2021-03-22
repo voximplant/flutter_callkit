@@ -38,9 +38,9 @@ class FCXCall {
   final bool onHold;
 
   FCXCall._fromMap(Map<dynamic, dynamic> map)
-      : uuid = map != null ? map['uuid'] : null,
-        outgoing = map != null ? map['outgoing'] : null,
-        onHold = map != null ? map['onHold'] : null,
-        hasConnected = map != null ? map['hasConnected'] : null,
-        hasEnded = map != null ? map['hasEnded'] : null;
+      : uuid = map['uuid'],
+        outgoing = map['outgoing'],
+        onHold = map['onHold'],
+        hasConnected = map['hasConnected'],
+        hasEnded = map['hasEnded'];
 }

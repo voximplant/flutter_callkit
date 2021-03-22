@@ -138,60 +138,69 @@ enum FCXCallEndedReason {
 /// [FCXProvider] is not intended for subclassing.
 class FCXProvider {
   /// Callback for getting notified when the provider begins.
-  FCXProviderDidBegin providerDidBegin;
+  FCXProviderDidBegin? providerDidBegin;
 
   /// Callback for getting notified when the provider is reset.
-  FCXProviderDidReset providerDidReset;
+  FCXProviderDidReset? providerDidReset;
 
   /// Callback for getting notified when a transaction
   /// is executed by a call controller.
-  FCXExecuteTransaction executeTransaction;
+  FCXExecuteTransaction? executeTransaction;
 
   /// Callback for getting notified when the provider
   /// performs the specified start call action.
-  FCXPerformStartCallAction performStartCallAction;
+  FCXPerformStartCallAction? performStartCallAction;
 
   /// Callback for getting notified when the provider
   /// performs the specified answer call action.
-  FCXPerformAnswerCallAction performAnswerCallAction;
+  FCXPerformAnswerCallAction? performAnswerCallAction;
 
   /// Callback for getting notified when the provider
   /// performs the specified end call action.
-  FCXPerformEndCallAction performEndCallAction;
+  FCXPerformEndCallAction? performEndCallAction;
 
   /// Callback for getting notified when the provider
   /// performs the specified set held call action.
-  FCXPerformSetHeldCallAction performSetHeldCallAction;
+  FCXPerformSetHeldCallAction? performSetHeldCallAction;
 
   /// Callback for getting notified when the provider
   /// performs the specified set muted call action.
-  FCXPerformSetMutedCallAction performSetMutedCallAction;
+  FCXPerformSetMutedCallAction? performSetMutedCallAction;
 
   /// Callback for getting notified when the provider
   /// performs the specified set group call action.
-  FCXPerformSetGroupCallAction performSetGroupCallAction;
+  FCXPerformSetGroupCallAction? performSetGroupCallAction;
 
   /// Callback for getting notified when the provider
   /// performs the specified play DTMF (dual tone multifrequency)
   /// call action.
-  FCXPerformPlayDTMFCallAction performPlayDTMFCallAction;
+  FCXPerformPlayDTMFCallAction? performPlayDTMFCallAction;
 
   /// Callback for getting notified when the provider
   /// performs the specified action times out.
-  FCXTimedOutPerformingAction timedOutPerformingAction;
+  FCXTimedOutPerformingAction? timedOutPerformingAction;
 
   /// Callback for getting notified when the provider’s
   /// audio session is activated.
-  FCXProviderDidActivateAudioSession providerDidActivateAudioSession;
+  FCXProviderDidActivateAudioSession? providerDidActivateAudioSession;
 
   /// Callback for getting notified when the provider’s
   /// audio session is deactivated.
-  FCXProviderDidDeactivateAudioSession providerDidDeactivateAudioSession;
+  FCXProviderDidDeactivateAudioSession? providerDidDeactivateAudioSession;
 
   /// The configuration of the provider.
   /// To change the configuration use [FCXProvider.configure].
-  FCXProviderConfiguration get configuration => _configuration;
-  FCXProviderConfiguration _configuration;
+  // TODO(vladimir): docs for throw
+  FCXProviderConfiguration get configuration {
+    var configuration = _configuration;
+    if (configuration == null) {
+      throw '';
+    } else {
+      return configuration;
+    }
+  }
+
+  FCXProviderConfiguration? _configuration;
 
   /// Configure provider with the specified configuration.
   Future<void> configure(FCXProviderConfiguration configuration) async {
@@ -212,9 +221,9 @@ class FCXProvider {
   /// Returns all transactions that are not yet completed.
   Future<List<FCXTransaction>> getPendingTransactions() async {
     try {
-      var data = await _methodChannel.invokeListMethod<Map>(
+      var data = await (_methodChannel.invokeListMethod<Map>(
         '$_PROVIDER.getPendingTransactions',
-      );
+      ) as FutureOr<List<Map<dynamic, dynamic>>>);
       _FCXLog._i('${runtimeType.toString()}.getPendingTransactions');
       return data.map((f) => FCXTransaction._fromMap(f)).toList();
     } on PlatformException catch (e) {
@@ -238,7 +247,7 @@ class FCXProvider {
     try {
       await _methodChannel.invokeMethod(
         '$_PROVIDER.reportNewIncomingCall',
-        {'uuid': uuid, 'callUpdate': update?._toMap()},
+        {'uuid': uuid, 'callUpdate': update._toMap()},
       );
       _FCXLog._i('${runtimeType.toString()}.reportNewIncomingCall');
     } on PlatformException catch (e) {
@@ -258,7 +267,7 @@ class FCXProvider {
     try {
       await _methodChannel.invokeMethod(
         '$_PROVIDER.reportCallUpdated',
-        {'uuid': uuid, 'callUpdate': update?._toMap()},
+        {'uuid': uuid, 'callUpdate': update._toMap()},
       );
       _FCXLog._i('${runtimeType.toString()}.reportCall');
     } on PlatformException catch (e) {
@@ -280,14 +289,14 @@ class FCXProvider {
   /// [endedReason] is the reason that the call ended.
   Future<void> reportCallEnded(
     String uuid,
-    DateTime dateEnded,
+    DateTime? dateEnded,
     FCXCallEndedReason endedReason,
   ) async {
     try {
       await _methodChannel.invokeMethod('$_PROVIDER.reportCallEnded', {
         'uuid': uuid,
         'dateEnded': dateEnded?.toIso8601String(),
-        'endedReason': endedReason?.index ?? FCXCallEndedReason.failed,
+        'endedReason': endedReason.index,
       });
       _FCXLog._i('${runtimeType.toString()}.reportCallEnded');
     } on PlatformException catch (e) {
@@ -307,7 +316,7 @@ class FCXProvider {
   /// If null, the current time is used.
   Future<void> reportOutgoingCall(
     String uuid,
-    DateTime dateStartedConnecting,
+    DateTime? dateStartedConnecting,
   ) async {
     try {
       await _methodChannel.invokeMethod('$_PROVIDER.reportOutgoingCall', {
@@ -335,7 +344,7 @@ class FCXProvider {
   /// both caller and callee can start communicating.
   Future<void> reportOutgoingCallConnected(
     String uuid,
-    DateTime dateConnected,
+    DateTime? dateConnected,
   ) async {
     try {
       await _methodChannel.invokeMethod(
@@ -367,7 +376,7 @@ class FCXProvider {
   }
 
   factory FCXProvider() => _cache ?? FCXProvider._internal();
-  static FCXProvider _cache;
+  static FCXProvider? _cache;
 
   FCXProvider._internal() {
     EventChannel('plugins.voximplant.com/provider_events')
@@ -378,58 +387,53 @@ class FCXProvider {
 
   void _eventListener(dynamic event) async {
     final Map<dynamic, dynamic> map = event;
-    final String eventName = map['event'];
+    final String? eventName = map['event'];
 
     _FCXLog._i('${runtimeType.toString()}.$eventName');
 
     if (eventName == 'providerDidBegin') {
-      if (providerDidBegin != null) {
-        providerDidBegin();
-      }
+      providerDidBegin?.call();
     } else if (eventName == 'providerDidReset') {
-      if (providerDidReset != null) {
-        providerDidReset();
-      }
+      providerDidReset?.call();
     } else if (eventName == 'timedOutPerformingAction') {
-      if (timedOutPerformingAction != null) {
-        final FCXAction action =
-            _FCXActionMapDecodable._makeAction(map['action']);
-        timedOutPerformingAction(action);
+      final FCXAction? action =
+          _FCXActionMapDecodable._makeAction(map['action']);
+      if (action == null) {
+        _FCXLog._w(
+            '${runtimeType.toString()} failed to decode action: ${map['action']}');
+      } else {
+        timedOutPerformingAction?.call(action);
       }
     } else if (eventName == 'didActivateAudioSession') {
-      if (providerDidActivateAudioSession != null) {
-        providerDidActivateAudioSession();
-      }
+      providerDidActivateAudioSession?.call();
     } else if (eventName == 'didDeactivateAudioSession') {
-      if (providerDidDeactivateAudioSession != null) {
-        providerDidDeactivateAudioSession();
-      }
+        providerDidDeactivateAudioSession?.call();
     } else if (eventName == 'executeTransaction') {
       FCXTransaction transaction = FCXTransaction._fromMap(map['transaction']);
-      if (executeTransaction == null || !executeTransaction(transaction)) {
-        _passActions(transaction);
+      if (executeTransaction == null || !executeTransaction!(transaction)) {
+        _processTransaction(transaction);
       }
     }
   }
 
-  Future<void> _passActions(FCXTransaction transaction) async {
+  Future<void> _processTransaction(FCXTransaction transaction) async {
     List<FCXAction> actions = await transaction.getActions();
     actions.forEach((a) {
       _FCXLog._i('${runtimeType.toString()}.${a.runtimeType.toString()}');
-      if (a is FCXStartCallAction && performStartCallAction != null)
-        performStartCallAction(a);
-      else if (a is FCXAnswerCallAction && performAnswerCallAction != null)
-        performAnswerCallAction(a);
-      else if (a is FCXEndCallAction && performEndCallAction != null)
-        performEndCallAction(a);
-      else if (a is FCXSetHeldCallAction && performSetHeldCallAction != null)
-        performSetHeldCallAction(a);
-      else if (a is FCXSetMutedCallAction && performSetMutedCallAction != null)
-        performSetMutedCallAction(a);
-      else if (a is FCXSetGroupCallAction && performSetGroupCallAction != null)
-        performSetGroupCallAction(a);
-      else if (a is FCXPlayDTMFCallAction && performPlayDTMFCallAction != null)
-        performPlayDTMFCallAction(a);
+      if (a is FCXStartCallAction)
+        performStartCallAction?.call(a);
+      else if (a is FCXAnswerCallAction)
+        performAnswerCallAction?.call(a);
+      else if (a is FCXEndCallAction)
+        performEndCallAction?.call(a);
+      else if (a is FCXSetHeldCallAction)
+        performSetHeldCallAction?.call(a);
+      else if (a is FCXSetMutedCallAction)
+        performSetMutedCallAction?.call(a);
+      else if (a is FCXSetGroupCallAction)
+        performSetGroupCallAction?.call(a);
+      else if (a is FCXPlayDTMFCallAction)
+        performPlayDTMFCallAction?.call(a);
       else {
         FCXException exception = FCXException('Wrong action type',
             'cant apply action ${a.runtimeType.toString()} ${a.uuid}');

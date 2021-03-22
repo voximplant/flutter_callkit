@@ -24,15 +24,15 @@ typedef void FCXCallChanged(FCXCall call);
 /// Direct initialisation is unavailable.
 class FCXCallObserver {
   /// Callback for getting notified when a call is changed.
-  FCXCallChanged callChanged;
+  FCXCallChanged? callChanged;
 
   /// Retrieve the current call list,
   /// blocking on initial state retrieval if necessary.
   Future<List<FCXCall>> getCalls() async {
     try {
-      var data = await _methodChannel.invokeListMethod<Map>(
+      var data = await (_methodChannel.invokeListMethod<Map>(
         '$_CALL_CONTROLLER.getCalls',
-      );
+      ) as FutureOr<List<Map<dynamic, dynamic>>>);
       _FCXLog._i('${runtimeType.toString()}.getCalls');
       return data.map((f) => FCXCall._fromMap(f)).toList();
     } on PlatformException catch (e) {
@@ -50,15 +50,13 @@ class FCXCallObserver {
 
   void _eventListener(dynamic event) {
     final Map<dynamic, dynamic> map = event;
-    final String eventName = map['event'];
-
+    final String? eventName = map['event'];
     if (eventName == 'callChanged') {
       final FCXCall call = FCXCall._fromMap(map['call']);
       _FCXLog._i('${runtimeType.toString()}.$eventName: ${call.uuid}');
-      if (callChanged != null) {
-        callChanged(call);
-      }
+      callChanged?.call(call);
     } else {
+      // TODO(vladimir): should be warning
       _FCXLog._i('${runtimeType.toString()}.$eventName');
     }
   }

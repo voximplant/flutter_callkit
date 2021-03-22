@@ -20,11 +20,12 @@ enum FCXLogLevel {
 class _FCXLog {
   static void _e(FCXException e) =>
       _log(_FCXLogType._error, '[${e.code}: ${e.message}]');
-  static void _i(String message) => _log(_FCXLogType._info, message);
-  static void _w(String message) => _log(_FCXLogType._warning, message);
+  static void _i(String? message) => _log(_FCXLogType._info, message);
+  static void _w(String? message) => _log(_FCXLogType._warning, message);
 
-  static void _log(_FCXLogType logType, String message) {
+  static void _log(_FCXLogType logType, String? message) {
     if (FCXPlugin.logLevel._isLogTypeSupported(logType)) {
+      // TODO(vladimir): Improve log format
       print('[FlutterCallKit:${logType._prefix} > $message]');
     }
   }
@@ -53,6 +54,7 @@ extension _SupportedTypes on FCXLogLevel {
 
 enum _FCXLogType { _error, _warning, _info }
 
+// TODO(vladimir): needs renaming with prefixes
 extension _Prefix on _FCXLogType {
   String get _prefix {
     switch (this) {

@@ -24,7 +24,7 @@ class FCXSetMutedCallAction extends FCXCallAction {
   FCXSetMutedCallAction(String callUuid, this.muted) : super(callUuid);
 
   FCXSetMutedCallAction._fromMap(Map<dynamic, dynamic> map)
-      : this.muted = map != null ? map['muted'] : null,
+      : this.muted = map['muted'],
         super._fromMap(map);
 
   Map<String, dynamic> _toMap() {

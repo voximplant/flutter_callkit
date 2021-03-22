@@ -39,12 +39,13 @@ part 'src/call_directory/identifiable_phone_number.dart';
 /// reportNewIncomingCallWithUUID method in native code.
 ///
 /// Used in [FCXPlugin].
+// TODO(vladimir): check correct nullability in iOS source code
 typedef void FCXDidDisplayIncomingCall(String uuid, FCXCallUpdate callUpdate);
 
 /// The entry point of the Flutter CallKit SDK.
 class FCXPlugin {
   /// Get notified about push being received and handled in native code.
-  FCXDidDisplayIncomingCall didDisplayIncomingCall;
+  FCXDidDisplayIncomingCall? didDisplayIncomingCall;
 
   /// Used to adjust logging.
   static FCXLogLevel logLevel = FCXLogLevel.info;
@@ -60,7 +61,7 @@ class FCXPlugin {
   }
 
   factory FCXPlugin() => _cache ?? FCXPlugin._internal();
-  static FCXPlugin _cache;
+  static FCXPlugin? _cache;
 
   FCXPlugin._internal() {
     EventChannel('plugins.voximplant.com/plugin_events')
@@ -71,15 +72,13 @@ class FCXPlugin {
 
   void _eventListener(dynamic event) {
     final Map<dynamic, dynamic> map = event;
-    final String eventName = map['event'];
+    final String? eventName = map['event'];
 
     _FCXLog._i('${runtimeType.toString()}.$eventName');
     if (eventName == 'didDisplayIncomingCall') {
-      if (didDisplayIncomingCall != null) {
-        String uuid = map['uuid'];
-        FCXCallUpdate callUpdate = FCXCallUpdate._fromMap(map['callUpdate']);
-        didDisplayIncomingCall(uuid, callUpdate);
-      }
+      String uuid = map['uuid'];
+      FCXCallUpdate callUpdate = FCXCallUpdate._fromMap(map['callUpdate']);
+      didDisplayIncomingCall?.call(uuid, callUpdate);
     }
   }
 }
