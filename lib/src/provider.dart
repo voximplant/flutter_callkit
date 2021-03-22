@@ -190,11 +190,15 @@ class FCXProvider {
 
   /// The configuration of the provider.
   /// To change the configuration use [FCXProvider.configure].
-  // TODO(vladimir): docs for throw
+  ///
+  /// If the provider is not configured,
+  /// [FCXPluginError.ERROR_CONFIGURATION_NOT_FOUND] will be thrown.
   FCXProviderConfiguration get configuration {
     var configuration = _configuration;
     if (configuration == null) {
-      throw '';
+      _FCXLog._w(runtimeType,
+          'Configuration is not accesseble, the provider method configure() must be called first');
+      throw FCXPluginError.ERROR_CONFIGURATION_NOT_FOUND;
     } else {
       return configuration;
     }
