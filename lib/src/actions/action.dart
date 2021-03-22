@@ -35,7 +35,10 @@ abstract class FCXAction {
   final DateTime _timeoutDate;
 
   /// Initializes a new telephony action.
-  // TODO(vladimir): docs about empty uuid
+  ///
+  /// Please note that with direct initialization
+  /// `uuid` initialized as an empty string.
+  /// The actual value of `uuid` is assigned in the iOS part of the plugin.
   FCXAction()
       : _complete = false,
         _timeoutDate = DateTime.now(),
