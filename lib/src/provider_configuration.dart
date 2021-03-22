@@ -75,6 +75,5 @@ class FCXProviderConfiguration {
       };
 
   List<int> _handleTypesToInt(Set<FCXHandleType> types) =>
-      // TODO(vladimir): check with empty set
       types.map((f) => f.index).toList();
 }
