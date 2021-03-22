@@ -1,3 +1,9 @@
+## 2.0.0
+- Migrate to null safety
+- Log output formatting improved
+- Minimum Dart SDK version changed to 2.12.0
+- Minor internal improvements
+
 ## 1.2.0+5
 - Add icon template image to example app
 
