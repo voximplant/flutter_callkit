@@ -20,14 +20,15 @@ class FCXEndCallAction extends FCXCallAction {
   /// Reports the successful execution of the action at the specified time.
   Future<void> fulfillWithDateEnded(DateTime dateEnded) async {
     try {
+      String method = 'fulfillWithDateEnded';
       await _methodChannel.invokeMethod(
-        '$_ACTION.fulfillWithDateEnded',
+        '$_ACTION.$method',
         {'uuid': uuid, 'dateEnded': dateEnded.toIso8601String()},
       );
-      _FCXLog._i('${runtimeType.toString()}.fulfillWithDateEnded');
+      _FCXLog._i(runtimeType, method);
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
-      _FCXLog._e(exception);
+      _FCXLog._e(runtimeType, exception);
       throw exception;
     }
   }

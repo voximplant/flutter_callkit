@@ -40,11 +40,11 @@ extension FCXPlugin_CallDirectoryExtension on FCXPlugin {
       List<dynamic> numbers = await (_methodChannel.invokeMethod(
         '$_PLUGIN.$method',
       ) as FutureOr<List<dynamic>>);
-      _FCXLog._i('$runtimeType.$method');
+      _FCXLog._i(runtimeType, method);
       return numbers.map((f) => FCXCallDirectoryPhoneNumber(f)).toList();
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
-      _FCXLog._e(exception);
+      _FCXLog._e(runtimeType, exception);
       throw exception;
     }
   }
@@ -65,10 +65,10 @@ extension FCXPlugin_CallDirectoryExtension on FCXPlugin {
       String method = 'addBlockedPhoneNumbers';
       List<int> arguments = numbers.map((f) => f.number).toList();
       await _methodChannel.invokeMethod('$_PLUGIN.$method', arguments);
-      _FCXLog._i('$runtimeType.$method: $arguments');
+      _FCXLog._i(runtimeType, '$method: $arguments');
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
-      _FCXLog._e(exception);
+      _FCXLog._e(runtimeType, exception);
       throw exception;
     }
   }
@@ -89,10 +89,10 @@ extension FCXPlugin_CallDirectoryExtension on FCXPlugin {
       String method = 'removeBlockedPhoneNumbers';
       List<int> arguments = numbers.map((f) => f.number).toList();
       await _methodChannel.invokeMethod('$_PLUGIN.$method', arguments);
-      _FCXLog._i('$runtimeType.$method: $arguments');
+      _FCXLog._i(runtimeType, '$method: $arguments');
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
-      _FCXLog._e(exception);
+      _FCXLog._e(runtimeType, exception);
       throw exception;
     }
   }
@@ -110,10 +110,10 @@ extension FCXPlugin_CallDirectoryExtension on FCXPlugin {
     try {
       String method = 'removeAllBlockedPhoneNumbers';
       await _methodChannel.invokeMethod('$_PLUGIN.$method');
-      _FCXLog._i('$runtimeType.$method');
+      _FCXLog._i(runtimeType, method);
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
-      _FCXLog._e(exception);
+      _FCXLog._e(runtimeType, exception);
       throw exception;
     }
   }
@@ -133,14 +133,14 @@ extension FCXPlugin_CallDirectoryExtension on FCXPlugin {
       List<dynamic> numbers = await (_methodChannel.invokeMethod(
         '$_PLUGIN.$method',
       ) as FutureOr<List<dynamic>>);
-      _FCXLog._i('$runtimeType.$method');
+      _FCXLog._i(runtimeType, method);
       return numbers
           .map(
               (f) => FCXIdentifiablePhoneNumber(f['number'], label: f['label']))
           .toList();
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
-      _FCXLog._e(exception);
+      _FCXLog._e(runtimeType, exception);
       throw exception;
     }
   }
@@ -161,10 +161,10 @@ extension FCXPlugin_CallDirectoryExtension on FCXPlugin {
       String method = 'addIdentifiablePhoneNumbers';
       List<Map> arguments = numbers.map((f) => f._toMap()).toList();
       await _methodChannel.invokeMethod('$_PLUGIN.$method', arguments);
-      _FCXLog._i('$runtimeType.$method: $arguments');
+      _FCXLog._i(runtimeType, '$method: $arguments');
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
-      _FCXLog._e(exception);
+      _FCXLog._e(runtimeType, exception);
       throw exception;
     }
   }
@@ -186,10 +186,10 @@ extension FCXPlugin_CallDirectoryExtension on FCXPlugin {
       String method = 'removeIdentifiablePhoneNumbers';
       List<int> arguments = numbers.map((f) => f.number).toList();
       await _methodChannel.invokeMethod('$_PLUGIN.$method', arguments);
-      _FCXLog._i('$runtimeType.$method: $arguments');
+      _FCXLog._i(runtimeType, '$method: $arguments');
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
-      _FCXLog._e(exception);
+      _FCXLog._e(runtimeType, exception);
       throw exception;
     }
   }
@@ -207,10 +207,10 @@ extension FCXPlugin_CallDirectoryExtension on FCXPlugin {
     try {
       String method = 'removeAllIdentifiablePhoneNumbers';
       await _methodChannel.invokeMethod('$_PLUGIN.$method');
-      _FCXLog._i('$runtimeType.$method');
+      _FCXLog._i(runtimeType, method);
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
-      _FCXLog._e(exception);
+      _FCXLog._e(runtimeType, exception);
       throw exception;
     }
   }

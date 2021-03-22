@@ -53,10 +53,11 @@ class FCXPlugin {
   /// Process completion received with push notification.
   Future<void> processPushCompletion() async {
     try {
-      await _methodChannel.invokeMethod('$_PLUGIN.processPushCompletion');
-      _FCXLog._i('pushCompletion processed');
+      String method = 'processPushCompletion';
+      await _methodChannel.invokeMethod('$_PLUGIN.$method');
+      _FCXLog._i(runtimeType, '$method done');
     } on PlatformException catch (e) {
-      _FCXLog._w(e.message);
+      _FCXLog._w(runtimeType, e.message);
     }
   }
 
@@ -73,8 +74,7 @@ class FCXPlugin {
   void _eventListener(dynamic event) {
     final Map<dynamic, dynamic> map = event;
     final String? eventName = map['event'];
-
-    _FCXLog._i('${runtimeType.toString()}.$eventName');
+    _FCXLog._i(runtimeType, eventName);
     if (eventName == 'didDisplayIncomingCall') {
       String uuid = map['uuid'];
       FCXCallUpdate callUpdate = FCXCallUpdate._fromMap(map['callUpdate']);

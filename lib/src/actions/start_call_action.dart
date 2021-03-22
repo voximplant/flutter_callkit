@@ -34,14 +34,15 @@ class FCXStartCallAction extends FCXCallAction {
   /// sent to the remote callee.
   Future<void> fulfillWithDateStarted(DateTime dateStarted) async {
     try {
+      String method = 'fulfillWithDateStarted';
       await _methodChannel.invokeMethod(
-        '$_ACTION.fulfillWithDateStarted',
+        '$_ACTION.$method',
         {'uuid': uuid, 'dateStarted': dateStarted.toIso8601String()},
       );
-      _FCXLog._i('${runtimeType.toString()}.fulfillWithDateStarted');
+      _FCXLog._i(runtimeType, method);
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
-      _FCXLog._e(exception);
+      _FCXLog._e(runtimeType, exception);
       throw exception;
     }
   }

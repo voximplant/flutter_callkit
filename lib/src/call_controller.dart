@@ -31,11 +31,12 @@ class FCXCallController {
   /// Must be used before any other interactions with [FCXCallController].
   Future<void> configure() async {
     try {
-      await _methodChannel.invokeMethod('$_CALL_CONTROLLER.configure');
-      _FCXLog._i('${runtimeType.toString()}.configure');
+      String method = 'configure';
+      await _methodChannel.invokeMethod('$_CALL_CONTROLLER.$method');
+      _FCXLog._i(runtimeType, method);
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
-      _FCXLog._e(exception);
+      _FCXLog._e(runtimeType, exception);
       throw exception;
     }
   }
@@ -48,14 +49,16 @@ class FCXCallController {
   /// Possible errors listed in the [FCXCallKitRequestTransactionError].
   Future<void> requestTransactionWithAction(FCXAction action) async {
     try {
+      String method = 'requestTransactionWithAction';
       await _methodChannel.invokeMethod(
-        '$_CALL_CONTROLLER.requestTransactionWithAction',
+        '$_CALL_CONTROLLER.$method',
         action._toMap(),
       );
-      _FCXLog._i('${runtimeType.toString()}.requestTransaction');
+      _FCXLog._i(
+          runtimeType, '$method: ${action.runtimeType}');
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
-      _FCXLog._e(exception);
+      _FCXLog._e(runtimeType, exception);
       throw exception;
     }
   }
@@ -68,14 +71,15 @@ class FCXCallController {
   /// Possible errors listed in the [FCXCallKitRequestTransactionError].
   Future<void> requestTransactionWithActions(List<FCXAction> actions) async {
     try {
+      String method = 'requestTransactionWithActions';
       await _methodChannel.invokeMethod(
-        '$_CALL_CONTROLLER.requestTransactionWithActions',
+        '$_CALL_CONTROLLER.$method',
         actions.map((f) => f._toMap()).toList(),
       );
-      _FCXLog._i('${runtimeType.toString()}.requestTransactions');
+      _FCXLog._i(runtimeType, '$method: $actions');
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
-      _FCXLog._e(exception);
+      _FCXLog._e(runtimeType, exception);
       throw exception;
     }
   }

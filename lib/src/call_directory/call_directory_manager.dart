@@ -34,11 +34,11 @@ class FCXCallDirectoryManager {
         '$_PLUGIN.$method',
         extensionIdentifier,
       ) as FutureOr<int>);
-      _FCXLog._i('$_self.$method');
+      _FCXLog._i(_self, method);
       return FCXCallDirectoryManagerEnabledStatus.values[index];
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
-      _FCXLog._e(exception);
+      _FCXLog._e(_self, exception);
       throw exception;
     }
   }
@@ -53,10 +53,10 @@ class FCXCallDirectoryManager {
         '$_PLUGIN.$method',
         extensionIdentifier,
       );
-      _FCXLog._i('$_self.$method');
+      _FCXLog._i(_self, method);
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
-      _FCXLog._e(exception);
+      _FCXLog._e(_self, exception);
       throw exception;
     }
   }
@@ -74,10 +74,10 @@ class FCXCallDirectoryManager {
       await _methodChannel.invokeMethod(
         '$_PLUGIN.$method',
       );
-      _FCXLog._i('$_self.$method');
+      _FCXLog._i(_self, method);
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
-      _FCXLog._e(exception);
+      _FCXLog._e(_self, exception);
       throw exception;
     }
   }

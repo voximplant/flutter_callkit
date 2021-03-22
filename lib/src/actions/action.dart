@@ -44,12 +44,13 @@ abstract class FCXAction {
   /// Reports the successful execution of the action.
   Future<void> fulfill() async {
     try {
-      await _methodChannel.invokeMethod('$_ACTION.fulfill', {'uuid': uuid});
+      String method = 'fulfill';
+      await _methodChannel.invokeMethod('$_ACTION.$method', {'uuid': uuid});
       _complete = true;
-      _FCXLog._i('${runtimeType.toString()}.fulfill');
+      _FCXLog._i(runtimeType, method);
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
-      _FCXLog._e(exception);
+      _FCXLog._e(runtimeType, exception);
       throw exception;
     }
   }
@@ -57,11 +58,12 @@ abstract class FCXAction {
   /// Reports the failed execution of the action.
   Future<void> fail() async {
     try {
-      await _methodChannel.invokeMethod('$_ACTION.fail', {'uuid': uuid});
-      _FCXLog._i('${runtimeType.toString()}.fail');
+      String method = 'fail';
+      await _methodChannel.invokeMethod('$_ACTION.$method', {'uuid': uuid});
+      _FCXLog._i(runtimeType, method);
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
-      _FCXLog._e(exception);
+      _FCXLog._e(runtimeType, exception);
       throw exception;
     }
   }

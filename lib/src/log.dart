@@ -18,15 +18,19 @@ enum FCXLogLevel {
 }
 
 class _FCXLog {
-  static void _e(FCXException e) =>
-      _log(_FCXLogType._error, '[${e.code}: ${e.message}]');
-  static void _i(String? message) => _log(_FCXLogType._info, message);
-  static void _w(String? message) => _log(_FCXLogType._warning, message);
+  static void _e(Type senderType, FCXException e) =>
+      _log(senderType, _FCXLogType._error, '[${e.code}: ${e.message}]');
 
-  static void _log(_FCXLogType logType, String? message) {
+  static void _i(Type senderType, String? message) =>
+      _log(senderType, _FCXLogType._info, message);
+
+  static void _w(Type senderType, String? message) =>
+      _log(senderType, _FCXLogType._warning, message);
+
+  static void _log(Type senderType, _FCXLogType logType, String? message) {
     if (FCXPlugin.logLevel._isLogTypeSupported(logType)) {
-      // TODO(vladimir): Improve log format
-      print('[FlutterCallKit:${logType._prefix} > $message]');
+      String type = senderType.toString();
+      print('[FlutterCallKit.${logType._prefix}] $type > $message');
     }
   }
 }
@@ -45,9 +49,7 @@ extension _SupportedTypes on FCXLogLevel {
     }
   }
 
-  bool _isLogTypeSupported(_FCXLogType type) {
-    return _supportedTypes.contains(type);
-  }
+  bool _isLogTypeSupported(_FCXLogType type) => _supportedTypes.contains(type);
 }
 
 enum _FCXLogType { _error, _warning, _info }

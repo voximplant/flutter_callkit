@@ -30,14 +30,15 @@ class FCXCallObserver {
   /// blocking on initial state retrieval if necessary.
   Future<List<FCXCall>> getCalls() async {
     try {
+      String method = 'getCalls';
       var data = await (_methodChannel.invokeListMethod<Map>(
-        '$_CALL_CONTROLLER.getCalls',
+        '$_CALL_CONTROLLER.$method',
       ) as FutureOr<List<Map<dynamic, dynamic>>>);
-      _FCXLog._i('${runtimeType.toString()}.getCalls');
+      _FCXLog._i(runtimeType, method);
       return data.map((f) => FCXCall._fromMap(f)).toList();
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
-      _FCXLog._e(exception);
+      _FCXLog._e(runtimeType, exception);
       throw exception;
     }
   }
@@ -53,11 +54,10 @@ class FCXCallObserver {
     final String? eventName = map['event'];
     if (eventName == 'callChanged') {
       final FCXCall call = FCXCall._fromMap(map['call']);
-      _FCXLog._i('${runtimeType.toString()}.$eventName: ${call.uuid}');
+      _FCXLog._i(runtimeType, '$eventName: ${call.uuid}');
       callChanged?.call(call);
     } else {
-      // TODO(vladimir): should be warning
-      _FCXLog._i('${runtimeType.toString()}.$eventName');
+      _FCXLog._w(runtimeType, 'unhandled event $eventName');
     }
   }
 }

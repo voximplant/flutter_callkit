@@ -205,15 +205,16 @@ class FCXProvider {
   /// Configure provider with the specified configuration.
   Future<void> configure(FCXProviderConfiguration configuration) async {
     try {
+      String method = 'configure';
       await _methodChannel.invokeMethod(
-        '$_PROVIDER.configure',
+        '$_PROVIDER.$method',
         configuration._toMap(),
       );
       _configuration = configuration;
-      _FCXLog._i('${runtimeType.toString()}.configure');
+      _FCXLog._i(runtimeType, method);
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
-      _FCXLog._e(exception);
+      _FCXLog._e(runtimeType, exception);
       throw exception;
     }
   }
@@ -221,14 +222,15 @@ class FCXProvider {
   /// Returns all transactions that are not yet completed.
   Future<List<FCXTransaction>> getPendingTransactions() async {
     try {
+      String method = 'getPendingTransactions';
       var data = await (_methodChannel.invokeListMethod<Map>(
-        '$_PROVIDER.getPendingTransactions',
+        '$_PROVIDER.$method',
       ) as FutureOr<List<Map<dynamic, dynamic>>>);
-      _FCXLog._i('${runtimeType.toString()}.getPendingTransactions');
+      _FCXLog._i(runtimeType, method);
       return data.map((f) => FCXTransaction._fromMap(f)).toList();
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
-      _FCXLog._e(exception);
+      _FCXLog._e(runtimeType, exception);
       throw exception;
     }
   }
@@ -245,14 +247,15 @@ class FCXProvider {
   /// [update] is the information for the call.
   Future<void> reportNewIncomingCall(String uuid, FCXCallUpdate update) async {
     try {
+      String method = 'reportNewIncomingCall';
       await _methodChannel.invokeMethod(
-        '$_PROVIDER.reportNewIncomingCall',
+        '$_PROVIDER.$method',
         {'uuid': uuid, 'callUpdate': update._toMap()},
       );
-      _FCXLog._i('${runtimeType.toString()}.reportNewIncomingCall');
+      _FCXLog._i(runtimeType, '$method uuid: $uuid');
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
-      _FCXLog._e(exception);
+      _FCXLog._e(runtimeType, exception);
       throw exception;
     }
   }
@@ -265,14 +268,15 @@ class FCXProvider {
   /// [update] is the updated information.
   Future<void> reportCallUpdated(String uuid, FCXCallUpdate update) async {
     try {
+      String method = 'reportCallUpdated';
       await _methodChannel.invokeMethod(
-        '$_PROVIDER.reportCallUpdated',
+        '$_PROVIDER.$method',
         {'uuid': uuid, 'callUpdate': update._toMap()},
       );
-      _FCXLog._i('${runtimeType.toString()}.reportCall');
+      _FCXLog._i(runtimeType, '$method uuid: $uuid');
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
-      _FCXLog._e(exception);
+      _FCXLog._e(runtimeType, exception);
       throw exception;
     }
   }
@@ -293,15 +297,16 @@ class FCXProvider {
     FCXCallEndedReason endedReason,
   ) async {
     try {
-      await _methodChannel.invokeMethod('$_PROVIDER.reportCallEnded', {
+      String method = 'reportCallEnded';
+      await _methodChannel.invokeMethod('$_PROVIDER.$method', {
         'uuid': uuid,
         'dateEnded': dateEnded?.toIso8601String(),
         'endedReason': endedReason.index,
       });
-      _FCXLog._i('${runtimeType.toString()}.reportCallEnded');
+      _FCXLog._i(runtimeType, '$method uuid: $uuid');
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
-      _FCXLog._e(exception);
+      _FCXLog._e(runtimeType, exception);
       throw exception;
     }
   }
@@ -319,14 +324,15 @@ class FCXProvider {
     DateTime? dateStartedConnecting,
   ) async {
     try {
-      await _methodChannel.invokeMethod('$_PROVIDER.reportOutgoingCall', {
+      String method = 'reportOutgoingCall';
+      await _methodChannel.invokeMethod('$_PROVIDER.$method', {
         'uuid': uuid,
         'dateStartedConnecting': dateStartedConnecting?.toIso8601String(),
       });
-      _FCXLog._i('${runtimeType.toString()}.reportOutgoingCall');
+      _FCXLog._i(runtimeType, '$method uuid: $uuid');
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
-      _FCXLog._e(exception);
+      _FCXLog._e(runtimeType, exception);
       throw exception;
     }
   }
@@ -347,14 +353,15 @@ class FCXProvider {
     DateTime? dateConnected,
   ) async {
     try {
+      String method = 'reportOutgoingCallConnected';
       await _methodChannel.invokeMethod(
-        '$_PROVIDER.reportOutgoingCallConnected',
+        '$_PROVIDER.$method',
         {'uuid': uuid, 'dateConnected': dateConnected?.toIso8601String()},
       );
-      _FCXLog._i('${runtimeType.toString()}.reportOutgoingCallConnected');
+      _FCXLog._i(runtimeType, '$method uuid: $uuid');
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
-      _FCXLog._e(exception);
+      _FCXLog._e(runtimeType, exception);
       throw exception;
     }
   }
@@ -366,11 +373,12 @@ class FCXProvider {
   /// The provider must be invalidated before it is deallocated.
   Future<void> invalidate() async {
     try {
-      await _methodChannel.invokeMethod('$_PROVIDER.invalidate');
-      _FCXLog._i('${runtimeType.toString()}.invalidate');
+      String method = 'invalidate';
+      await _methodChannel.invokeMethod('$_PROVIDER.$method');
+      _FCXLog._i(runtimeType, method);
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
-      _FCXLog._e(exception);
+      _FCXLog._e(runtimeType, exception);
       throw exception;
     }
   }
@@ -389,7 +397,7 @@ class FCXProvider {
     final Map<dynamic, dynamic> map = event;
     final String? eventName = map['event'];
 
-    _FCXLog._i('${runtimeType.toString()}.$eventName');
+    _FCXLog._i(runtimeType, eventName);
 
     if (eventName == 'providerDidBegin') {
       providerDidBegin?.call();
@@ -399,8 +407,7 @@ class FCXProvider {
       final FCXAction? action =
           _FCXActionMapDecodable._makeAction(map['action']);
       if (action == null) {
-        _FCXLog._w(
-            '${runtimeType.toString()} failed to decode action: ${map['action']}');
+        _FCXLog._w(runtimeType, 'failed to decode action: ${map['action']}');
       } else {
         timedOutPerformingAction?.call(action);
       }
@@ -419,7 +426,7 @@ class FCXProvider {
   Future<void> _processTransaction(FCXTransaction transaction) async {
     List<FCXAction> actions = await transaction.getActions();
     actions.forEach((a) {
-      _FCXLog._i('${runtimeType.toString()}.${a.runtimeType.toString()}');
+      _FCXLog._i(runtimeType, a.runtimeType.toString());
       if (a is FCXStartCallAction)
         performStartCallAction?.call(a);
       else if (a is FCXAnswerCallAction)
@@ -437,7 +444,7 @@ class FCXProvider {
       else {
         FCXException exception = FCXException('Wrong action type',
             'cant apply action ${a.runtimeType.toString()} ${a.uuid}');
-        _FCXLog._e(exception);
+        _FCXLog._e(runtimeType, exception);
         throw exception;
       }
     });
