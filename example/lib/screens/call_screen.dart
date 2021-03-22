@@ -79,7 +79,7 @@ class _CallScreenState extends State<CallScreen> {
     await _callService.hangup();
   }
 
-  void callChanged(Call call) {
+  void callChanged(Call? call) {
     if (call == null) {
       Navigator.pop(context);
     } else {

@@ -9,11 +9,11 @@ class ExampleList extends StatelessWidget {
   final Function(int) _removeHandler;
 
   ExampleList({
-    @required String title,
-    @required List<String> items,
-    @required Function addHandler,
-    @required Function(int) removeHandler,
-    @required Function doneHandler,
+    required String title,
+    required List<String> items,
+    required Function addHandler,
+    required Function(int) removeHandler,
+    required Function doneHandler,
   })  : this._title = title,
         this._items = items,
         this._addHandler = addHandler,
@@ -55,8 +55,8 @@ class ExampleList extends StatelessWidget {
             ),
           ),
         ),
-        ExampleButton('Add number', _addHandler),
-        ExampleButton('Done', _doneHandler),
+        ExampleButton('Add number', _addHandler as void Function()),
+        ExampleButton('Done', _doneHandler as void Function()),
         SizedBox(height: 20),
       ],
     );

@@ -16,7 +16,7 @@ class IdentifyListScreen extends StatefulWidget {
 class _IdentifyListScreenState extends State<IdentifyListScreen> {
   final CallService _callService = CallService();
   List<FCXIdentifiablePhoneNumber> _identifiedNumbers = [];
-  TextEditingController _textController;
+  TextEditingController? _textController;
 
   @override
   void initState() {
@@ -59,8 +59,9 @@ class _IdentifyListScreenState extends State<IdentifyListScreen> {
               textInputAction: TextInputAction.done,
               onEditingComplete: () async {
                 Navigator.pop(context);
-                String label = _textController.text;
-                _textController.text = '';
+                String? label = _textController?.text;
+                _textController?.text = '';
+                if (label == null) { return; }
                 try {
                   await _callService.addIdentifiedNumber(number, label);
                   await _refreshNumbers();
@@ -90,8 +91,9 @@ class _IdentifyListScreenState extends State<IdentifyListScreen> {
               textInputAction: TextInputAction.done,
               onEditingComplete: () async {
                 Navigator.pop(context);
-                String number = _textController.text;
-                _textController.text = '';
+                String? number = _textController?.text;
+                _textController?.text = '';
+                if (number == null) { return; }
                 await _enterlabel(number);
               },
               keyboardType: TextInputType.numberWithOptions(

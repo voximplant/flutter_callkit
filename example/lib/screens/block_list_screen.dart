@@ -15,7 +15,7 @@ class BlockListScreen extends StatefulWidget {
 class _BlockListScreenState extends State<BlockListScreen> {
   final CallService _callService = CallService();
   List<String> _blockedNumbers = [];
-  TextEditingController _textController;
+  TextEditingController? _textController;
 
   @override
   void initState() {
@@ -59,8 +59,9 @@ class _BlockListScreenState extends State<BlockListScreen> {
               textInputAction: TextInputAction.done,
               onEditingComplete: () async {
                 Navigator.pop(context);
-                String number = _textController.text;
-                _textController.text = '';
+                String? number = _textController?.text;
+                _textController?.text = '';
+                if (number == null) { return; }
                 try {
                   await _callService.addBlockedNumber(number);
                   await _refreshNumbers();
