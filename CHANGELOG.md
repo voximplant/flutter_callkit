@@ -1,3 +1,6 @@
+## 2.0.1
+- Add default values to FCXCallUpdate constructor
+
 ## 2.0.0
 - Migrate to null safety
 - Log output formatting improved
