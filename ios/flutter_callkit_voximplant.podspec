@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.summary          = 'Flutter SDK for CallKit integration to Flutter applications on iOS'
   s.homepage         = 'https://github.com/voximplant/flutter_callkit'
   s.license          = { :type => 'MIT',
-                         :file => '../LICENSE.md' }
+                         :file => '../LICENSE' }
   s.author           = { 'Zingaya Inc.' => 'mobiledev@zingaya.com'}
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
