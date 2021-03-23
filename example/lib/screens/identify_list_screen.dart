@@ -61,7 +61,9 @@ class _IdentifyListScreenState extends State<IdentifyListScreen> {
                 Navigator.pop(context);
                 String? label = _textController?.text;
                 _textController?.text = '';
-                if (label == null) { return; }
+                if (label == null) {
+                  return;
+                }
                 try {
                   await _callService.addIdentifiedNumber(number, label);
                   await _refreshNumbers();
@@ -93,7 +95,9 @@ class _IdentifyListScreenState extends State<IdentifyListScreen> {
                 Navigator.pop(context);
                 String? number = _textController?.text;
                 _textController?.text = '';
-                if (number == null) { return; }
+                if (number == null) {
+                  return;
+                }
                 await _enterlabel(number);
               },
               keyboardType: TextInputType.numberWithOptions(

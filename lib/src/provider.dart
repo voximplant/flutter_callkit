@@ -423,7 +423,7 @@ class FCXProvider {
     } else if (eventName == 'didActivateAudioSession') {
       providerDidActivateAudioSession?.call();
     } else if (eventName == 'didDeactivateAudioSession') {
-        providerDidDeactivateAudioSession?.call();
+      providerDidDeactivateAudioSession?.call();
     } else if (eventName == 'executeTransaction') {
       FCXTransaction transaction = FCXTransaction._fromMap(map['transaction']);
       if (executeTransaction == null || !executeTransaction!(transaction)) {

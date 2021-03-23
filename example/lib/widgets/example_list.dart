@@ -14,7 +14,7 @@ class ExampleList extends StatelessWidget {
     required Function addHandler,
     required Function(int) removeHandler,
     required Function doneHandler,
-  })  : this._title = title,
+  })   : this._title = title,
         this._items = items,
         this._addHandler = addHandler,
         this._removeHandler = removeHandler,

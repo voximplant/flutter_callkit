@@ -61,7 +61,9 @@ class _BlockListScreenState extends State<BlockListScreen> {
                 Navigator.pop(context);
                 String? number = _textController?.text;
                 _textController?.text = '';
-                if (number == null) { return; }
+                if (number == null) {
+                  return;
+                }
                 try {
                   await _callService.addBlockedNumber(number);
                   await _refreshNumbers();

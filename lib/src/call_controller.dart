@@ -54,8 +54,7 @@ class FCXCallController {
         '$_CALL_CONTROLLER.$method',
         action._toMap(),
       );
-      _FCXLog._i(
-          runtimeType, '$method: ${action.runtimeType}');
+      _FCXLog._i(runtimeType, '$method: ${action.runtimeType}');
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
       _FCXLog._e(runtimeType, exception);
