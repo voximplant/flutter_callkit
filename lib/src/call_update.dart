@@ -65,11 +65,11 @@ class FCXCallUpdate {
   FCXCallUpdate({
     this.remoteHandle,
     this.localizedCallerName,
-    required this.supportsHolding,
-    required this.supportsGrouping,
-    required this.supportsUngrouping,
-    required this.supportsDTMF,
-    required this.hasVideo,
+    this.supportsHolding = false,
+    this.supportsGrouping = false,
+    this.supportsUngrouping = false,
+    this.supportsDTMF = false,
+    this.hasVideo = false,
   });
 
   Map<String, dynamic> _toMap() => {
