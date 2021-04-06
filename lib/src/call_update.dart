@@ -83,11 +83,16 @@ class FCXCallUpdate {
       };
 
   FCXCallUpdate._fromMap(Map<dynamic, dynamic> map)
-      : this.remoteHandle = FCXHandle._fromMap(map['remoteHandle']),
+      : this.remoteHandle = _FCXNullableHandle._fromMap(map['remoteHandle']),
         this.localizedCallerName = map['localizedCallerName'],
         this.supportsHolding = map['supportsHolding'],
         this.supportsGrouping = map['supportsGrouping'],
         this.supportsUngrouping = map['supportsUngrouping'],
         this.supportsDTMF = map['supportsDTMF'],
         this.hasVideo = map['hasVideo'];
+}
+
+extension _FCXNullableHandle on FCXHandle {
+  static FCXHandle? _fromMap(Map<dynamic, dynamic>? map) =>
+      map == null ? null : FCXHandle._fromMap(map);
 }
