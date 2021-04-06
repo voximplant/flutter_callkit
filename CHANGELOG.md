@@ -1,3 +1,7 @@
+## 2.0.2
+- Resolve issue that causes exception throw when `FlutterCallkitPlugin.sharedInstance.reportNewIncomingCall`
+  called without `CXHandle` instance
+
 ## 2.0.1
 - Add default values to FCXCallUpdate constructor
 
