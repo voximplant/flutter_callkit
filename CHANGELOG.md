@@ -1,3 +1,6 @@
+## 2.0.2+1
+- Mention article "How we make Flutter work with CallKit Call Directory" in the README
+
 ## 2.0.2
 - Resolve issue that causes exception throw when `FlutterCallkitPlugin.sharedInstance.reportNewIncomingCall`
   called without `CXHandle` instance

@@ -4,6 +4,10 @@ Flutter SDK for CallKit integration to Flutter applications on iOS
 
 Supported on iOS >= 10
 
+> We wrote an article about the plugin - "How we make Flutter work with CallKit Call Directory".
+>
+> Available on [English](https://dev.to/imaximova/how-we-make-flutter-work-with-callkit-call-directory-5334) and [Russian](https://habr.com/ru/company/Voximplant/blog/553422/) languages.
+
 ## Install
 
 1. Add `flutter_callkit_voximplant` as a dependency in your pubspec.yaml file.
