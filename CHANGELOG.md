@@ -1,3 +1,6 @@
+## 2.0.2+2
+- Fix formatting issue
+
 ## 2.0.2+1
 - Mention article "How we make Flutter work with CallKit Call Directory" in the README
 

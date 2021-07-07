@@ -1,6 +1,6 @@
 PODS:
   - Flutter (1.0.0)
-  - flutter_callkit_voximplant (2.0.2+1):
+  - flutter_callkit_voximplant (2.0.2+2):
     - Flutter
 
 DEPENDENCIES:
