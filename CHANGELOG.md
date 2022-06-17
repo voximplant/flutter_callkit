@@ -1,3 +1,8 @@
+## 2.1.0
+- Remove ‘android’ folder to fix flutter project build for android with flutter version >= 2.0.0 https://github.com/voximplant/flutter_callkit/issues/26
+- Flutter version rise to >=2.0.0
+- Dart version rise to >=2.12.2
+
 ## 2.0.2+2
 - Fix formatting issue
 
