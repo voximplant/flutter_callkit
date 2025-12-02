@@ -166,6 +166,7 @@ NSString *const EVENT = @"event";
 }
 
 - (void)providerDidReset:(nonnull CXProvider *)provider {
+    self.provider = nil;
     if (self.eventSink) {
         self.eventSink(@{
             EVENT: @"providerDidReset",
