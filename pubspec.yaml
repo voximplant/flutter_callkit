@@ -5,7 +5,7 @@ homepage: https://github.com/voximplant/flutter_callkit
 repository: https://github.com/voximplant/flutter_callkit
 
 environment:
-  sdk: '>=2.12.2 <3.0.0'
+  sdk: '>=2.12.2 <4.0.0'
   flutter: ">=2.0.0"
 
 dependencies:
