@@ -1,3 +1,6 @@
+## 2.1.1
+- Add ability to recreate a native CXProvider after a CXProvider has been reset
+
 ## 2.1.0
 - Remove ‘android’ folder to fix flutter project build for android with flutter version >= 2.0.0 https://github.com/voximplant/flutter_callkit/issues/26
 - Flutter version rise to >=2.0.0
