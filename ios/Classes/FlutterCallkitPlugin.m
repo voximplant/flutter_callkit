@@ -310,6 +310,12 @@
     }];
 }
 
+- (void)reportCallWithUUID:(NSUUID *)UUID
+               endedAtDate:(nullable NSDate *)dateEnded
+                    reason:(CXCallEndedReason)endedReason {
+    [self.provider reportCallWithUUID:UUID endedAtDate:dateEnded reason:endedReason];
+}
+
 #pragma mark - FlutterStreamHandler -
 - (FlutterError * _Nullable)onCancelWithArguments:(id _Nullable)arguments {
     self.eventSink = nil;

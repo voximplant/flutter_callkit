@@ -31,6 +31,10 @@ API_AVAILABLE(ios(10.0))
                 providerConfiguration:(CXProviderConfiguration *)providerConfiguration
              pushProcessingCompletion:(nullable dispatch_block_t)pushProcessingCompletion;
 
+- (void)reportCallWithUUID:(NSUUID *)UUID
+               endedAtDate:(nullable NSDate *)dateEnded
+                    reason:(CXCallEndedReason)endedReason;
+
 - (instancetype)init NS_UNAVAILABLE;
 
 @end
