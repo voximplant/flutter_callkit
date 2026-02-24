@@ -1,3 +1,8 @@
+
+## 2.2.0
+- Add the native method [FlutterCallkitPlugin.reportCallWithUUID](https://github.com/voximplant/flutter_callkit/blob/6a98176a96e7e249e4cc14b446c4f09e68ff5a60/ios/Classes/FlutterCallkitPlugin.h#L34)
+  to end a CXCall from swift/objc ([#34](https://github.com/voximplant/flutter_callkit/issues/34))
+
 ## 2.1.1
 - Add ability to recreate a native CXProvider after a CXProvider has been reset
 
