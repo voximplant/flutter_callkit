@@ -11,9 +11,15 @@ let package = Package(
     products: [
         .library(name: "flutter-callkit-voximplant", targets: ["flutter_callkit_voximplant"])
     ],
+    dependencies: [
+        .package(name: "FlutterFramework", path: "../FlutterFramework")
+    ],
     targets: [
         .target(
             name: "flutter_callkit_voximplant",
+            dependencies: [
+                .product(name: "FlutterFramework", package: "FlutterFramework")
+            ],
             cSettings: [
                 .headerSearchPath("include/flutter_callkit_voximplant")
             ]
