@@ -63,8 +63,6 @@ extension _FCXLogTypePrefix on _FCXLogType {
         return 'WARNING';
       case _FCXLogType._info:
         return 'INFO';
-      default:
-        return '';
     }
   }
 }

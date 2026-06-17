@@ -216,7 +216,6 @@ class CallService {
       case FCXCallDirectoryManagerEnabledStatus.enabled:
         return 'Enabled';
       case FCXCallDirectoryManagerEnabledStatus.unknown:
-      default:
         return 'Unknown';
     }
   }
