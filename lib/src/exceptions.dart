@@ -1,6 +1,6 @@
-///  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+// Copyright (c) 2011 - 2026, Voximplant, Inc. All rights reserved.
 
-part of flutter_callkit_voximplant;
+part of 'package:flutter_callkit_voximplant/flutter_callkit_voximplant.dart';
 
 class FCXException implements Exception {
   final String code;

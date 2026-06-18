@@ -1,6 +1,6 @@
-///  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+// Copyright (c) 2011 - 2026, Voximplant, Inc. All rights reserved.
 
-part of flutter_callkit_voximplant;
+part of 'package:flutter_callkit_voximplant/flutter_callkit_voximplant.dart';
 
 /// The types of events that generate dial tones.
 enum FCXPlayDTMFCallActionType {
@@ -55,15 +55,14 @@ class FCXPlayDTMFCallAction extends FCXCallAction {
 
   /// Initializes a new action for a call identified by a given uuid,
   /// as well as a specified type and sequence of digits.
-  FCXPlayDTMFCallAction(String callUuid, this.digits, this.type)
-      : super(callUuid);
+  FCXPlayDTMFCallAction(super.callUuid, this.digits, this.type);
 
-  FCXPlayDTMFCallAction._fromMap(Map<dynamic, dynamic> map)
-      : this.digits = map['digits'],
-        this.type =
-            FCXPlayDTMFCallActionType.values[map['playDTMFCallActionType']],
-        super._fromMap(map);
+  FCXPlayDTMFCallAction._fromMap(super.map)
+      : digits = map['digits'],
+        type = FCXPlayDTMFCallActionType.values[map['playDTMFCallActionType']],
+        super._fromMap();
 
+  @override
   Map<String, dynamic> _toMap() {
     var map = super._toMap();
     map.addAll({'digits': digits, 'playDTMFCallActionType': type.index});

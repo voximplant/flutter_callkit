@@ -1,6 +1,6 @@
-///  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+// Copyright (c) 2011 - 2026, Voximplant, Inc. All rights reserved.
 
-part of flutter_callkit_voximplant;
+part of 'package:flutter_callkit_voximplant/flutter_callkit_voximplant.dart';
 
 /// Dart representation of `CXCallDirectoryManager.EnabledStatus`
 /// from iOS CallKit Framework.
@@ -31,7 +31,7 @@ class FCXCallDirectoryManager {
     try {
       String method = 'getEnabledStatus';
       int index = await _methodChannel.invokeMethod(
-        '$_PLUGIN.$method',
+        '$_plugin.$method',
         extensionIdentifier,
       );
       _FCXLog._i(_self, method);
@@ -50,7 +50,7 @@ class FCXCallDirectoryManager {
     try {
       String method = 'reloadExtension';
       await _methodChannel.invokeMethod(
-        '$_PLUGIN.$method',
+        '$_plugin.$method',
         extensionIdentifier,
       );
       _FCXLog._i(_self, method);
@@ -72,7 +72,7 @@ class FCXCallDirectoryManager {
     try {
       String method = 'openSettings';
       await _methodChannel.invokeMethod(
-        '$_PLUGIN.$method',
+        '$_plugin.$method',
       );
       _FCXLog._i(_self, method);
     } on PlatformException catch (e) {

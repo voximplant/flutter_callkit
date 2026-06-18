@@ -1,6 +1,6 @@
-///  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+// Copyright (c) 2011 - 2026, Voximplant, Inc. All rights reserved.
 
-part of flutter_callkit_voximplant;
+part of 'package:flutter_callkit_voximplant/flutter_callkit_voximplant.dart';
 
 /// Dart representation of CXSetMutedCallAction from iOS CallKit Framework.
 ///
@@ -21,12 +21,13 @@ class FCXSetMutedCallAction extends FCXCallAction {
 
   /// Initializes a new action for a call identified by a given uuid,
   /// as well as whether the call is muted.
-  FCXSetMutedCallAction(String callUuid, this.muted) : super(callUuid);
+  FCXSetMutedCallAction(super.callUuid, this.muted);
 
-  FCXSetMutedCallAction._fromMap(Map<dynamic, dynamic> map)
-      : this.muted = map['muted'],
-        super._fromMap(map);
+  FCXSetMutedCallAction._fromMap(super.map)
+      : muted = map['muted'],
+        super._fromMap();
 
+  @override
   Map<String, dynamic> _toMap() {
     var map = super._toMap();
     map.addAll({'muted': muted});

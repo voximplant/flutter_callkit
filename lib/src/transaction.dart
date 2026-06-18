@@ -1,6 +1,6 @@
-///  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+// Copyright (c) 2011 - 2026, Voximplant, Inc. All rights reserved.
 
-part of flutter_callkit_voximplant;
+part of 'package:flutter_callkit_voximplant/flutter_callkit_voximplant.dart';
 
 /// Dart representation of CXTransaction from iOS CallKit Framework.
 ///
@@ -18,7 +18,7 @@ class FCXTransaction {
     try {
       String method = 'getActions';
       var data = await _methodChannel.invokeListMethod<Map>(
-        '$_TRANSACTION.$method',
+        '$_transaction.$method',
         {'transactionUuid': uuid},
       );
       _FCXLog._i(runtimeType, method);
@@ -44,6 +44,6 @@ class FCXTransaction {
   }
 
   FCXTransaction._fromMap(Map<dynamic, dynamic> data)
-      : this.uuid = data['uuid'],
-        this.complete = data['complete'];
+      : uuid = data['uuid'],
+        complete = data['complete'];
 }

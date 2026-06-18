@@ -1,11 +1,14 @@
-///  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+// Copyright (c) 2011 - 2026, Voximplant, Inc. All rights reserved.
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_callkit_example/call_service.dart';
 import 'package:flutter_callkit_example/theme/example_colors.dart';
 import 'package:flutter_callkit_example/widgets/example_list.dart';
 
 class BlockListScreen extends StatefulWidget {
+  const BlockListScreen({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return _BlockListScreenState();
@@ -35,7 +38,7 @@ class _BlockListScreenState extends State<BlockListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    void _removeHandler(int index) async {
+    void removeHandler(int index) async {
       Navigator.pop(context);
       String selectedNumber = _blockedNumbers[index];
       _callService.removeBlockedNumber(selectedNumber);
@@ -43,11 +46,11 @@ class _BlockListScreenState extends State<BlockListScreen> {
       await _refreshNumbers();
     }
 
-    void _doneHandler() {
+    void doneHandler() {
       Navigator.of(context).pop();
     }
 
-    Future<void> _addHandler() {
+    Future<void> addHandler() {
       return showCupertinoDialog(
         context: context,
         builder: (context) {
@@ -68,10 +71,12 @@ class _BlockListScreenState extends State<BlockListScreen> {
                   await _callService.addBlockedNumber(number);
                   await _refreshNumbers();
                 } catch (e) {
-                  print('Error occured during adding: $e');
+                  if (kDebugMode) {
+                    debugPrint('Error occured during adding: $e');
+                  }
                 }
               },
-              keyboardType: TextInputType.numberWithOptions(
+              keyboardType: const TextInputType.numberWithOptions(
                 signed: true,
                 decimal: true,
               ),
@@ -86,9 +91,9 @@ class _BlockListScreenState extends State<BlockListScreen> {
       child: ExampleList(
         title: 'Block List',
         items: _blockedNumbers,
-        addHandler: _addHandler,
-        removeHandler: _removeHandler,
-        doneHandler: _doneHandler,
+        addHandler: addHandler,
+        removeHandler: removeHandler,
+        doneHandler: doneHandler,
       ),
     );
   }

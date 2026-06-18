@@ -1,6 +1,6 @@
-///  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+// Copyright (c) 2011 - 2026, Voximplant, Inc. All rights reserved.
 
-part of flutter_callkit_voximplant;
+part of 'package:flutter_callkit_voximplant/flutter_callkit_voximplant.dart';
 
 /// Dart representation of CXCallUpdate from iOS CallKit Framework.
 ///
@@ -83,13 +83,13 @@ class FCXCallUpdate {
       };
 
   FCXCallUpdate._fromMap(Map<dynamic, dynamic> map)
-      : this.remoteHandle = _FCXNullableHandle._fromMap(map['remoteHandle']),
-        this.localizedCallerName = map['localizedCallerName'],
-        this.supportsHolding = map['supportsHolding'],
-        this.supportsGrouping = map['supportsGrouping'],
-        this.supportsUngrouping = map['supportsUngrouping'],
-        this.supportsDTMF = map['supportsDTMF'],
-        this.hasVideo = map['hasVideo'];
+      : remoteHandle = _FCXNullableHandle._fromMap(map['remoteHandle']),
+        localizedCallerName = map['localizedCallerName'],
+        supportsHolding = map['supportsHolding'],
+        supportsGrouping = map['supportsGrouping'],
+        supportsUngrouping = map['supportsUngrouping'],
+        supportsDTMF = map['supportsDTMF'],
+        hasVideo = map['hasVideo'];
 }
 
 extension _FCXNullableHandle on FCXHandle {

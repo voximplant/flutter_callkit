@@ -1,4 +1,4 @@
-///  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+// Copyright (c) 2011 - 2026, Voximplant, Inc. All rights reserved.
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_callkit_example/screens/call_directory_menu_screen.dart';
@@ -10,29 +10,37 @@ import 'package:flutter_callkit_example/theme/example_colors.dart';
 class MainScreen extends StatelessWidget {
   final CallService _callService = CallService();
 
+  MainScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
-    Future<void> _incomingCall() async {
+    Future<void> incomingCall() async {
       await _callService.emulateIncomingCall('1111');
+      if (!context.mounted) {
+        return;
+      }
       Navigator.push(
         context,
-        PageRouteBuilder(pageBuilder: (_, a1, a2) => CallScreen(false)),
+        PageRouteBuilder(pageBuilder: (_, a1, a2) => const CallScreen(false)),
       );
     }
 
-    Future<void> _delayedIncomingCall() async {
-      await Future.delayed(Duration(seconds: 3), _incomingCall);
+    Future<void> delayedIncomingCall() async {
+      await Future.delayed(const Duration(seconds: 3), incomingCall);
     }
 
-    Future<void> _outgoingCall() async {
+    Future<void> outgoingCall() async {
       await _callService.emulateOutgoingCall('1111');
+      if (!context.mounted) {
+        return;
+      }
       Navigator.push(
         context,
-        PageRouteBuilder(pageBuilder: (_, a1, a2) => CallScreen(true)),
+        PageRouteBuilder(pageBuilder: (_, a1, a2) => const CallScreen(true)),
       );
     }
 
-    Future<void> _callDirectory() async {
+    void callDirectory() {
       Navigator.push(
         context,
         PageRouteBuilder(
@@ -45,8 +53,8 @@ class MainScreen extends StatelessWidget {
       backgroundColor: ExampleColors.primary,
       child: Column(
         children: [
-          SizedBox(height: 60),
-          Expanded(
+          const SizedBox(height: 60),
+          const Expanded(
             child: Align(
               alignment: Alignment.center,
               child: Text(
@@ -55,17 +63,17 @@ class MainScreen extends StatelessWidget {
               ),
             ),
           ),
-          ExampleButton('Outgoing call', _outgoingCall),
-          ExampleButton('Incoming call', _incomingCall),
-          ExampleButton('Delayed incoming call', _delayedIncomingCall),
-          ExampleButton('CallDirectory', _callDirectory),
+          ExampleButton('Outgoing call', outgoingCall),
+          ExampleButton('Incoming call', incomingCall),
+          ExampleButton('Delayed incoming call', delayedIncomingCall),
+          ExampleButton('CallDirectory', callDirectory),
           Expanded(
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Image.asset('assets/voxlogo.png', width: 200.0),
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
         ],
       ),
     );

@@ -1,6 +1,6 @@
-///  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+// Copyright (c) 2011 - 2026, Voximplant, Inc. All rights reserved.
 
-part of flutter_callkit_voximplant;
+part of 'package:flutter_callkit_voximplant/flutter_callkit_voximplant.dart';
 
 /// The possible types of handles.
 enum FCXHandleType {
@@ -45,8 +45,8 @@ class FCXHandle {
   FCXHandle(this.type, this.value);
 
   FCXHandle._fromMap(Map<dynamic, dynamic> map)
-      : this.type = FCXHandleType.values[map['type']],
-        this.value = map['value'];
+      : type = FCXHandleType.values[map['type']],
+        value = map['value'];
 
   Map<String, dynamic> _toMap() => {'type': type.index, 'value': value};
 }

@@ -1,6 +1,6 @@
-///  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+// Copyright (c) 2011 - 2026, Voximplant, Inc. All rights reserved.
 
-part of flutter_callkit_voximplant;
+part of 'package:flutter_callkit_voximplant/flutter_callkit_voximplant.dart';
 
 /// Dart representation of CXAnswerCallAction from iOS CallKit Framework.
 ///
@@ -15,7 +15,7 @@ part of flutter_callkit_voximplant;
 /// you can instead call the [FCXAnswerCallAction.fulfillWithDateConnected].
 class FCXAnswerCallAction extends FCXCallAction {
   /// Initializes a new action for a call identified by a given uuid.
-  FCXAnswerCallAction(String callUuid) : super(callUuid);
+  FCXAnswerCallAction(super.callUuid);
 
   /// Reports the successful execution of the action at the specified time.
   /// A call is considered connected when both caller
@@ -24,7 +24,7 @@ class FCXAnswerCallAction extends FCXCallAction {
     try {
       String method = 'fulfillWithDateConnected';
       await _methodChannel.invokeMethod(
-        '$_ACTION.$method',
+        '$_action.$method',
         <String, dynamic>{
           'uuid': uuid,
           'dateConnected': dateConnected.toIso8601String()
@@ -38,5 +38,5 @@ class FCXAnswerCallAction extends FCXCallAction {
     }
   }
 
-  FCXAnswerCallAction._fromMap(Map<dynamic, dynamic> map) : super._fromMap(map);
+  FCXAnswerCallAction._fromMap(super.map) : super._fromMap();
 }

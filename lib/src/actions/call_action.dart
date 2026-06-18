@@ -1,6 +1,6 @@
-///  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+// Copyright (c) 2011 - 2026, Voximplant, Inc. All rights reserved.
 
-part of flutter_callkit_voximplant;
+part of 'package:flutter_callkit_voximplant/flutter_callkit_voximplant.dart';
 
 /// Dart representation of CXCallAction from iOS CallKit Framework.
 ///
@@ -26,10 +26,11 @@ abstract class FCXCallAction extends FCXAction {
   /// Initializes a new action for a call identified by a given uuid.
   FCXCallAction(this.callUuid);
 
-  FCXCallAction._fromMap(Map<dynamic, dynamic> map)
-      : this.callUuid = map['callUuid'],
-        super._fromMap(map);
+  FCXCallAction._fromMap(super.map)
+      : callUuid = map['callUuid'],
+        super._fromMap();
 
+  @override
   Map<String, dynamic> _toMap() {
     var map = super._toMap();
     map.addAll({'callUuid': callUuid});

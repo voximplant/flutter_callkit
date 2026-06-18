@@ -1,16 +1,16 @@
-///  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+// Copyright (c) 2011 - 2026, Voximplant, Inc. All rights reserved.
 
-part of flutter_callkit_voximplant;
+part of 'package:flutter_callkit_voximplant/flutter_callkit_voximplant.dart';
 
 /// Signature for callbacks reporting when the provider begins.
 ///
 /// Used in [FCXProvider].
-typedef void FCXProviderDidBegin();
+typedef FCXProviderDidBegin = void Function();
 
 /// Signature for callbacks reporting when the provider is reset.
 ///
 /// Used in [FCXProvider].
-typedef void FCXProviderDidReset();
+typedef FCXProviderDidReset = void Function();
 
 /// Signature for callbacks reporting when a transaction
 /// is executed by a call controller.
@@ -31,49 +31,53 @@ typedef void FCXProviderDidReset();
 /// and play hold music to the caller.
 ///
 /// Used in [FCXProvider].
-typedef bool FCXExecuteTransaction(FCXTransaction transaction);
+typedef FCXExecuteTransaction = bool Function(FCXTransaction transaction);
 
 /// Signature for callbacks reporting when the provider
 /// performs the specified start call action.
 ///
 /// Used in [FCXProvider].
-typedef void FCXPerformStartCallAction(FCXStartCallAction action);
+typedef FCXPerformStartCallAction = void Function(FCXStartCallAction action);
 
 /// Signature for callbacks reporting when the provider
 /// performs the specified answer call action.
 ///
 /// Used in [FCXProvider].
-typedef void FCXPerformAnswerCallAction(FCXAnswerCallAction action);
+typedef FCXPerformAnswerCallAction = void Function(FCXAnswerCallAction action);
 
 /// Signature for callbacks reporting when the provider
 /// performs the specified end call action.
 ///
 /// Used in [FCXProvider].
-typedef void FCXPerformEndCallAction(FCXEndCallAction action);
+typedef FCXPerformEndCallAction = void Function(FCXEndCallAction action);
 
 /// Signature for callbacks reporting when the provider
 /// performs the specified set held call action.
 ///
 /// Used in [FCXProvider].
-typedef void FCXPerformSetHeldCallAction(FCXSetHeldCallAction action);
+typedef FCXPerformSetHeldCallAction = void Function(
+    FCXSetHeldCallAction action);
 
 /// Signature for callbacks reporting when the provider
 /// performs the specified set muted call action.
 ///
 /// Used in [FCXProvider].
-typedef void FCXPerformSetMutedCallAction(FCXSetMutedCallAction action);
+typedef FCXPerformSetMutedCallAction = void Function(
+    FCXSetMutedCallAction action);
 
 /// Signature for callbacks reporting when the provider
 /// performs the specified set group call action.
 ///
 /// Used in [FCXProvider].
-typedef void FCXPerformSetGroupCallAction(FCXSetGroupCallAction action);
+typedef FCXPerformSetGroupCallAction = void Function(
+    FCXSetGroupCallAction action);
 
 /// Signature for callbacks reporting when the provider
 /// performs the specified play DTMF (dual tone multifrequency) call action.
 ///
 /// Used in [FCXProvider].
-typedef void FCXPerformPlayDTMFCallAction(FCXPlayDTMFCallAction action);
+typedef FCXPerformPlayDTMFCallAction = void Function(
+    FCXPlayDTMFCallAction action);
 
 /// Signature for callbacks reporting when the provider
 /// performs the specified action times out.
@@ -83,19 +87,19 @@ typedef void FCXPerformPlayDTMFCallAction(FCXPlayDTMFCallAction action);
 /// or failed by the provider delegate.
 ///
 /// Used in [FCXProvider].
-typedef void FCXTimedOutPerformingAction(FCXAction action);
+typedef FCXTimedOutPerformingAction = void Function(FCXAction action);
 
 /// Signature for callbacks reporting when the provider’s
 /// audio session is activated.
 ///
 /// Used in [FCXProvider].
-typedef void FCXProviderDidActivateAudioSession();
+typedef FCXProviderDidActivateAudioSession = void Function();
 
 /// Signature for callbacks reporting when the provider’s
 /// audio session is deactivated.
 ///
 /// Used in [FCXProvider].
-typedef void FCXProviderDidDeactivateAudioSession();
+typedef FCXProviderDidDeactivateAudioSession = void Function();
 
 /// Reasons for a call to end, as reported by the [FCXProvider.reportCallEnded].
 ///
@@ -211,7 +215,7 @@ class FCXProvider {
     try {
       String method = 'configure';
       await _methodChannel.invokeMethod(
-        '$_PROVIDER.$method',
+        '$_provider.$method',
         configuration._toMap(),
       );
       _configuration = configuration;
@@ -228,7 +232,7 @@ class FCXProvider {
     try {
       String method = 'getPendingTransactions';
       var data = await _methodChannel.invokeListMethod<Map>(
-        '$_PROVIDER.$method',
+        '$_provider.$method',
       );
       _FCXLog._i(runtimeType, method);
       if (data == null) {
@@ -258,7 +262,7 @@ class FCXProvider {
     try {
       String method = 'reportNewIncomingCall';
       await _methodChannel.invokeMethod(
-        '$_PROVIDER.$method',
+        '$_provider.$method',
         {'uuid': uuid, 'callUpdate': update._toMap()},
       );
       _FCXLog._i(runtimeType, '$method uuid: $uuid');
@@ -279,7 +283,7 @@ class FCXProvider {
     try {
       String method = 'reportCallUpdated';
       await _methodChannel.invokeMethod(
-        '$_PROVIDER.$method',
+        '$_provider.$method',
         {'uuid': uuid, 'callUpdate': update._toMap()},
       );
       _FCXLog._i(runtimeType, '$method uuid: $uuid');
@@ -307,7 +311,7 @@ class FCXProvider {
   ) async {
     try {
       String method = 'reportCallEnded';
-      await _methodChannel.invokeMethod('$_PROVIDER.$method', {
+      await _methodChannel.invokeMethod('$_provider.$method', {
         'uuid': uuid,
         'dateEnded': dateEnded?.toIso8601String(),
         'endedReason': endedReason.index,
@@ -334,7 +338,7 @@ class FCXProvider {
   ) async {
     try {
       String method = 'reportOutgoingCall';
-      await _methodChannel.invokeMethod('$_PROVIDER.$method', {
+      await _methodChannel.invokeMethod('$_provider.$method', {
         'uuid': uuid,
         'dateStartedConnecting': dateStartedConnecting?.toIso8601String(),
       });
@@ -364,7 +368,7 @@ class FCXProvider {
     try {
       String method = 'reportOutgoingCallConnected';
       await _methodChannel.invokeMethod(
-        '$_PROVIDER.$method',
+        '$_provider.$method',
         {'uuid': uuid, 'dateConnected': dateConnected?.toIso8601String()},
       );
       _FCXLog._i(runtimeType, '$method uuid: $uuid');
@@ -383,7 +387,7 @@ class FCXProvider {
   Future<void> invalidate() async {
     try {
       String method = 'invalidate';
-      await _methodChannel.invokeMethod('$_PROVIDER.$method');
+      await _methodChannel.invokeMethod('$_provider.$method');
       _FCXLog._i(runtimeType, method);
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
@@ -396,7 +400,7 @@ class FCXProvider {
   static FCXProvider? _cache;
 
   FCXProvider._internal() {
-    EventChannel('plugins.voximplant.com/provider_events')
+    const EventChannel('plugins.voximplant.com/provider_events')
         .receiveBroadcastStream()
         .listen(_eventListener);
     _cache = this;
@@ -434,28 +438,28 @@ class FCXProvider {
 
   Future<void> _processTransaction(FCXTransaction transaction) async {
     List<FCXAction> actions = await transaction.getActions();
-    actions.forEach((a) {
+    for (var a in actions) {
       _FCXLog._i(runtimeType, a.runtimeType.toString());
-      if (a is FCXStartCallAction)
+      if (a is FCXStartCallAction) {
         performStartCallAction?.call(a);
-      else if (a is FCXAnswerCallAction)
+      } else if (a is FCXAnswerCallAction) {
         performAnswerCallAction?.call(a);
-      else if (a is FCXEndCallAction)
+      } else if (a is FCXEndCallAction) {
         performEndCallAction?.call(a);
-      else if (a is FCXSetHeldCallAction)
+      } else if (a is FCXSetHeldCallAction) {
         performSetHeldCallAction?.call(a);
-      else if (a is FCXSetMutedCallAction)
+      } else if (a is FCXSetMutedCallAction) {
         performSetMutedCallAction?.call(a);
-      else if (a is FCXSetGroupCallAction)
+      } else if (a is FCXSetGroupCallAction) {
         performSetGroupCallAction?.call(a);
-      else if (a is FCXPlayDTMFCallAction)
+      } else if (a is FCXPlayDTMFCallAction) {
         performPlayDTMFCallAction?.call(a);
-      else {
+      } else {
         FCXException exception = FCXException('Wrong action type',
             'cant apply action ${a.runtimeType.toString()} ${a.uuid}');
         _FCXLog._e(runtimeType, exception);
         throw exception;
       }
-    });
+    }
   }
 }

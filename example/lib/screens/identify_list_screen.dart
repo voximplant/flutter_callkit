@@ -1,12 +1,15 @@
-///  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+// Copyright (c) 2011 - 2026, Voximplant, Inc. All rights reserved.
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_callkit_voximplant/flutter_callkit_voximplant.dart';
 import 'package:flutter_callkit_example/call_service.dart';
 import 'package:flutter_callkit_example/theme/example_colors.dart';
 import 'package:flutter_callkit_example/widgets/example_list.dart';
 
 class IdentifyListScreen extends StatefulWidget {
+  const IdentifyListScreen({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return _IdentifyListScreenState();
@@ -36,18 +39,18 @@ class _IdentifyListScreenState extends State<IdentifyListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    void _removeHandler(int index) async {
+    void removeHandler(int index) async {
       Navigator.pop(context);
       FCXIdentifiablePhoneNumber selectedNumber = _identifiedNumbers[index];
       _callService.removeIdentifiedNumber(selectedNumber.number);
       await _refreshNumbers();
     }
 
-    void _doneHandler() {
+    void doneHandler() {
       Navigator.of(context).pop();
     }
 
-    Future<void> _enterlabel(String number) {
+    Future<void> enterlabel(String number) {
       return showCupertinoDialog(
         context: context,
         builder: (context) {
@@ -68,10 +71,12 @@ class _IdentifyListScreenState extends State<IdentifyListScreen> {
                   await _callService.addIdentifiedNumber(number, label);
                   await _refreshNumbers();
                 } catch (e) {
-                  print('Error occured during adding: $e');
+                  if (kDebugMode) {
+                    debugPrint('Error occured during adding: $e');
+                  }
                 }
               },
-              keyboardType: TextInputType.numberWithOptions(
+              keyboardType: const TextInputType.numberWithOptions(
                 signed: true,
                 decimal: true,
               ),
@@ -81,7 +86,7 @@ class _IdentifyListScreenState extends State<IdentifyListScreen> {
       );
     }
 
-    Future<void> _addHandler() {
+    Future<void> addHandler() {
       return showCupertinoDialog(
         context: context,
         builder: (context) {
@@ -98,9 +103,9 @@ class _IdentifyListScreenState extends State<IdentifyListScreen> {
                 if (number == null) {
                   return;
                 }
-                await _enterlabel(number);
+                await enterlabel(number);
               },
-              keyboardType: TextInputType.numberWithOptions(
+              keyboardType: const TextInputType.numberWithOptions(
                 signed: true,
                 decimal: true,
               ),
@@ -117,9 +122,9 @@ class _IdentifyListScreenState extends State<IdentifyListScreen> {
         items: _identifiedNumbers
             .map((e) => '${e.number.toString()} - ${e.label}')
             .toList(),
-        addHandler: _addHandler,
-        removeHandler: _removeHandler,
-        doneHandler: _doneHandler,
+        addHandler: addHandler,
+        removeHandler: removeHandler,
+        doneHandler: doneHandler,
       ),
     );
   }

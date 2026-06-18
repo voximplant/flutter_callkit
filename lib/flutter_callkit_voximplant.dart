@@ -1,6 +1,4 @@
-///  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
-
-library flutter_callkit_voximplant;
+// Copyright (c) 2011 - 2026, Voximplant, Inc. All rights reserved.
 
 import 'dart:async';
 import 'package:flutter/foundation.dart';
@@ -39,7 +37,8 @@ part 'src/call_directory/identifiable_phone_number.dart';
 /// reportNewIncomingCallWithUUID method in native code.
 ///
 /// Used in [FCXPlugin].
-typedef void FCXDidDisplayIncomingCall(String uuid, FCXCallUpdate callUpdate);
+typedef FCXDidDisplayIncomingCall = void Function(
+    String uuid, FCXCallUpdate callUpdate);
 
 /// The entry point of the Flutter CallKit SDK.
 class FCXPlugin {
@@ -53,7 +52,7 @@ class FCXPlugin {
   Future<void> processPushCompletion() async {
     try {
       String method = 'processPushCompletion';
-      await _methodChannel.invokeMethod('$_PLUGIN.$method');
+      await _methodChannel.invokeMethod('$_plugin.$method');
       _FCXLog._i(runtimeType, '$method done');
     } on PlatformException catch (e) {
       _FCXLog._w(runtimeType, e.message);
@@ -64,7 +63,7 @@ class FCXPlugin {
   static FCXPlugin? _cache;
 
   FCXPlugin._internal() {
-    EventChannel('plugins.voximplant.com/plugin_events')
+    const EventChannel('plugins.voximplant.com/plugin_events')
         .receiveBroadcastStream()
         .listen(_eventListener);
     _cache = this;
@@ -83,10 +82,10 @@ class FCXPlugin {
 }
 
 const MethodChannel _methodChannel =
-    const MethodChannel('plugins.voximplant.com/flutter_callkit');
+    MethodChannel('plugins.voximplant.com/flutter_callkit');
 
-const String _PLUGIN = 'Plugin';
-const String _PROVIDER = 'Provider';
-const String _CALL_CONTROLLER = 'CallController';
-const String _ACTION = 'Action';
-const String _TRANSACTION = 'Transaction';
+const String _plugin = 'Plugin';
+const String _provider = 'Provider';
+const String _callController = 'CallController';
+const String _action = 'Action';
+const String _transaction = 'Transaction';
