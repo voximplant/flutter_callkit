@@ -44,14 +44,16 @@ class _CallScreenState extends State<CallScreen> {
             Text(
               '${widget.outgoing ? 'Outgoing' : 'Incoming'} call in progress',
               textAlign: TextAlign.center,
-              style: const TextStyle(color: CupertinoColors.white, fontSize: 30),
+              style:
+                  const TextStyle(color: CupertinoColors.white, fontSize: 30),
             ),
             const SizedBox(height: 20),
             SizedBox(
               height: 100,
               child: Text(
                 _callService.callerName ?? '',
-                style: const TextStyle(color: CupertinoColors.white, fontSize: 25),
+                style:
+                    const TextStyle(color: CupertinoColors.white, fontSize: 25),
               ),
             ),
             ExampleButton(_muted ? 'Unmute' : 'Mute', _muteOnTouch),
