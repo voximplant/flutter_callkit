@@ -1,3 +1,6 @@
+## 2.3.0
+- Compatibility with Flutter 3.44/Dart 3.12 and SPM support
+- Update minimum iOS deployment target to 12.0
 
 ## 2.2.0
 - Add the native method [FlutterCallkitPlugin.reportCallWithUUID](https://github.com/voximplant/flutter_callkit/blob/6a98176a96e7e249e4cc14b446c4f09e68ff5a60/ios/Classes/FlutterCallkitPlugin.h#L34)
