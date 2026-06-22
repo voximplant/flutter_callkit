@@ -1,6 +1,6 @@
-///  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+// Copyright (c) 2011 - 2026, Voximplant, Inc. All rights reserved.
 
-part of flutter_callkit_voximplant;
+part of 'package:flutter_callkit_voximplant/flutter_callkit_voximplant.dart';
 
 /// Dart representation of CXEndCallAction from iOS CallKit Framework.
 ///
@@ -15,14 +15,14 @@ part of flutter_callkit_voximplant;
 /// you can instead call the [FCXEndCallAction.fulfillWithDateEnded].
 class FCXEndCallAction extends FCXCallAction {
   /// Initializes a new action for a call identified by a given uuid.
-  FCXEndCallAction(String callUuid) : super(callUuid);
+  FCXEndCallAction(super.callUuid);
 
   /// Reports the successful execution of the action at the specified time.
   Future<void> fulfillWithDateEnded(DateTime dateEnded) async {
     try {
       String method = 'fulfillWithDateEnded';
       await _methodChannel.invokeMethod(
-        '$_ACTION.$method',
+        '$_action.$method',
         {'uuid': uuid, 'dateEnded': dateEnded.toIso8601String()},
       );
       _FCXLog._i(runtimeType, method);
@@ -33,5 +33,5 @@ class FCXEndCallAction extends FCXCallAction {
     }
   }
 
-  FCXEndCallAction._fromMap(Map<dynamic, dynamic> map) : super._fromMap(map);
+  FCXEndCallAction._fromMap(super.map) : super._fromMap();
 }

@@ -1,8 +1,15 @@
 # flutter_callkit_example
 
-Demonstrates how to use the flutter_callkit plugin.
+Demonstrates how to use the flutter_callkit plugin on iOS.
 Creates and manages CallKit call using Flutter CallKit SDK.
-Implements iOS CallDirectory App Extension 
+Implements iOS CallDirectory App Extension
+
+## Quick Start
+
+```bash
+flutter pub get
+flutter run
+```
 
 ## Features
 

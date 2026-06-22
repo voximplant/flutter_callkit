@@ -1,11 +1,11 @@
-///  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+// Copyright (c) 2011 - 2026, Voximplant, Inc. All rights reserved.
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_callkit_example/call_service.dart';
 import 'package:flutter_callkit_example/screens/block_list_screen.dart';
 import 'package:flutter_callkit_example/screens/identify_list_screen.dart';
-import 'package:flutter_callkit_example/widgets/example_button.dart';
 import 'package:flutter_callkit_example/theme/example_colors.dart';
+import 'package:flutter_callkit_example/widgets/example_button.dart';
 
 class CallDirectoryMenuScreen extends StatelessWidget {
   final CallService _callService = CallService();
@@ -14,31 +14,36 @@ class CallDirectoryMenuScreen extends StatelessWidget {
     text: 'Unknown',
   );
 
+  CallDirectoryMenuScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
-    void _blockedNumbersHandler() => Navigator.push(
+    void blockedNumbersHandler() => Navigator.push(
           context,
           PageRouteBuilder(
-            pageBuilder: (_, a1, a2) => BlockListScreen(),
+            pageBuilder: (_, a1, a2) => const BlockListScreen(),
           ),
         );
 
-    void _identifiedNumbersHandler() => Navigator.push(
+    void identifiedNumbersHandler() => Navigator.push(
           context,
           PageRouteBuilder(
-            pageBuilder: (_, a1, a2) => IdentifyListScreen(),
+            pageBuilder: (_, a1, a2) => const IdentifyListScreen(),
           ),
         );
 
-    Future<void> _openSettingsHandler() async =>
+    Future<void> openSettingsHandler() async =>
         await _callService.openSettings();
 
-    Future<void> _reloadExtensionHandler() async =>
+    Future<void> reloadExtensionHandler() async =>
         await _callService.reloadExtension();
 
-    Future<void> _getStatusHandler() async {
+    Future<void> getStatusHandler() async {
       String status = await _callService.getExtensionStatus();
       _textController.text = status;
+      if (!context.mounted) {
+        return;
+      }
       return showCupertinoDialog(
         context: context,
         builder: (context) {
@@ -47,7 +52,7 @@ class CallDirectoryMenuScreen extends StatelessWidget {
             actions: <Widget>[
               CupertinoDialogAction(
                 isDefaultAction: true,
-                child: Text("Ok"),
+                child: const Text('Ok'),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -58,7 +63,7 @@ class CallDirectoryMenuScreen extends StatelessWidget {
       );
     }
 
-    void _doneHandler() {
+    void doneHandler() {
       Navigator.of(context).pop();
     }
 
@@ -67,19 +72,19 @@ class CallDirectoryMenuScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(height: 60),
-          Text(
+          const SizedBox(height: 60),
+          const Text(
             'Call Directory',
             style: TextStyle(color: CupertinoColors.white, fontSize: 30),
           ),
-          SizedBox(height: 20),
-          ExampleButton('Blocked numbers', _blockedNumbersHandler),
-          ExampleButton('Identified numbers', _identifiedNumbersHandler),
-          ExampleButton('Open settings', _openSettingsHandler),
-          ExampleButton('Reload extension', _reloadExtensionHandler),
-          ExampleButton('Get status', _getStatusHandler),
-          ExampleButton('Done', _doneHandler),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
+          ExampleButton('Blocked numbers', blockedNumbersHandler),
+          ExampleButton('Identified numbers', identifiedNumbersHandler),
+          ExampleButton('Open settings', openSettingsHandler),
+          ExampleButton('Reload extension', reloadExtensionHandler),
+          ExampleButton('Get status', getStatusHandler),
+          ExampleButton('Done', doneHandler),
+          const SizedBox(height: 20),
         ],
       ),
     );

@@ -1,6 +1,6 @@
-///  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+// Copyright (c) 2011 - 2026, Voximplant, Inc. All rights reserved.
 
-part of flutter_callkit_voximplant;
+part of 'package:flutter_callkit_voximplant/flutter_callkit_voximplant.dart';
 
 /// Dart representation of CXStartCallAction from iOS CallKit Framework.
 ///
@@ -25,9 +25,7 @@ class FCXStartCallAction extends FCXCallAction {
 
   /// Initializes a new action to start a call with the specified uuid
   /// to a recipient with the specified handle.
-  FCXStartCallAction(String callUuid, this.handle)
-      : video = false,
-        super(callUuid);
+  FCXStartCallAction(super.callUuid, this.handle) : video = false;
 
   /// Reports the successful execution of the action at the specified time.
   /// A call is considered started when its invitation has been
@@ -36,7 +34,7 @@ class FCXStartCallAction extends FCXCallAction {
     try {
       String method = 'fulfillWithDateStarted';
       await _methodChannel.invokeMethod(
-        '$_ACTION.$method',
+        '$_action.$method',
         {'uuid': uuid, 'dateStarted': dateStarted.toIso8601String()},
       );
       _FCXLog._i(runtimeType, method);
@@ -47,12 +45,13 @@ class FCXStartCallAction extends FCXCallAction {
     }
   }
 
-  FCXStartCallAction._fromMap(Map<dynamic, dynamic> map)
-      : this.handle = FCXHandle._fromMap(map['handle']),
-        this.contactIdentifier = map['contactIdentifier'],
-        this.video = map['video'],
-        super._fromMap(map);
+  FCXStartCallAction._fromMap(super.map)
+      : handle = FCXHandle._fromMap(map['handle']),
+        contactIdentifier = map['contactIdentifier'],
+        video = map['video'],
+        super._fromMap();
 
+  @override
   Map<String, dynamic> _toMap() {
     var map = super._toMap();
     map.addAll({

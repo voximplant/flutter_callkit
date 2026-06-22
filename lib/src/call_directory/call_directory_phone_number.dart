@@ -1,6 +1,6 @@
-///  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+// Copyright (c) 2011 - 2026, Voximplant, Inc. All rights reserved.
 
-part of flutter_callkit_voximplant;
+part of 'package:flutter_callkit_voximplant/flutter_callkit_voximplant.dart';
 
 /// Dart representation of 'FCXCallDirectoryPhoneNumber'
 /// from the native iOS code.
@@ -14,5 +14,5 @@ class FCXCallDirectoryPhoneNumber {
   final int number;
 
   /// Initializes a new object with the given phone number.
-  FCXCallDirectoryPhoneNumber(this.number);
+  const FCXCallDirectoryPhoneNumber(this.number);
 }

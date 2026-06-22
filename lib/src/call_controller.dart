@@ -1,6 +1,6 @@
-///  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+// Copyright (c) 2011 - 2026, Voximplant, Inc. All rights reserved.
 
-part of flutter_callkit_voximplant;
+part of 'package:flutter_callkit_voximplant/flutter_callkit_voximplant.dart';
 
 /// Dart representation of CXCallController from iOS CallKit Framework.
 ///
@@ -32,7 +32,7 @@ class FCXCallController {
   Future<void> configure() async {
     try {
       String method = 'configure';
-      await _methodChannel.invokeMethod('$_CALL_CONTROLLER.$method');
+      await _methodChannel.invokeMethod('$_callController.$method');
       _FCXLog._i(runtimeType, method);
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
@@ -51,7 +51,7 @@ class FCXCallController {
     try {
       String method = 'requestTransactionWithAction';
       await _methodChannel.invokeMethod(
-        '$_CALL_CONTROLLER.$method',
+        '$_callController.$method',
         action._toMap(),
       );
       _FCXLog._i(runtimeType, '$method: ${action.runtimeType}');
@@ -72,7 +72,7 @@ class FCXCallController {
     try {
       String method = 'requestTransactionWithActions';
       await _methodChannel.invokeMethod(
-        '$_CALL_CONTROLLER.$method',
+        '$_callController.$method',
         actions.map((f) => f._toMap()).toList(),
       );
       _FCXLog._i(runtimeType, '$method: $actions');

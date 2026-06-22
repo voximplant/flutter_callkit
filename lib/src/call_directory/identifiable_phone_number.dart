@@ -1,6 +1,6 @@
-///  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+// Copyright (c) 2011 - 2026, Voximplant, Inc. All rights reserved.
 
-part of flutter_callkit_voximplant;
+part of 'package:flutter_callkit_voximplant/flutter_callkit_voximplant.dart';
 
 /// Dart representation of `FCXIdentifiablePhoneNumber` from native iOS code.
 ///
@@ -13,10 +13,10 @@ class FCXIdentifiablePhoneNumber extends FCXCallDirectoryPhoneNumber {
   final String label;
 
   /// Initializes a new object with the given phone number and label.
-  FCXIdentifiablePhoneNumber(
-    int number, {
+  const FCXIdentifiablePhoneNumber(
+    super.number, {
     required this.label,
-  }) : super(number);
+  });
 
   Map<String, dynamic> _toMap() => {'number': number, 'label': label};
 }

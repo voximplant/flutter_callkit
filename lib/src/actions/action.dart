@@ -1,6 +1,6 @@
-///  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+// Copyright (c) 2011 - 2026, Voximplant, Inc. All rights reserved.
 
-part of flutter_callkit_voximplant;
+part of 'package:flutter_callkit_voximplant/flutter_callkit_voximplant.dart';
 
 /// Dart representation of CXAction from iOS CallKit Framework.
 ///
@@ -48,7 +48,7 @@ abstract class FCXAction {
   Future<void> fulfill() async {
     try {
       String method = 'fulfill';
-      await _methodChannel.invokeMethod('$_ACTION.$method', {'uuid': uuid});
+      await _methodChannel.invokeMethod('$_action.$method', {'uuid': uuid});
       _complete = true;
       _FCXLog._i(runtimeType, method);
     } on PlatformException catch (e) {
@@ -62,7 +62,7 @@ abstract class FCXAction {
   Future<void> fail() async {
     try {
       String method = 'fail';
-      await _methodChannel.invokeMethod('$_ACTION.$method', {'uuid': uuid});
+      await _methodChannel.invokeMethod('$_action.$method', {'uuid': uuid});
       _FCXLog._i(runtimeType, method);
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);

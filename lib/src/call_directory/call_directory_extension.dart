@@ -1,6 +1,6 @@
-///  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+// Copyright (c) 2011 - 2026, Voximplant, Inc. All rights reserved.
 
-part of flutter_callkit_voximplant;
+part of 'package:flutter_callkit_voximplant/flutter_callkit_voximplant.dart';
 
 /// Dart representation of `FlutterCallkitPlugin` CallDirectory related methods
 /// from the native iOS code.
@@ -38,7 +38,7 @@ extension FCXPlugin_CallDirectoryExtension on FCXPlugin {
     try {
       String method = 'getBlockedPhoneNumbers';
       List<dynamic> numbers = await _methodChannel.invokeMethod(
-        '$_PLUGIN.$method',
+        '$_plugin.$method',
       );
       _FCXLog._i(runtimeType, method);
       return numbers.map((f) => FCXCallDirectoryPhoneNumber(f)).toList();
@@ -64,7 +64,7 @@ extension FCXPlugin_CallDirectoryExtension on FCXPlugin {
     try {
       String method = 'addBlockedPhoneNumbers';
       List<int> arguments = numbers.map((f) => f.number).toList();
-      await _methodChannel.invokeMethod('$_PLUGIN.$method', arguments);
+      await _methodChannel.invokeMethod('$_plugin.$method', arguments);
       _FCXLog._i(runtimeType, '$method: $arguments');
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
@@ -88,7 +88,7 @@ extension FCXPlugin_CallDirectoryExtension on FCXPlugin {
     try {
       String method = 'removeBlockedPhoneNumbers';
       List<int> arguments = numbers.map((f) => f.number).toList();
-      await _methodChannel.invokeMethod('$_PLUGIN.$method', arguments);
+      await _methodChannel.invokeMethod('$_plugin.$method', arguments);
       _FCXLog._i(runtimeType, '$method: $arguments');
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
@@ -109,7 +109,7 @@ extension FCXPlugin_CallDirectoryExtension on FCXPlugin {
   Future<void> removeAllBlockedPhoneNumbers() async {
     try {
       String method = 'removeAllBlockedPhoneNumbers';
-      await _methodChannel.invokeMethod('$_PLUGIN.$method');
+      await _methodChannel.invokeMethod('$_plugin.$method');
       _FCXLog._i(runtimeType, method);
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
@@ -131,7 +131,7 @@ extension FCXPlugin_CallDirectoryExtension on FCXPlugin {
     try {
       String method = 'getIdentifiablePhoneNumbers';
       List<dynamic> numbers = await _methodChannel.invokeMethod(
-        '$_PLUGIN.$method',
+        '$_plugin.$method',
       );
       _FCXLog._i(runtimeType, method);
       return numbers
@@ -160,7 +160,7 @@ extension FCXPlugin_CallDirectoryExtension on FCXPlugin {
     try {
       String method = 'addIdentifiablePhoneNumbers';
       List<Map> arguments = numbers.map((f) => f._toMap()).toList();
-      await _methodChannel.invokeMethod('$_PLUGIN.$method', arguments);
+      await _methodChannel.invokeMethod('$_plugin.$method', arguments);
       _FCXLog._i(runtimeType, '$method: $arguments');
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
@@ -185,7 +185,7 @@ extension FCXPlugin_CallDirectoryExtension on FCXPlugin {
     try {
       String method = 'removeIdentifiablePhoneNumbers';
       List<int> arguments = numbers.map((f) => f.number).toList();
-      await _methodChannel.invokeMethod('$_PLUGIN.$method', arguments);
+      await _methodChannel.invokeMethod('$_plugin.$method', arguments);
       _FCXLog._i(runtimeType, '$method: $arguments');
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);
@@ -206,7 +206,7 @@ extension FCXPlugin_CallDirectoryExtension on FCXPlugin {
   Future<void> removeAllIdentifiablePhoneNumbers() async {
     try {
       String method = 'removeAllIdentifiablePhoneNumbers';
-      await _methodChannel.invokeMethod('$_PLUGIN.$method');
+      await _methodChannel.invokeMethod('$_plugin.$method');
       _FCXLog._i(runtimeType, method);
     } on PlatformException catch (e) {
       var exception = FCXException(e.code, e.message);

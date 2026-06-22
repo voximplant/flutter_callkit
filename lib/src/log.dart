@@ -1,6 +1,6 @@
-///  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+// Copyright (c) 2011 - 2026, Voximplant, Inc. All rights reserved.
 
-part of flutter_callkit_voximplant;
+part of 'package:flutter_callkit_voximplant/flutter_callkit_voximplant.dart';
 
 /// Represents possible log levels of the [FCXPlugin].
 enum FCXLogLevel {
@@ -30,7 +30,7 @@ class _FCXLog {
   static void _log(Type senderType, _FCXLogType logType, String? message) {
     if (FCXPlugin.logLevel._isLogTypeSupported(logType)) {
       String type = senderType.toString();
-      print('[FlutterCallKit.${logType._prefix}] $type > $message');
+      debugPrint('[FlutterCallKit.${logType._prefix}] $type > $message');
     }
   }
 }
@@ -63,8 +63,6 @@ extension _FCXLogTypePrefix on _FCXLogType {
         return 'WARNING';
       case _FCXLogType._info:
         return 'INFO';
-      default:
-        return '';
     }
   }
 }

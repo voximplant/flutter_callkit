@@ -1,6 +1,6 @@
-///  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+// Copyright (c) 2011 - 2026, Voximplant, Inc. All rights reserved.
 
-part of flutter_callkit_voximplant;
+part of 'package:flutter_callkit_voximplant/flutter_callkit_voximplant.dart';
 
 /// Dart representation of CXSetHeldCallAction from iOS CallKit Framework.
 ///
@@ -21,12 +21,13 @@ class FCXSetHeldCallAction extends FCXCallAction {
 
   /// Initializes a new action for a call identified by a given uuid,
   /// as well as whether the call is on hold.
-  FCXSetHeldCallAction(String callUuid, this.onHold) : super(callUuid);
+  FCXSetHeldCallAction(super.callUuid, this.onHold);
 
-  FCXSetHeldCallAction._fromMap(Map<dynamic, dynamic> map)
-      : this.onHold = map['onHold'],
-        super._fromMap(map);
+  FCXSetHeldCallAction._fromMap(super.map)
+      : onHold = map['onHold'],
+        super._fromMap();
 
+  @override
   Map<String, dynamic> _toMap() {
     var map = super._toMap();
     map.addAll({'onHold': onHold});

@@ -1,11 +1,11 @@
-///  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+// Copyright (c) 2011 - 2026, Voximplant, Inc. All rights reserved.
 
-part of flutter_callkit_voximplant;
+part of 'package:flutter_callkit_voximplant/flutter_callkit_voximplant.dart';
 
 /// Signature for callbacks reporting when a call is changed.
 ///
 /// Used in [FCXCallObserver].
-typedef void FCXCallChanged(FCXCall call);
+typedef FCXCallChanged = void Function(FCXCall call);
 
 /// Dart representation of CXCallObserver from iOS CallKit Framework.
 ///
@@ -32,7 +32,7 @@ class FCXCallObserver {
     try {
       String method = 'getCalls';
       var data = await _methodChannel.invokeListMethod<Map>(
-        '$_CALL_CONTROLLER.$method',
+        '$_callController.$method',
       );
       _FCXLog._i(runtimeType, method);
       if (data == null) {
@@ -49,7 +49,7 @@ class FCXCallObserver {
   }
 
   FCXCallObserver._internal() {
-    EventChannel('plugins.voximplant.com/call_controller_events')
+    const EventChannel('plugins.voximplant.com/call_controller_events')
         .receiveBroadcastStream('call_controller_events')
         .listen(_eventListener);
   }

@@ -1,9 +1,9 @@
-///  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+// Copyright (c) 2011 - 2026, Voximplant, Inc. All rights reserved.
 
-import 'package:flutter_callkit_voximplant/flutter_callkit_voximplant.dart';
 import 'package:flutter_callkit_example/call.dart';
+import 'package:flutter_callkit_voximplant/flutter_callkit_voximplant.dart';
 
-typedef CallChanged(Call? call);
+typedef CallChanged = Function(Call? call);
 
 class CallService {
   factory CallService() {
@@ -216,7 +216,6 @@ class CallService {
       case FCXCallDirectoryManagerEnabledStatus.enabled:
         return 'Enabled';
       case FCXCallDirectoryManagerEnabledStatus.unknown:
-      default:
         return 'Unknown';
     }
   }

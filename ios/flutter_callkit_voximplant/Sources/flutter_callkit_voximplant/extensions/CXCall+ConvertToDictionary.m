@@ -1,0 +1,19 @@
+/*
+*  Copyright (c) 2011-2021, Zingaya, Inc. All rights reserved.
+*/
+
+#import "../include/flutter_callkit_voximplant/extensions/CXCall+ConvertToDictionary.h"
+
+@implementation CXCall (ConvertToDictionary)
+
+- (NSDictionary *)toDictionary {
+    NSMutableDictionary *data = [NSMutableDictionary new];
+    data[@"uuid"] = self.UUID.UUIDString;
+    data[@"outgoing"] = [NSNumber numberWithBool:self.outgoing];
+    data[@"onHold"] = [NSNumber numberWithBool:self.onHold];
+    data[@"hasConnected"] = [NSNumber numberWithBool:self.hasConnected];
+    data[@"hasEnded"] = [NSNumber numberWithBool:self.hasEnded];
+    return data;
+}
+
+@end

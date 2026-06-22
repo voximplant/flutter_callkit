@@ -1,6 +1,6 @@
-///  Copyright (c) 2011-2020, Zingaya, Inc. All rights reserved.
+// Copyright (c) 2011 - 2026, Voximplant, Inc. All rights reserved.
 
-part of flutter_callkit_voximplant;
+part of 'package:flutter_callkit_voximplant/flutter_callkit_voximplant.dart';
 
 /// Dart representation of CXSetGroupCallAction from iOS CallKit Framework.
 ///
@@ -23,13 +23,13 @@ class FCXSetGroupCallAction extends FCXCallAction {
 
   /// Initializes a new action for a call identified by a given uuid,
   /// as well as a call to group with identified by another uuid.
-  FCXSetGroupCallAction(String callUuid, this.callUUIDToGroupWith)
-      : super(callUuid);
+  FCXSetGroupCallAction(super.callUuid, this.callUUIDToGroupWith);
 
-  FCXSetGroupCallAction._fromMap(Map<dynamic, dynamic> map)
-      : this.callUUIDToGroupWith = map['callUUIDToGroupWith'],
-        super._fromMap(map);
+  FCXSetGroupCallAction._fromMap(super.map)
+      : callUUIDToGroupWith = map['callUUIDToGroupWith'],
+        super._fromMap();
 
+  @override
   Map<String, dynamic> _toMap() {
     var map = super._toMap();
     map.addAll({'callUUIDToGroupWith': callUUIDToGroupWith});

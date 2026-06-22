@@ -1,0 +1,73 @@
+name: Flutter CI
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**/lib/**'
+      - '**/pubspec.yaml'
+      - '**/analysis_options.yaml'
+      - '.github/workflows/flutter.yml'
+  pull_request:
+    paths:
+      - '**/lib/**'
+      - '**/pubspec.yaml'
+      - '**/analysis_options.yaml'
+      - '.github/workflows/flutter.yml'
+  workflow_dispatch:
+
+jobs:
+  analyze-plugin:
+    name: Plugin Lint & Analyze
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Flutter Version Info
+        run: flutter doctor -v
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Check formatting
+        run: dart format --output=none --set-exit-if-changed lib
+
+      - name: Analyze code
+        run: flutter analyze .
+
+  analyze-example:
+    name: Example Lint & Analyze
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Install dependencies
+        working-directory: example
+        run: flutter pub get
+
+      - name: Check formatting
+        working-directory: example
+        run: dart format --output=none --set-exit-if-changed .
+
+      - name: Analyze code
+        working-directory: example
+        run: flutter analyze .
