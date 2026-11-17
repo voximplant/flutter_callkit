@@ -8,8 +8,8 @@ class ExampleButton extends StatelessWidget {
   final VoidCallback _onPressed;
 
   const ExampleButton(String label, VoidCallback onPressed, {super.key})
-      : _label = label,
-        _onPressed = onPressed;
+    : _label = label,
+      _onPressed = onPressed;
 
   @override
   Widget build(BuildContext context) {

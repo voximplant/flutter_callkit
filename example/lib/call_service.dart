@@ -13,9 +13,9 @@ class CallService {
   static CallService? _cache;
 
   CallService._internal()
-      : _provider = FCXProvider(),
-        _callController = FCXCallController(),
-        _plugin = FCXPlugin() {
+    : _provider = FCXProvider(),
+      _callController = FCXCallController(),
+      _plugin = FCXPlugin() {
     _cache = this;
     _configure();
   }
@@ -128,8 +128,10 @@ class CallService {
     if (managedCall == null) {
       throw Exception('Managed call is missing');
     }
-    FCXSetMutedCallAction action =
-        FCXSetMutedCallAction(managedCall.uuid, !managedCall.muted);
+    FCXSetMutedCallAction action = FCXSetMutedCallAction(
+      managedCall.uuid,
+      !managedCall.muted,
+    );
     await _callController.requestTransactionWithAction(action);
   }
 
@@ -138,8 +140,10 @@ class CallService {
     if (managedCall == null) {
       throw Exception('Managed call is missing');
     }
-    FCXSetHeldCallAction action =
-        FCXSetHeldCallAction(managedCall.uuid, !managedCall.onHold);
+    FCXSetHeldCallAction action = FCXSetHeldCallAction(
+      managedCall.uuid,
+      !managedCall.onHold,
+    );
     await _callController.requestTransactionWithAction(action);
   }
 
@@ -149,7 +153,10 @@ class CallService {
       throw Exception('Managed call is missing');
     }
     FCXPlayDTMFCallAction action = FCXPlayDTMFCallAction(
-        managedCall.uuid, digits, FCXPlayDTMFCallActionType.singleTone);
+      managedCall.uuid,
+      digits,
+      FCXPlayDTMFCallActionType.singleTone,
+    );
     await _callController.requestTransactionWithAction(action);
   }
 
@@ -172,16 +179,12 @@ class CallService {
 
   Future<void> addBlockedNumber(String number) async {
     int num = int.parse(number);
-    await _plugin.addBlockedPhoneNumbers(
-      [FCXCallDirectoryPhoneNumber(num)],
-    );
+    await _plugin.addBlockedPhoneNumbers([FCXCallDirectoryPhoneNumber(num)]);
   }
 
   Future<void> removeBlockedNumber(String number) async {
     int num = int.parse(number);
-    await _plugin.removeBlockedPhoneNumbers(
-      [FCXCallDirectoryPhoneNumber(num)],
-    );
+    await _plugin.removeBlockedPhoneNumbers([FCXCallDirectoryPhoneNumber(num)]);
   }
 
   Future<List<FCXIdentifiablePhoneNumber>> getIdentifiedNumbers() async {
@@ -195,9 +198,9 @@ class CallService {
   }
 
   Future<void> removeIdentifiedNumber(int number) async {
-    await _plugin.removeIdentifiablePhoneNumbers(
-      [FCXCallDirectoryPhoneNumber(number)],
-    );
+    await _plugin.removeIdentifiablePhoneNumbers([
+      FCXCallDirectoryPhoneNumber(number),
+    ]);
   }
 
   Future<void> openSettings() async {

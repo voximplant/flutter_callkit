@@ -19,18 +19,14 @@ class CallDirectoryMenuScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void blockedNumbersHandler() => Navigator.push(
-          context,
-          PageRouteBuilder(
-            pageBuilder: (_, a1, a2) => const BlockListScreen(),
-          ),
-        );
+      context,
+      PageRouteBuilder(pageBuilder: (_, a1, a2) => const BlockListScreen()),
+    );
 
     void identifiedNumbersHandler() => Navigator.push(
-          context,
-          PageRouteBuilder(
-            pageBuilder: (_, a1, a2) => const IdentifyListScreen(),
-          ),
-        );
+      context,
+      PageRouteBuilder(pageBuilder: (_, a1, a2) => const IdentifyListScreen()),
+    );
 
     Future<void> openSettingsHandler() async =>
         await _callService.openSettings();

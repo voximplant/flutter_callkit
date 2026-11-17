@@ -43,9 +43,7 @@ class MainScreen extends StatelessWidget {
     void callDirectory() {
       Navigator.push(
         context,
-        PageRouteBuilder(
-          pageBuilder: (_, a1, a2) => CallDirectoryMenuScreen(),
-        ),
+        PageRouteBuilder(pageBuilder: (_, a1, a2) => CallDirectoryMenuScreen()),
       );
     }
 

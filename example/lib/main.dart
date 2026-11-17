@@ -9,10 +9,5 @@ void main() {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(statusBarBrightness: Brightness.dark),
   );
-  runApp(
-    CupertinoApp(
-      title: 'FlutterCallKit',
-      home: MainScreen(),
-    ),
-  );
+  runApp(CupertinoApp(title: 'FlutterCallKit', home: MainScreen()));
 }
