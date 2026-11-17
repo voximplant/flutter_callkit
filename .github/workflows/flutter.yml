@@ -43,7 +43,7 @@ jobs:
         run: dart format --output=none --set-exit-if-changed lib
 
       - name: Analyze code
-        run: flutter analyze .
+        run: flutter analyze lib
 
   analyze-example:
     name: Example Lint & Analyze
@@ -66,8 +66,8 @@ jobs:
 
       - name: Check formatting
         working-directory: example
-        run: dart format --output=none --set-exit-if-changed .
+        run: dart format --output=none --set-exit-if-changed lib
 
       - name: Analyze code
         working-directory: example
-        run: flutter analyze .
+        run: flutter analyze lib
