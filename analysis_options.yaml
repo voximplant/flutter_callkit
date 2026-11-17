@@ -10,7 +10,6 @@
 analyzer:
   exclude:
     - build/**
-    - android/**
     - ios/**
     - example/**
 include: package:flutter_lints/flutter.yaml
