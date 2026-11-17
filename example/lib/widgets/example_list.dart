@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:flutter_callkit_example/widgets/example_button.dart';
 
 class ExampleList extends StatelessWidget {

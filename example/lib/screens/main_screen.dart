@@ -1,6 +1,6 @@
 // Copyright (c) 2011 - 2026, Voximplant, Inc. All rights reserved.
 
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:flutter_callkit_example/screens/call_directory_menu_screen.dart';
 import 'package:flutter_callkit_example/widgets/example_button.dart';
 import 'package:flutter_callkit_example/screens/call_screen.dart';
