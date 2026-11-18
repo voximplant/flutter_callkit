@@ -1,6 +1,6 @@
 // Copyright (c) 2011 - 2026, Voximplant, Inc. All rights reserved.
 
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:flutter_callkit_example/theme/example_colors.dart';
 
 class ExampleButton extends StatelessWidget {
@@ -8,8 +8,8 @@ class ExampleButton extends StatelessWidget {
   final VoidCallback _onPressed;
 
   const ExampleButton(String label, VoidCallback onPressed, {super.key})
-      : _label = label,
-        _onPressed = onPressed;
+    : _label = label,
+      _onPressed = onPressed;
 
   @override
   Widget build(BuildContext context) {

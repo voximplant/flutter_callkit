@@ -1,6 +1,6 @@
 // Copyright (c) 2011 - 2026, Voximplant, Inc. All rights reserved.
 
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 
 class ExampleColors {
   static const Color primary = Color(0xFF1C0B43);

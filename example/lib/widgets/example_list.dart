@@ -1,4 +1,6 @@
-import 'package:flutter/cupertino.dart';
+// Copyright (c) 2011 - 2026, Voximplant, Inc. All rights reserved.
+
+import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:flutter_callkit_example/widgets/example_button.dart';
 
 class ExampleList extends StatelessWidget {
@@ -10,16 +12,12 @@ class ExampleList extends StatelessWidget {
 
   const ExampleList({
     super.key,
-    required String title,
-    required List<String> items,
-    required VoidCallback addHandler,
-    required void Function(int) removeHandler,
-    required VoidCallback doneHandler,
-  })  : _title = title,
-        _items = items,
-        _addHandler = addHandler,
-        _removeHandler = removeHandler,
-        _doneHandler = doneHandler;
+    required this._title,
+    required this._items,
+    required this._addHandler,
+    required this._removeHandler,
+    required this._doneHandler,
+  });
 
   @override
   Widget build(BuildContext context) {

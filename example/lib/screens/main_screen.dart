@@ -1,6 +1,6 @@
 // Copyright (c) 2011 - 2026, Voximplant, Inc. All rights reserved.
 
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:flutter_callkit_example/screens/call_directory_menu_screen.dart';
 import 'package:flutter_callkit_example/widgets/example_button.dart';
 import 'package:flutter_callkit_example/screens/call_screen.dart';
@@ -43,9 +43,7 @@ class MainScreen extends StatelessWidget {
     void callDirectory() {
       Navigator.push(
         context,
-        PageRouteBuilder(
-          pageBuilder: (_, a1, a2) => CallDirectoryMenuScreen(),
-        ),
+        PageRouteBuilder(pageBuilder: (_, a1, a2) => CallDirectoryMenuScreen()),
       );
     }
 

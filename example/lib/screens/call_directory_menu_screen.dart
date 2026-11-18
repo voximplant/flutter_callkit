@@ -1,6 +1,6 @@
 // Copyright (c) 2011 - 2026, Voximplant, Inc. All rights reserved.
 
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:flutter_callkit_example/call_service.dart';
 import 'package:flutter_callkit_example/screens/block_list_screen.dart';
 import 'package:flutter_callkit_example/screens/identify_list_screen.dart';
@@ -19,18 +19,14 @@ class CallDirectoryMenuScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void blockedNumbersHandler() => Navigator.push(
-          context,
-          PageRouteBuilder(
-            pageBuilder: (_, a1, a2) => const BlockListScreen(),
-          ),
-        );
+      context,
+      PageRouteBuilder(pageBuilder: (_, a1, a2) => const BlockListScreen()),
+    );
 
     void identifiedNumbersHandler() => Navigator.push(
-          context,
-          PageRouteBuilder(
-            pageBuilder: (_, a1, a2) => const IdentifyListScreen(),
-          ),
-        );
+      context,
+      PageRouteBuilder(pageBuilder: (_, a1, a2) => const IdentifyListScreen()),
+    );
 
     Future<void> openSettingsHandler() async =>
         await _callService.openSettings();
