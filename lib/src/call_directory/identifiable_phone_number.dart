@@ -6,7 +6,7 @@ part of 'package:flutter_callkit_voximplant/flutter_callkit_voximplant.dart';
 ///
 /// Represents a phone number that might be blocked or identified.
 ///
-/// Used in [FCXPlugin_CallDirectoryExtension].
+/// Used in [FCXPluginCallDirectoryExtension].
 @immutable
 class FCXIdentifiablePhoneNumber extends FCXCallDirectoryPhoneNumber {
   /// The identification label of the phone number.

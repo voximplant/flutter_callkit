@@ -25,7 +25,7 @@ part of 'package:flutter_callkit_voximplant/flutter_callkit_voximplant.dart';
 ///   functions that access numbers storage.
 ///
 /// See [example]() for an example of realisation and architecture details.
-extension FCXPlugin_CallDirectoryExtension on FCXPlugin {
+extension FCXPluginCallDirectoryExtension on FCXPlugin {
   /// Invokes `FlutterCallkitPlugin.getBlockedPhoneNumbers` property
   /// in the native iOS code and returns the list of blocked phone numbers.
   ///

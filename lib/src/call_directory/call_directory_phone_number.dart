@@ -7,7 +7,7 @@ part of 'package:flutter_callkit_voximplant/flutter_callkit_voximplant.dart';
 ///
 /// Represents a phone number that might be blocked.
 ///
-/// Used in [FCXPlugin_CallDirectoryExtension].
+/// Used in [FCXPluginCallDirectoryExtension].
 @immutable
 class FCXCallDirectoryPhoneNumber {
   /// The phone number.
