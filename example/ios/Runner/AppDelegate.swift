@@ -1,12 +1,12 @@
 /*
-*  Copyright (c) 2011-2021, Zingaya, Inc. All rights reserved.
+*  Copyright (c) 2011-2026, Voximplant, Inc. All rights reserved.
 */
 
 import Flutter
 import flutter_callkit_voximplant
 
-@UIApplicationMain
-final class AppDelegate: FlutterAppDelegate {
+@main
+final class AppDelegate: FlutterAppDelegate, FlutterImplicitEngineDelegate {
     private let callKitPlugin = FlutterCallkitPlugin.sharedInstance
 
     @UserDefault("blockedNumbers", defaultValue: [])
@@ -17,10 +17,18 @@ final class AppDelegate: FlutterAppDelegate {
 
     override func application(
         _ application: UIApplication,
-        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
-        GeneratedPluginRegistrant.register(with: self)
+        configureCallKitPluginHandlers()
 
+        return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+    }
+
+    func didInitializeImplicitFlutterEngine(_ engineBridge: FlutterImplicitEngineBridge) {
+        GeneratedPluginRegistrant.register(with: engineBridge.pluginRegistry)
+    }
+
+    private func configureCallKitPluginHandlers() {
         callKitPlugin.getBlockedPhoneNumbers = { [weak self] in
             guard let self = self else { return [] }
             return self.blockedNumbers.compactMap {
@@ -39,7 +47,7 @@ final class AppDelegate: FlutterAppDelegate {
             )
             self.blockedNumbers.sort()
         }
-        
+
         callKitPlugin.didRemoveBlockedPhoneNumbers = { [weak self] numbers in
             guard let self = self else { return }
             self.blockedNumbers = self.blockedNumbers.map { number in
@@ -80,8 +88,6 @@ final class AppDelegate: FlutterAppDelegate {
                 }
             }
         }
-
-        return super.application(application, didFinishLaunchingWithOptions: launchOptions)
     }
 }
 
